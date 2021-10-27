@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.ics372.gp1.Transaction;
+import edu.ics372.gp1.entities.Transaction;
 
 public class TransactionList {
 	private List<Transaction> transactions = new LinkedList<Transaction>();

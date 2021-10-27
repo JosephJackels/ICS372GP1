@@ -1,4 +1,4 @@
-package edu.ics372.gp1;
+package edu.ics372.gp1.entities;
 
 import java.util.Calendar;
 
