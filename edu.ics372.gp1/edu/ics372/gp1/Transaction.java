@@ -10,7 +10,7 @@ public class Transaction {
 	public Transaction(String memberID, double totalPrice) {
 		this.memberID = memberID;
 		this.totalPrice = totalPrice;
-		this.date = new Calendar();
+		this.date = Calendar.getInstance();
 	}
 
 	public String getMemberID() {
@@ -22,6 +22,19 @@ public class Transaction {
 	}
 
 	public double getTotalPrice() {
+		return this.totalPrice;
+	}
 
+	public boolean checkTransaction(String memberID, Calendar startDate, Calendar endDate) {
+
+		if (this.memberID != memberID) {
+			return false;
+		}
+
+		if (this.date.before(startDate) || this.date.after(endDate)) {
+			return false;
+		}
+
+		return true;
 	}
 }
