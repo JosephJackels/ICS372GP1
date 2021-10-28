@@ -1,6 +1,7 @@
 package edu.ics372.gp1.entities;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 public class Member {
 	private String id;
@@ -9,14 +10,15 @@ public class Member {
 	private String phoneNumber;
 	private Calendar dateJoined;
 	private double feePaid;
-
+	private boolean membership;
 	public Member(String name, String address, String phoneNumber, double feePaid) {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.feePaid = feePaid;
-		// id???
+		this.id = UUID.randomUUID().toString();
 		this.dateJoined = Calendar.getInstance();
+		this.membership = true;
 	}
 
 	public String getId() {
@@ -65,5 +67,9 @@ public class Member {
 
 	public void setFeePaid(double feePaid) {
 		this.feePaid = feePaid;
+	}
+	
+	public boolean isMember() {
+		return membership;
 	}
 }
