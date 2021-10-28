@@ -21,7 +21,8 @@ public class MemberList {
 	}
 	//HELLO it this working?
 	public void addMember(Member member) {
-		members.add(member)
+		int i = 1;
+		members.add(member);
 	}
 	
 }
