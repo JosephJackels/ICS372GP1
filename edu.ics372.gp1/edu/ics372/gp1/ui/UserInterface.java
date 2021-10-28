@@ -7,10 +7,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
+import edu.ics372.gp1.facade.Result;
 
 public class UserInterface {
 	private static UserInterface userInterface;
@@ -22,7 +25,7 @@ public class UserInterface {
 	private static final int ADD_MEMBER = 1;
 	private static final int REMOVE_MEMBER = 2;
 	private static final int GET_MEMBER_INFO = 3;
-	private static final int ADD_PRODUCTS = 4;
+	private static final int ADD_PRODUCT = 4;
 	private static final int CHECKOUT_MEMBER = 5;
 	private static final int GET_PRODUCT_INFO = 6;
 	private static final int PROCESS_SHIPMENT = 7;
@@ -143,7 +146,7 @@ public class UserInterface {
 		System.out.println(ADD_MEMBER + " to add a member");
 		System.out.println(REMOVE_MEMBER + " to remove a member");
 		System.out.println(GET_MEMBER_INFO + " to  print info about a given member");
-		System.out.println(ADD_PRODUCTS + " to add new products");
+		System.out.println(ADD_PRODUCT + " to add a new product");
 		System.out.println(CHECKOUT_MEMBER + " to checkout a member's cart");
 		System.out.println(GET_PRODUCT_INFO + " to retrieve information about a product");
 		System.out.println(PROCESS_SHIPMENT + " to process a received shipment of a product");
@@ -174,8 +177,8 @@ public class UserInterface {
 			case GET_MEMBER_INFO:
 				getMemberInfo();
 				break;
-			case ADD_PRODUCTS:
-				addProducts();
+			case ADD_PRODUCT:
+				addProduct();
 				break;
 			case CHECKOUT_MEMBER:
 				checkoutMember();
@@ -212,30 +215,147 @@ public class UserInterface {
 	}
 
 	public void addMember() {
-		Request.instance().setMemberName(getName("Enter a name:"));
-		Request.instance().setMemberAddress(null);
-		Request.instance().setMemberPhoneNumber(null);
-		Request.instance().setMemberFeePaid(null);
+		Request.instance().setMemberName(getName("Enter a name"));
+		Request.instance().setMemberAddress(getName("Enter an address"));
+		Request.instance().setMemberPhoneNumber(getName("Enter a phone number"));
+		Request.instance().setMemberFeePaid(Double.toString(getDouble("Enter fee paid")));
+
+		Result result = groceryStore.addMember(Request.instance());
+
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Member could not be added");
+		} else {
+			System.out
+					.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
+		}
 	}
 
 	public void removeMember() {
+		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member to remove")));
 
+		Result result = groceryStore.removeMember(Request.instance());
+
+		switch (result.getResultCode()) {
+		case Result.OPERATION_COMPLETED:
+			System.out.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID()
+					+ " successfully removed.");
+			break;
+		case Result.MEMBER_NOT_FOUND:
+			System.out.println("Member " + Request.instance().getMemberID() + " not found.");
+			break;
+		// add other cases for other error codes?
+		}
 	}
 
 	public void getMemberInfo() {
+		Request.instance().setMemberName((getName("Enter name of member to get information on")));
 
+		Iterator<Result> result = groceryStore.getMemberInfo(Request.instance());
+
+		while (result.hasNext()) {
+			Result memberResult = result.next();
+			System.out
+					.println("Member: " + memberResult.getMemberName() + " Address: " + memberResult.getMemberAddress()
+							+ " Fee Paid: " + memberResult.getMemberFeePaid() + " ID: " + memberResult.getMemberID());
+		}
+		System.out.println("\nEnd of list of searched members.\n");
 	}
 
-	public void addProducts() {
+	public void addProduct() {
+		Request.instance().setProductName(getName("Enter name of product"));
+		Request.instance().setProductPrice(Double.toString(getDouble("Enter price of product e.x. 10.99")));
+		Request.instance().setProductReorderLevel(Integer.toString(getNumber("Enter product reorder level")));
 
+		Result result = groceryStore.addProduct(Request.instance());
+		switch (result.getResultCode()) {
+		case Result.PRODUCT_NAME_INVALID:
+			System.out.println(
+					"Product could not be added. Product name: " + result.getProductName() + " is already in use.");
+			break;
+		case Result.OPERATION_COMPLETED:
+			System.out.println("Product successfully added. Name: " + result.getProductName() + " Price: "
+					+ result.getProductPrice() + " Reorder level: " + result.getProductReorderLevel() + " ID: "
+					+ result.getProductID());
+			break;
+		case Result.OPERATION_FAILED:
+			System.out.println("Product could not be added.");
+			break;
+		}
 	}
 
 	public void checkoutMember() {
+		String memberID = getName("Enter ID of member to checkout.");
+		// create new checkout
+		Request.instance().setMemberName(memberID);
+		Result result = groceryStore.createNewCheckout(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("New checkout could not be created");
+			if (result.getResultCode() == Result.MEMBER_NOT_FOUND) {
+				System.out.println("Member with ID: " + memberID + " was not found.");
+			}
+		} else {
 
+			// add products to checkout
+			boolean continuing = true;
+
+			while (continuing) {
+
+				Request.instance().setMemberName(memberID);
+				Request.instance().setProductID(Integer.toString(getNumber("Enter a product ID to add to checkout.")));
+				Request.instance().setProductStock(
+						Integer.toString(getNumber("Enter a quantity of product to add to checkout.")));
+				result = groceryStore.addProductToCheckout(Request.instance());
+
+				switch (result.getResultCode()) {
+				case Result.PRODUCT_NOT_FOUND:
+					System.out.println("Product was not found, could not be added to checkout.");
+					break;
+				case Result.PRODUCT_OUT_OF_STOCK:
+					System.out.println(
+							"Product does not have enough stock to add to checkout, was not added to checkout.");
+					break;
+				case Result.OPERATION_COMPLETED:
+					System.out.println("Product was successfully added to cart.");
+					break;
+				}
+
+				continuing = yesOrNo("Add another product?");
+			}
+			// complete checkout
+			Request.instance().setMemberID(memberID);
+			Iterator<Result> resultList = groceryStore.completeCheckout(Request.instance());
+			Result productResult = new Result();
+			List<String> reorderList = new LinkedList<String>();
+			while (resultList.hasNext()) {
+				productResult = resultList.next();
+				double subTotal = Double.parseDouble(productResult.getProductPrice())
+						* Integer.parseInt(productResult.getProductStock());
+				System.out.println(productResult.getProductName() + "\t" + productResult.getProductStock() + "\t$"
+						+ productResult.getProductPrice() + "\t$" + subTotal);
+				if (productResult.getResultCode() == Result.PRODUCT_REORDERED) {
+					reorderList.add(productResult.getProductName());
+				}
+			}
+			System.out.println("Total\t\t\t$" + productResult.getTransactionTotalPrice());
+			Iterator<String> reorderIterator = reorderList.iterator();
+			while (reorderIterator.hasNext()) {
+				System.out.println("Product: " + reorderIterator.next() + " has been reordered.");
+			}
+
+		}
 	}
 
 	public void getProductInfo() {
-
+		Request.instance().setProductName(getName("Enter a product name."));
+		Result result = groceryStore.getProductInfo(Request.instance());
+		switch(result.getResultCode()) {
+		case Result.PRODUCT_NOT_FOUND:
+			System.out.println("Product: " + result.getProductName() + " was not found.");
+			break;
+		case Result.OPERATION_COMPLETED:
+			System.out.printlmn("Product: " + result.getProductName() + " ID: " + result.getProductID() +
+					"")
+		}
 	}
 
 	public void processShipment() {
