@@ -36,7 +36,7 @@ public class UserInterface {
 	private static final int LIST_ALL_PRODUCTS = 11;
 	private static final int LIST_OUTSTANDING_ORDERS = 12;
 	private static final int SAVE = 13;
-	private static final int RETRIEVE = 14;
+	// private static final int RETRIEVE = 14;
 	private static final int HELP = 15;
 
 	private UserInterface() {

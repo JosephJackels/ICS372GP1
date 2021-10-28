@@ -116,11 +116,16 @@ public class GroceryStore {
 
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
-		// verify member exists
-
-		// reset groceryStore's checkoutList object
-		result.setResultCode(Result.OPERATION_COMPLETED);
+		// reset checkout list
 		checkOutList = new LinkedList<Product>();
+
+		// verify member exists
+		result.setMemberID(request.getMemberID());
+		if (members.isMember(request.getMemberID())) {
+			result.setResultCode(Result.OPERATION_COMPLETED);
+		} else {
+			result.setResultCode(Result.MEMBER_NOT_FOUND);
+		}
 
 		return result;
 	}
@@ -128,8 +133,21 @@ public class GroceryStore {
 	public Result addProductToCheckout(Request request) {
 		Result result = new Result();
 
-		// TODO
 		// add a single product to groceryStores checkoutList object
+		// check that product exists in productList AND contains enough stock
+		Product product = products.getProductById(request.getProductID());
+		result.setProductID(request.getProductID());
+		result.setProductStock(request.getProductStock());
+		if (!products.isProduct(request.getProductID())) {
+			result.setResultCode(Result.PRODUCT_NOT_FOUND);
+		} else if (!products.hasStock(request.getProductID(), Integer.parseInt(request.getProductStock()))) {
+			result.setResultCode(Result.PRODUCT_OUT_OF_STOCK);
+		} else {
+			result.setProductFields(product);
+			result.setResultCode(Result.OPERATION_COMPLETED);
+			checkOutList.add(product)
+		}
+		
 		// this product's stock field will be reused as quantity to checkout
 		// check that product exists in productList AND contains enough stock
 		// set result code (PRODUCT_NOT_FOUND, PRODUCT_OUT_OF_STOCK,
