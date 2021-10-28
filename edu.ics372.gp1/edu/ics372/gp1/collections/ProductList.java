@@ -1,5 +1,6 @@
 package edu.ics372.gp1.collections;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,25 @@ public class ProductList {
 			productList = new ProductList();
 		}
 		return productList;
+	}
+
+	public Iterator<Product> getIterator() {
+		return products.iterator();
+	}
+
+	public boolean insertProduct(Product product) {
+		return products.add(product);
+	}
+
+	public boolean nameAvailable(String name) {
+		Iterator<Product> iterator = getInstance().getIterator();
+		while (iterator.hasNext()) {
+			Product product = iterator.next();
+			if (product.getName().equals(name)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

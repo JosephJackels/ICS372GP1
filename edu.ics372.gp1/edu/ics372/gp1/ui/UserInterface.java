@@ -43,7 +43,7 @@ public class UserInterface {
 		if (yesOrNo("Looke for saved data and use it?")) {
 			retrieve();
 		} else {
-			groceryStore = groceryStore.instance();
+			groceryStore = GroceryStore.instance();
 		}
 	}
 
@@ -238,8 +238,7 @@ public class UserInterface {
 
 		switch (result.getResultCode()) {
 		case Result.OPERATION_COMPLETED:
-			System.out.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID()
-					+ " successfully removed.");
+			System.out.println("Member with ID: " + result.getMemberID() + " successfully removed.");
 			break;
 		case Result.MEMBER_NOT_FOUND:
 			System.out.println("Member " + Request.instance().getMemberID() + " not found.");

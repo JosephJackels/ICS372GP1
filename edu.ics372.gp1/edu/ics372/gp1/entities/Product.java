@@ -7,6 +7,15 @@ public class Product {
 	private int stock;
 	private double price;
 
+	public Product(String name, int reorderLevel, int stock, double price) {
+		this.name = name;
+		this.reorderLevel = reorderLevel;
+		this.stock = stock;
+		this.price = price;
+
+		// id??
+	}
+
 	public String getName() {
 		return name;
 	}

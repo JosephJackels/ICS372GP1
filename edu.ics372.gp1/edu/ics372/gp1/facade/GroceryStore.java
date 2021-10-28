@@ -13,6 +13,7 @@ import edu.ics372.gp1.collections.MemberList;
 import edu.ics372.gp1.collections.OrderList;
 import edu.ics372.gp1.collections.ProductList;
 import edu.ics372.gp1.collections.TransactionList;
+import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.entities.Product;
 
 public class GroceryStore {
@@ -38,10 +39,17 @@ public class GroceryStore {
 
 	public Result addMember(Request request) {
 		Result result = new Result();
-		// TODO
+
 		// Attempt to add member to member list
-		// set result code based on success (OPERATION_COMPLETE, OPERATION_FAILED)
-		// if successful, set all member fields to those of the created member
+		Member member = new Member(request.getMemberName(), request.getMemberAddress(), request.getMemberPhoneNumber(),
+				Double.parseDouble(request.getMemberFeePaid()));
+		if (members.insertMember(member)) {
+			result.setResultCode(Result.OPERATION_COMPLETED);
+		} else {
+			result.setResultCode(Result.OPERATION_FAILED);
+		}
+
+		result.setMemberFields(member);
 
 		return result;
 	}
@@ -51,8 +59,18 @@ public class GroceryStore {
 
 		// TODO
 		// Attempt to remove member
-		// set result code (OPERATION_COMPLETE, MEMBER_NOT_FOUND)
-		// set member fields to that of the removed member
+		result.setMemberID(request.getMemberID());
+		if (!members.isMember(request.getMemberID())) {
+			result.setResultCode(Result.MEMBER_NOT_FOUND);
+		} else if (members.removeMember(request.getMemberID())) {
+			result.setResultCode(Result.OPERATION_COMPLETED);
+		} else {
+			result.setResultCode(Result.OPERATION_FAILED);
+		}
+		// set member fields to that of the removed member instead?
+		// would have to have MemberList.removeMember() return a member instead of a
+		// boolean
+		// pro - would be easy to return information about the member that was removed
 
 		return result;
 	}
@@ -60,10 +78,17 @@ public class GroceryStore {
 	public Iterator<Result> getMemberInfo(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
 
-		// TODO
 		// get list of all members with name entered in request
-		// for each, create result object, add to resultList
-		// set codes and fields etc.
+		Iterator<Member> memberIterator = members.getMembers();
+		while (memberIterator.hasNext()) {
+			Member member = memberIterator.next();
+			if (member.getName().equals(request.getMemberName())) {
+				Result result = new Result();
+				result.setMemberFields(member);
+				result.setResultCode(Result.OPERATION_COMPLETED);
+				resultList.add(result);
+			}
+		}
 
 		return resultList.iterator();
 	}
@@ -71,23 +96,31 @@ public class GroceryStore {
 	public Result addProduct(Request request) {
 
 		Result result = new Result();
+		result.setProductName(request.getProductName());
+		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
+				Double.parseDouble(request.getProductPrice()));
+		result.setProductFields(product);
 
-		// TODO
 		// attempt to add product
 		// check if name is taken
-		// if it is, set result code to PRODUCT_NAME_INVALID
-		// else attempt to add product to product list
-		// set result code based on success, return
+		if (!products.nameAvailable(request.getProductName())) {
+			result.setResultCode(Result.PRODUCT_NAME_INVALID);
+		} else if (products.insertProduct(product)) {
+			result.setResultCode(Result.OPERATION_COMPLETED);
+		} else {
+			result.setResultCode(Result.OPERATION_FAILED);
+		}
 
 		return result;
 	}
 
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
+		// verify member exists
 
-		// TODO
 		// reset groceryStore's checkoutList object
-		// return successful result
+		result.setResultCode(Result.OPERATION_COMPLETED);
+		checkOutList = new LinkedList<Product>();
 
 		return result;
 	}
