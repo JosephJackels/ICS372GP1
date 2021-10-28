@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -348,50 +349,139 @@ public class UserInterface {
 	public void getProductInfo() {
 		Request.instance().setProductName(getName("Enter a product name."));
 		Result result = groceryStore.getProductInfo(Request.instance());
-		switch(result.getResultCode()) {
+		switch (result.getResultCode()) {
 		case Result.PRODUCT_NOT_FOUND:
 			System.out.println("Product: " + result.getProductName() + " was not found.");
 			break;
 		case Result.OPERATION_COMPLETED:
-			System.out.println("Product: " + result.getProductName() + " ID: " + result.getProductID() +
-					"")
+			System.out.println("Product: " + result.getProductName() + " ID: " + result.getProductID()
+					+ " Curent stock: " + result.getProductStock());
+			break;
 		}
 	}
 
 	public void processShipment() {
-
+		boolean continuing = true;
+		while (continuing) {
+			Request.instance().setProductID(Integer.toString(getNumber("Enter product ID for shipment")));
+			Request.instance().setProductStock(Integer.toString(getNumber("Enter quantity recieved.")));
+			Result result = groceryStore.processShipment(Request.instance());
+			switch (result.getResultCode()) {
+			case Result.PRODUCT_NOT_FOUND:
+				System.out.println("Product with ID: " + result.getProductID() + " was not found.");
+				break;
+			case Result.ORDER_NOT_FOUND:
+				System.out.println("An order does not exist for Product: " + result.getProductID()
+						+ ", so it will not be received.");
+				break;
+			case Result.INCORRECT_RECEIVED_QUANTITY:
+				System.out.println("The recieved shipment for Product: " + result.getProductID() + " of quantity: "
+						+ Request.instance().getProductStock() + " is not the correct amount ordered, which should be: "
+						+ result.getProductStock() + " the shipment is refused.");
+				break;
+			case Result.OPERATION_COMPLETED:
+				System.out.println("Product ID: " + result.getProductID() + " Product name: " + result.getProductName()
+						+ "recieved shipment. New product stock: " + result.getProductStock());
+				break;
+			}
+			continuing = yesOrNo("Process another shipment?");
+		}
 	}
 
 	public void changePrice() {
-
+		Request.instance().setProductName(getName("Enter name of product to update price."));
+		Request.instance().setProductPrice(Double.toString(getDouble("Enter new price e.x. 10.99")));
+		Result result = groceryStore.changePrice(Request.instance());
+		switch (result.getResultCode()) {
+		case Result.PRODUCT_NOT_FOUND:
+			System.out.println("Product with ID: " + result.getProductID() + " not found.");
+			break;
+		case Result.OPERATION_COMPLETED:
+			System.out
+					.println("Product: " + result.getProductName() + " price changed to: $" + result.getProductPrice());
+			break;
+		}
 	}
 
 	public void printTransactions() {
+		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member")));
+		Request.instance().setTransactionStartDate(getDate("Enter start date").toString());
+		Request.instance().setTransactionEndDate(getDate("Enter end date").toString());
+		Iterator<Result> resultList = groceryStore.printTransactions(Request.instance());
 
+		while (resultList.hasNext()) {
+			Result transactionResult = resultList.next();
+			switch (transactionResult.getResultCode()) {
+			case Result.MEMBER_NOT_FOUND:
+				System.out.println("Member: " + transactionResult.getMemberID() + " not found.");
+				break;
+			case Result.INVALID_DATES:
+				System.out.println("Dates: " + transactionResult.getTransactionStartDate() + " and "
+						+ transactionResult.getTransactionEndDate() + " are invalid dates.");
+				break;
+			case Result.OPERATION_COMPLETED:
+				System.out.println("Visited on Date: " + transactionResult.getTransactionDate()
+						+ " Checkout total price: $" + transactionResult.getTransactionTotalPrice());
+				break;
+			}
+		}
 	}
 
 	public void listAllMembers() {
-
+		Iterator<Result> resultList = groceryStore.listAllMembers();
+		while (resultList.hasNext()) {
+			Result result = resultList.next();
+			System.out.println("Name: " + result.getMemberName() + " ID: " + result.getMemberID() + " Address: "
+					+ result.getMemberAddress());
+		}
 	}
 
 	public void listAllProducts() {
-
+		Iterator<Result> resultList = groceryStore.listAllProducts();
+		while (resultList.hasNext()) {
+			Result result = resultList.next();
+			System.out.println("Name: " + result.getProductName() + " ID: " + result.getProductID() + " Price: "
+					+ result.getProductPrice() + " Reorder level: " + result.getProductReorderLevel());
+		}
 	}
 
 	public void listOutstandingOrders() {
-
+		Iterator<Result> resultList = groceryStore.listOutstandingOrders();
+		while (resultList.hasNext()) {
+			Result result = resultList.next();
+			System.out.println("Name: " + result.getProductName() + " ID: " + result.getProductID()
+					+ " Amount Ordered: " + result.getProductStock());
+		}
 	}
 
 	public void save() {
-
+		if (groceryStore.save()) {
+			System.out.println(" The groceryStore has been successfully saved in the file GroceryStoreData \n");
+		} else {
+			System.out.println(" There has been an error in saving \n");
+		}
 	}
 
 	public void retrieve() {
-
+		try {
+			if (groceryStore == null) {
+				groceryStore = GroceryStore.retrieve();
+				if (groceryStore != null) {
+					System.out.println(
+							" The groceryStore has been successfully retrieved from the file GroceryStoreData \n");
+				} else {
+					System.out.println("File doesnt exist; creating new groceryStore");
+					groceryStore = GroceryStore.instance();
+				}
+			}
+		} catch (Exception cnfe) {
+			cnfe.printStackTrace();
+		}
 	}
 
 	public void unkownCommand() {
-
+		System.out.println("Unkown command");
+		help();
 	}
 
 	public static void main(String[] args) {
