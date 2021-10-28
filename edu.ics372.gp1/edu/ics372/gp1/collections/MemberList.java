@@ -20,4 +20,8 @@ public class MemberList {
 		return memberList;
 	}
 	//HELLO it this working?
+	public void addMember(Member member) {
+		members.add(member)
+	}
+	
 }
