@@ -7,6 +7,7 @@ public class Result extends DataTransfer {
 	public static final int PRODUCT_NAME_INVALID = 3;
 	public static final int PRODUCT_NOT_FOUND = 4;
 	public static final int PRODUCT_OUT_OF_STOCK = 5;
+	public static final int PRODUCT_REORDERED = 6;
 
 	private int resultCode;
 

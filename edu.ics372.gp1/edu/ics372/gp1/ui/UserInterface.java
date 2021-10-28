@@ -353,7 +353,7 @@ public class UserInterface {
 			System.out.println("Product: " + result.getProductName() + " was not found.");
 			break;
 		case Result.OPERATION_COMPLETED:
-			System.out.printlmn("Product: " + result.getProductName() + " ID: " + result.getProductID() +
+			System.out.println("Product: " + result.getProductName() + " ID: " + result.getProductID() +
 					"")
 		}
 	}

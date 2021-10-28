@@ -100,15 +100,18 @@ public class GroceryStore {
 		return result;
 	}
 
-	public Result completeCheckout(Request request) {
-		Result result = new Result();
+	public Iterator<Result> completeCheckout(Request request) {
+		List<Result> resultList = new LinkedList<Result>();
 
 		// TODO
 		// actor has finished adding products to checkoutList
 		// ensure list is not empty
 		// create transaction and add to transaction list
-		// set result code based on success
+		// check reorder level for each product checked out
+		// if product is reordered make sure to set result code for that product result
+		// to PRODUCT_REORDERED
+		// else set result code based on success
 
-		return result;
+		return resultList.iterator();
 	}
 }
