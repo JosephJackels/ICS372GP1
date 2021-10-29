@@ -1,6 +1,9 @@
 package edu.ics372.gp1.entities;
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 public class Member {
@@ -11,6 +14,8 @@ public class Member {
 	private Calendar dateJoined;
 	private double feePaid;
 	private boolean membership;
+	private List<Transaction> transactions = new LinkedList<>();
+	
 	public Member(String name, String address, String phoneNumber, double feePaid) {
 		this.name = name;
 		this.address = address;
@@ -71,5 +76,31 @@ public class Member {
 	
 	public boolean isMember() {
 		return membership;
+	}
+	
+	/*
+	 * get transaction iterator
+	 * @return iterator
+	 */
+	Iterator<Transaction> getTransactions(){
+		return transactions.iterator();
+	}
+	
+	/*
+	 * method Holder for getTransaction(startDate, endDate): Transaction, will changed when Transaction and TransactionList updated
+	 * this methods will return a list of transactions that the Member had on the date.
+	 * @param Calendar type value represent starting date
+	 * @return List of transaction within that date
+	 */
+	LinkedList<Transaction> getTransactions(Calendar startDate){
+		LinkedList<Transaction> transactionList = new LinkedList<>();
+		Iterator<Transaction> iterator = transactions.listIterator();
+		while(iterator.hasNext()) {
+			Transaction transaction = iterator.next();
+			if(startDate.equals(transaction.getDate())) {
+				transactionList.add(transaction);
+			}
+		}
+		return transactionList;
 	}
 }

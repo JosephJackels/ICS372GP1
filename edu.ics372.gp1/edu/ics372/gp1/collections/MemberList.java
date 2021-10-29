@@ -6,7 +6,6 @@ import java.util.List;
 
 import edu.ics372.gp1.entities.Member;
 
-
 public class MemberList {
 	private List<Member> members = new LinkedList<Member>();
 	private static MemberList memberList;
@@ -27,9 +26,11 @@ public class MemberList {
 	}
 	
 	public Member getMember(String memberId) {
-		while(members.listIterator().hasNext()) {
-			if(memberId.equals(members.listIterator().next().getId())) {
-				return members.listIterator().next();
+		Iterator<Member> iterator = members.listIterator();
+		while(iterator.hasNext()) {
+			Member member = iterator.next();
+			if(memberId.equals(member.getId())) {
+				return member;
 			}
 		}
 		return null;
@@ -40,12 +41,11 @@ public class MemberList {
 	}
 	
 	public boolean removeMember(String memberId) {
-		Iterator<Member> memberList = members.listIterator();
-		
-		while(memberList.hasNext()) {
-			String memberId1 = memberList.next().getId();
+		Iterator<Member> iterator = members.listIterator();
+		while(iterator.hasNext()) {
+			String memberId1 = iterator.next().getId();
 			if(memberId.equals(memberId1)) {
-				memberList.remove();
+				iterator.remove();
 				return true;
 			}
 		}
@@ -53,9 +53,11 @@ public class MemberList {
 	}
 	
 	public boolean isMember(String memberId) {
-		while(members.listIterator().hasNext()) {
-			if(memberId.equals(members.listIterator().next().getId())) {
-				return members.listIterator().next().isMember();
+		Iterator<Member> iterator = members.listIterator();
+		while(iterator.hasNext()) {
+			Member member = iterator.next();
+			if(memberId.equals(member.getId())) {
+				return member.isMember();
 			}
 		}
 		return false;
