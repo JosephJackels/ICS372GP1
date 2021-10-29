@@ -145,9 +145,14 @@ public class GroceryStore {
 		} else {
 			result.setProductFields(product);
 			result.setResultCode(Result.OPERATION_COMPLETED);
-			checkOutList.add(product)
+
+			// TODO
+			// how to add checkout quantity?
+			// create new product and copy fields?
+			// make checkout list two dimensional?
+			checkOutList.add(product);
 		}
-		
+
 		// this product's stock field will be reused as quantity to checkout
 		// check that product exists in productList AND contains enough stock
 		// set result code (PRODUCT_NOT_FOUND, PRODUCT_OUT_OF_STOCK,
