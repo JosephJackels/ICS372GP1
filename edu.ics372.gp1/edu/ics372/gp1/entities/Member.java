@@ -6,6 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Member Object
+ * 	Member object contain information of a registered member listed below 
+ * 			their name, address, phone number, date joined, fee paid, membership status and transaction history
+ * @author Andy
+ *
+ */
 public class Member {
 	private String id;
 	private String name;
@@ -16,6 +23,13 @@ public class Member {
 	private boolean membership;
 	private List<Transaction> transactions = new LinkedList<>();
 	
+	/**
+	 * Member constructor, creates UUID(unique ID)
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param feePaid
+	 */
 	public Member(String name, String address, String phoneNumber, double feePaid) {
 		this.name = name;
 		this.address = address;
@@ -25,60 +39,100 @@ public class Member {
 		this.dateJoined = Calendar.getInstance();
 		this.membership = true;
 	}
-
+	
+	/**
+	 * @return member Id.
+	 */
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	/**
+	 * @return member Name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * set a member name
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return member's address
+	 */
 	public String getAddress() {
 		return address;
 	}
 
+	/**
+	 * set member's address
+	 * @param address
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * @return member's phone number
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/**
+	 * set member's phone number
+	 * @param phoneNumber
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
+	/**
+	 * 
+	 * @return date member joined
+	 */
 	public Calendar getDateJoined() {
 		return dateJoined;
 	}
 
+	/**
+	 * set the date when a member is registered/joined
+	 * @param dateJoined
+	 */
 	public void setDateJoined(Calendar dateJoined) {
 		this.dateJoined = dateJoined;
 	}
 
+	/**
+	 * @return member's membership fee Paid
+	 */
 	public double getFeePaid() {
 		return feePaid;
 	}
 
+	/**
+	 * set member's fee Paid
+	 * @param feePaid
+	 */
 	public void setFeePaid(double feePaid) {
 		this.feePaid = feePaid;
+		this.membership = true;
 	}
 	
+	/**
+	 * check if it is a member
+	 * @return membership
+	 */
 	public boolean isMember() {
 		return membership;
 	}
 	
-	/*
+	/**
 	 * get transaction iterator
 	 * @return iterator
 	 */
@@ -86,7 +140,7 @@ public class Member {
 		return transactions.iterator();
 	}
 	
-	/*
+	/**
 	 * method Holder for getTransaction(startDate, endDate): Transaction, will changed when Transaction and TransactionList updated
 	 * this methods will return a list of transactions that the Member had on the date.
 	 * @param Calendar type value represent starting date
@@ -102,5 +156,15 @@ public class Member {
 			}
 		}
 		return transactionList;
+	}
+	
+	/**
+	 * construct a string for displaying member information.
+	 */
+	@Override
+	public String toString() {
+		return "member ID: " + this.id + ", Member name: " + this.name + "\nAddress: " + this.address +
+				", Phone: " + this.phoneNumber + "\nDate Joined: " + this.dateJoined + ", membership: " + this.membership;
+		
 	}
 }
