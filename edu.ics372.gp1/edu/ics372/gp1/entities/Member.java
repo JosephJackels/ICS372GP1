@@ -144,9 +144,9 @@ public class Member {
 	 * method Holder for getTransaction(startDate, endDate): Transaction, will changed when Transaction and TransactionList updated
 	 * this methods will return a list of transactions that the Member had on the date.
 	 * @param Calendar type value represent starting date
-	 * @return List of transaction within that date
+	 * @return iterator
 	 */
-	LinkedList<Transaction> getTransactions(Calendar startDate){
+	Iterator<Transaction> getTransactions(Calendar startDate){
 		LinkedList<Transaction> transactionList = new LinkedList<>();
 		Iterator<Transaction> iterator = transactions.listIterator();
 		while(iterator.hasNext()) {
@@ -155,7 +155,7 @@ public class Member {
 				transactionList.add(transaction);
 			}
 		}
-		return transactionList;
+		return transactionList.listIterator();
 	}
 	
 	/**
