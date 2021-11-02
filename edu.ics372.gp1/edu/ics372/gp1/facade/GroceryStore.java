@@ -9,12 +9,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.ics372.gp1.collections.MemberList;
-import edu.ics372.gp1.collections.OrderList;
-import edu.ics372.gp1.collections.ProductList;
-import edu.ics372.gp1.collections.TransactionList;
-import edu.ics372.gp1.entities.Member;
-import edu.ics372.gp1.entities.Product;
+import edu.ics372.gp1.collections.*;
+import edu.ics372.gp1.entities.*;
+
+
 
 public class GroceryStore {
 	private MemberList members = MemberList.getInstance();
@@ -145,7 +143,7 @@ public class GroceryStore {
 		} else {
 			result.setProductFields(product);
 			result.setResultCode(Result.OPERATION_COMPLETED);
-			checkOutList.add(product)
+			checkOutList.add(product);
 		}
 		
 		// this product's stock field will be reused as quantity to checkout
@@ -184,7 +182,25 @@ public class GroceryStore {
 
 	public Result processShipment(Request request) {
 		Result result = new Result();
-
+		Product product = products.getProductById(request.getProductID());
+		Order order = orders.search(product.getId());
+		int quantity = Integer.parseInt(request.getProductStock());
+		if(product.equals(null)) {
+			result.setResultCode(Result.PRODUCT_NOT_FOUND);
+			return result;
+		}else if(order == null){
+			result.setResultCode(Result.ORDER_NOT_FOUND);
+			return result;
+		}else if(quantity != order.getQuantity()) {
+			result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
+			return result;
+		}
+		
+		product.addStock(order.getQuantity());
+		result.setResultCode(Result.OPERATION_COMPLETED);
+		orders.removeOrder(product.getId());
+		result.setProductFields(product);
+		
 		// TODO
 		// check that product id exists
 		// if nto set result code to PRODUCT_NOT_FOUND
