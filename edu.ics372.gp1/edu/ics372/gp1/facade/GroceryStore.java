@@ -231,7 +231,6 @@ public class GroceryStore {
 
 	public Iterator<Result> printTransactions(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
-
 		// TODO
 		// verify member id, if not found create a single result and
 		// set its result code to MEMBER_NOT_FOUND
@@ -246,7 +245,13 @@ public class GroceryStore {
 
 	public Iterator<Result> listAllMembers() {
 		List<Result> resultList = new LinkedList<Result>();
-
+		Iterator<Member> iterator = members.getMembers();
+		while(iterator.hasNext()) {
+			Member member = iterator.next();
+			Result result = new Result();
+			result.setMemberFields(member);
+			resultList.add(result);
+		}
 		// create a list of results corresponding
 		// to each entry in memberList
 
