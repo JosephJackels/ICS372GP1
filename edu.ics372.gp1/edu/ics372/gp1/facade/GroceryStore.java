@@ -19,19 +19,33 @@ import edu.ics372.gp1.entities.Order;
 import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.entities.Transaction;
 
+/**
+ * The facade class handling all requests from users.
+ * 
+ * @author
+ *
+ */
+
 public class GroceryStore {
 	private MemberList members = MemberList.getInstance();
 	private OrderList orders = OrderList.getInstance();
 	private ProductList products = ProductList.getInstance();
 	private TransactionList transactions = TransactionList.getInstance();
 	private List<Product> checkOutList = new LinkedList<Product>();
-
 	private static GroceryStore groceryStore;
 
+	/**
+	 * Private for the singleton pattern Creates the catalog and member collection
+	 * objects
+	 */
 	private GroceryStore() {
-
 	}
 
+	/**
+	 * Supports the singleton pattern
+	 * 
+	 * @return the singleton object
+	 */
 	public static GroceryStore instance() {
 		if (groceryStore == null) {
 			groceryStore = new GroceryStore();
@@ -40,12 +54,18 @@ public class GroceryStore {
 		return groceryStore;
 	}
 
+	/**
+	 * Organizes the operations for adding a member
+	 * 
+	 * @param name    member name
+	 * @param address member address
+	 * @param phone   member phone
+	 * @return the Member object created
+	 */
 	public Result addMember(Request request) {
 		Result result = new Result();
-
-		// Attempt to add member to member list
 		Member member = new Member(request.getMemberName(), request.getMemberAddress(), request.getMemberPhoneNumber(),
-				Double.parseDouble(request.getMemberFeePaid()));
+				request.getMemberFeePaid());
 		if (members.insertMember(member)) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		} else {
@@ -176,12 +196,11 @@ public class GroceryStore {
 				Product checkOutProduct = iterator.next();
 				Product product = products.getProductById(checkOutProduct.getId());
 				product.setStock(product.getStock() - checkOutProduct.getStock());
-				if(product.getStock() <= product.getReorderLevel()) {
-					if(orders.search(product.getId()) == null) {
-						if(orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
+				if (product.getStock() <= product.getReorderLevel()) {
+					if (orders.search(product.getId()) == null) {
+						if (orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
 							result.setResultCode(Result.PRODUCT_REORDERED);
-						}
-						else {
+						} else {
 							result.setResultCode(Result.OPERATION_FAILED);
 						}
 					}
@@ -200,7 +219,8 @@ public class GroceryStore {
 		// ensure list is not empty X
 		// create transaction and add to transaction list X
 		// check reorder level for each product checked out X
-		// if product is reordered make sure to set result code for that product result X
+		// if product is reordered make sure to set result code for that product result
+		// X
 		// to PRODUCT_REORDERED X
 		// else set result code based on success X
 		return resultList.iterator();

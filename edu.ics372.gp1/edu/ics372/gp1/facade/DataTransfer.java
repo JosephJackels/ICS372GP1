@@ -11,7 +11,7 @@ public class DataTransfer {
 	private String memberAddress;
 	private String memberPhoneNumber;
 	private String memberDateJoined;
-	private String memberFeePaid;
+	private double memberFeePaid;
 
 	private String productName;
 	private String productID;
@@ -70,11 +70,11 @@ public class DataTransfer {
 		this.memberDateJoined = memberDateJoined;
 	}
 
-	public String getMemberFeePaid() {
+	public double getMemberFeePaid() {
 		return memberFeePaid;
 	}
 
-	public void setMemberFeePaid(String memberFeePaid) {
+	public void setMemberFeePaid(double memberFeePaid) {
 		this.memberFeePaid = memberFeePaid;
 	}
 
