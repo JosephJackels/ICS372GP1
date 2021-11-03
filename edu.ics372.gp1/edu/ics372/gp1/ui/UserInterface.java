@@ -286,7 +286,7 @@ public class UserInterface {
 	public void checkoutMember() {
 		String memberID = getName("Enter ID of member to checkout.");
 		// create new checkout
-		Request.instance().setMemberName(memberID);
+		Request.instance().setMemberID(memberID);
 		Result result = groceryStore.createNewCheckout(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("New checkout could not be created");
