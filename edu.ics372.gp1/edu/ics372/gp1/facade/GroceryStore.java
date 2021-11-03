@@ -176,12 +176,14 @@ public class GroceryStore {
 				Product checkOutProduct = iterator.next();
 				Product product = products.getProductById(checkOutProduct.getId());
 				product.setStock(product.getStock() - checkOutProduct.getStock());
-				if(product.getStock() <= product.getReorderLevel()) {
-					if(orders.search(product.getId()) == null) {
-						if(orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
+				if (product.getStock() <= product.getReorderLevel()) {
+					if (orders.search(product.getId()) == null) {
+						if (orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
 							result.setResultCode(Result.PRODUCT_REORDERED);
-						}
-						else {
+						} else {
+							// change to product already ordered?
+							// isnt technically a failure for the result because
+							// the transaction is still created and added?
 							result.setResultCode(Result.OPERATION_FAILED);
 						}
 					}
@@ -200,7 +202,8 @@ public class GroceryStore {
 		// ensure list is not empty X
 		// create transaction and add to transaction list X
 		// check reorder level for each product checked out X
-		// if product is reordered make sure to set result code for that product result X
+		// if product is reordered make sure to set result code for that product result
+		// X
 		// to PRODUCT_REORDERED X
 		// else set result code based on success X
 		return resultList.iterator();
