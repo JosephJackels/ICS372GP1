@@ -172,10 +172,22 @@ public class GroceryStore {
 		if (!checkOutList.isEmpty()) {
 			Iterator<Product> iterator = checkOutList.listIterator();
 			while (iterator.hasNext()) {
-				Product product = iterator.next();
 				Result result = new Result();
-				total += product.getStock() * product.getPrice();
-				result.setProductFields(product);
+				Product checkOutProduct = iterator.next();
+				Product product = products.getProductById(checkOutProduct.getId());
+				product.setStock(product.getStock() - checkOutProduct.getStock());
+				if(product.getStock() <= product.getReorderLevel()) {
+					if(orders.search(product.getId()) == null) {
+						if(orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
+							result.setResultCode(Result.PRODUCT_REORDERED);
+						}
+						else {
+							result.setResultCode(Result.OPERATION_FAILED);
+						}
+					}
+				}
+				total += checkOutProduct.getStock() * checkOutProduct.getPrice();
+				result.setProductFields(checkOutProduct);
 				result.setMemberID(request.getMemberID());
 				resultList.add(result);
 			}
@@ -187,10 +199,10 @@ public class GroceryStore {
 		// actor has finished adding products to checkoutList X
 		// ensure list is not empty X
 		// create transaction and add to transaction list X
-		// check reorder level for each product checked out
-		// if product is reordered make sure to set result code for that product result
-		// to PRODUCT_REORDERED
-		// else set result code based on success
+		// check reorder level for each product checked out X
+		// if product is reordered make sure to set result code for that product result X
+		// to PRODUCT_REORDERED X
+		// else set result code based on success X
 		return resultList.iterator();
 	}
 
