@@ -300,7 +300,8 @@ public class UserInterface {
 
 			while (continuing) {
 
-				Request.instance().setMemberName(memberID);
+				Request.instance().setMemberID(memberID);
+				
 				Request.instance().setProductID(Integer.toString(getNumber("Enter a product ID to add to checkout.")));
 				Request.instance().setProductStock(
 						Integer.toString(getNumber("Enter a quantity of product to add to checkout.")));
