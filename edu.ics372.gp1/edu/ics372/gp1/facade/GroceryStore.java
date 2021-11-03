@@ -60,7 +60,7 @@ public class GroceryStore {
 	public Result removeMember(Request request) {
 		Result result = new Result();
 		Member member = null;
-		// TODO
+
 		// Attempt to remove member
 		result.setMemberID(request.getMemberID());
 		if (!members.isMember(request.getMemberID())) {
@@ -71,10 +71,6 @@ public class GroceryStore {
 		} else {
 			result.setResultCode(Result.OPERATION_FAILED);
 		}
-		// set member fields to that of the removed member instead?
-		// would have to have MemberList.removeMember() return a member instead of a
-		// boolean
-		// pro - would be easy to return information about the member that was removed
 
 		return result;
 	}
@@ -201,11 +197,17 @@ public class GroceryStore {
 	public Result getProductInfo(Request request) {
 		Result result = new Result();
 
-		// TODO
-		// searchf or product by name
+		// search for product by name
 		// if not found set resultCode to PRODUCT_NOT_FOUND
 		// else set product fields in result and set result code to OPERATION_COMPLETED
-
+		Product product = products.getProductByName(request.getProductName());
+		if (product == null) {
+			result.setResultCode(Result.PRODUCT_NOT_FOUND);
+			result.setProductName(request.getProductName());
+		} else {
+			result.setResultCode(Result.OPERATION_COMPLETED);
+			result.setProductFields(product);
+		}
 		return result;
 	}
 
@@ -247,13 +249,21 @@ public class GroceryStore {
 
 	public Result changePrice(Request request) {
 		Result result = new Result();
+		result.setProductID(request.getProductID());
 
-		// TODO
 		// check that product id exists
+		Product product = products.getProductById(request.getProductID());
 		// if not set result code to PRODUCT_NOT_FOUND
+		if (product == null) {
+			result.setResultCode(Result.PRODUCT_NOT_FOUND);
+			return result;
+		}
 		// update price in productList
 		// set result code to OPERATION_COMPLETED
 		// set all product fields in result
+		product.setPrice(Double.parseDouble(request.getProductPrice()));
+		result.setResultCode(Result.OPERATION_COMPLETED);
+		result.setProductFields(product);
 
 		return result;
 	}
@@ -314,18 +324,31 @@ public class GroceryStore {
 
 	public Iterator<Result> listAllProducts() {
 		List<Result> resultList = new LinkedList<Result>();
+		Iterator<Product> iterator = products.getIterator();
 
-		// create a list of results corresponding to each entry
-		// in product list
+		// create a list of results corresponding to each entry in products
+		while (iterator.hasNext()) {
+			Product product = iterator.next();
+			Result result = new Result();
+			result.setProductFields(product);
+			resultList.add(result);
+		}
 
 		return resultList.iterator();
 	}
 
 	public Iterator<Result> listOutstandingOrders() {
 		List<Result> resultList = new LinkedList<Result>();
+		Iterator<Order> iterator = orders.iterator();
 
 		// create a list of results corresponding
 		// to each entry in orders
+		while (iterator.hasNext()) {
+			Order order = iterator.next();
+			Result result = new Result();
+			result.setOrderFields(order);
+			resultList.add(result);
+		}
 
 		return resultList.iterator();
 	}

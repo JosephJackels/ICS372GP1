@@ -72,4 +72,15 @@ public class ProductList {
 		}
 		return null;
 	}
+
+	public Product getProductByName(String productName) {
+		Iterator<Product> iterator = getInstance().getIterator();
+		while (iterator.hasNext()) {
+			Product product = iterator.next();
+			if (product.getName().equals(productName)) {
+				return product;
+			}
+		}
+		return null;
+	}
 }
