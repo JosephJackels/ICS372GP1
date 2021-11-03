@@ -12,6 +12,13 @@ public class Product {
 	private double price;
 	private static int idCounter = 0;
 	
+	/**
+	 * Constructor
+	 * @param name
+	 * @param reorderLevel
+	 * @param stock
+	 * @param price
+	 */
 	public Product(String name, int reorderLevel, int stock, double price) {
 		this.name = name;
 		this.reorderLevel = reorderLevel;
