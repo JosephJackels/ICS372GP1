@@ -90,7 +90,6 @@ public class MemberList {
 	 */
 	public boolean isMember(String memberId) {
 		Iterator<Member> iterator = members.listIterator();
-		System.out.println("HSDJKDSFJKFSDKJ");
 		while(iterator.hasNext()) {
 			Member member = iterator.next();
 			if(memberId.equals(member.getId())) {
