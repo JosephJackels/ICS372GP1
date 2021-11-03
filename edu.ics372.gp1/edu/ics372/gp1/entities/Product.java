@@ -1,5 +1,9 @@
 package edu.ics372.gp1.entities;
-
+/**
+ * Comments here
+ * @author dilli
+ *
+ */
 public class Product {
 	private String name;
 	private String id;
