@@ -1,5 +1,6 @@
 package edu.ics372.gp1.collections;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,5 +28,18 @@ public class TransactionList {
 
 	public boolean insertTransaction(Transaction transaction) {
 		return transactions.add(transaction);
+	}
+
+	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar EndDate) {
+		LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
+		Iterator<Transaction> iterator = transactions.iterator();
+		while (iterator.hasNext()) {
+			Transaction transaction = iterator.next();
+			if (transaction.getMemberID().equals(memberId) && transaction.getDate().compareTo(startDate) >= 0
+					&& transaction.getDate().compareTo(EndDate) <= 0) {
+				transactionList.add(transaction);
+			}
+		}
+		return transactionList.iterator();
 	}
 }
