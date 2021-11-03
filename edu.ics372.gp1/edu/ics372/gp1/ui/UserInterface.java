@@ -301,7 +301,7 @@ public class UserInterface {
 			while (continuing) {
 
 				Request.instance().setMemberID(memberID);
-				
+
 				Request.instance().setProductID(Integer.toString(getNumber("Enter a product ID to add to checkout.")));
 				Request.instance().setProductStock(
 						Integer.toString(getNumber("Enter a quantity of product to add to checkout.")));
@@ -405,8 +405,8 @@ public class UserInterface {
 
 	public void printTransactions() {
 		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member")));
-		Request.instance().setTransactionStartDate(getDate("Enter start date").toString());
-		Request.instance().setTransactionEndDate(getDate("Enter end date").toString());
+		Request.instance().setStartDate(getDate("Enter start date"));
+		Request.instance().setEndDate(getDate("Enter end date"));
 		Iterator<Result> resultList = groceryStore.printTransactions(Request.instance());
 
 		while (resultList.hasNext()) {

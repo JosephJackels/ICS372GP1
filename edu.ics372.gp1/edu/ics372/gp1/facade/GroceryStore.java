@@ -5,14 +5,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.ics372.gp1.collections.*;
-import edu.ics372.gp1.entities.*;
-
-
+import edu.ics372.gp1.collections.MemberList;
+import edu.ics372.gp1.collections.OrderList;
+import edu.ics372.gp1.collections.ProductList;
+import edu.ics372.gp1.collections.TransactionList;
+import edu.ics372.gp1.entities.Member;
+import edu.ics372.gp1.entities.Order;
+import edu.ics372.gp1.entities.Product;
+import edu.ics372.gp1.entities.Transaction;
 
 public class GroceryStore {
 	private MemberList members = MemberList.getInstance();
@@ -96,7 +101,7 @@ public class GroceryStore {
 
 		Result result = new Result();
 		result.setProductName(request.getProductName());
-		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 
+		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()),
 				Integer.parseInt(request.getProductReorderLevel()) * 2, Double.parseDouble(request.getProductPrice()));
 		result.setProductFields(product);
 
@@ -148,11 +153,12 @@ public class GroceryStore {
 			// how to add checkout quantity?
 			// create new product and copy fields?
 			// make checkout list two dimensional?
-			
-			//I think this would work,i'm creating a new product based on the original product.
-			//with stock = checkout quantity.
-			//then setId and lastly add the product to checkOutList
-			product = new Product(product.getName(), product.getReorderLevel(), 
+
+			// I think this would work,i'm creating a new product based on the original
+			// product.
+			// with stock = checkout quantity.
+			// then setId and lastly add the product to checkOutList
+			product = new Product(product.getName(), product.getReorderLevel(),
 					Integer.parseInt(result.getProductStock()), product.getPrice());
 			product.setId(result.getProductID());
 			checkOutList.add(product);
@@ -167,19 +173,19 @@ public class GroceryStore {
 	public Iterator<Result> completeCheckout(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
 		double total = 0;
-		if(!checkOutList.isEmpty()) {
+		if (!checkOutList.isEmpty()) {
 			Iterator<Product> iterator = checkOutList.listIterator();
-			while(iterator.hasNext()) {
+			while (iterator.hasNext()) {
 				Product product = iterator.next();
 				Result result = new Result();
 				total += product.getStock() * product.getPrice();
 				result.setProductFields(product);
 				result.setMemberID(request.getMemberID());
-				resultList.add(result);	
+				resultList.add(result);
 			}
 			Transaction transaction = new Transaction(request.getMemberID(), total);
 			transactions.insertTransaction(transaction);
-			resultList.get(resultList.size() - 1).setTransactionFields(transaction);	
+			resultList.get(resultList.size() - 1).setTransactionFields(transaction);
 		}
 		// TODO
 		// actor has finished adding products to checkoutList X
@@ -208,22 +214,22 @@ public class GroceryStore {
 		Product product = products.getProductById(request.getProductID());
 		Order order = orders.search(product.getId());
 		int quantity = Integer.parseInt(request.getProductStock());
-		if(product.equals(null)) {
+		if (product.equals(null)) {
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
 			return result;
-		}else if(order == null){
+		} else if (order == null) {
 			result.setResultCode(Result.ORDER_NOT_FOUND);
 			return result;
-		}else if(quantity != order.getQuantity()) {
+		} else if (quantity != order.getQuantity()) {
 			result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
 			return result;
 		}
-		
+
 		product.addStock(order.getQuantity());
 		result.setResultCode(Result.OPERATION_COMPLETED);
 		orders.removeOrder(product.getId());
 		result.setProductFields(product);
-		
+
 		// TODO
 		// check that product id exists
 		// if nto set result code to PRODUCT_NOT_FOUND
@@ -257,19 +263,44 @@ public class GroceryStore {
 		// TODO
 		// verify member id, if not found create a single result and
 		// set its result code to MEMBER_NOT_FOUND
+		Member member = members.getMember(request.getMemberID());
+		if (member == null) {
+			Result result = new Result();
+			result.setMemberID(request.getMemberID());
+			result.setResultCode(Result.MEMBER_NOT_FOUND);
+			resultList.add(result);
+			return resultList.iterator();
+		}
 		// verify dates are valid options (start date occurs on or before end date)
 		// if not, create single result and set result code to INVALID_DATES
-		// else retrieve list opf transactions, create a result for each transaction,
-		// set all
-		// relevent fields, ands et result code to OPERATION_COMPLETED
-
+		Calendar startDate = request.getStartDate();
+		Calendar endDate = request.getEndDate();
+		if (startDate.compareTo(endDate) > 0) {
+			Result result = new Result();
+			result.setMemberID(request.getMemberID());
+			result.setResultCode(Result.INVALID_DATES);
+			resultList.add(result);
+			return resultList.iterator();
+		}
+		// else retrieve list of transactions, create a result for each transaction,
+		// set all relevant fields, and set result code to OPERATION_COMPLETED
+		Iterator<Transaction> transactionIterator = transactions.getTransactions(request.getMemberID(), startDate,
+				endDate);
+		while (transactionIterator.hasNext()) {
+			Transaction transaction = transactionIterator.next();
+			Result result = new Result();
+			result.setMemberID(request.getMemberID());
+			result.setResultCode(Result.OPERATION_COMPLETED);
+			result.setTransactionFields(transaction);
+			resultList.add(result);
+		}
 		return resultList.iterator();
 	}
 
 	public Iterator<Result> listAllMembers() {
 		List<Result> resultList = new LinkedList<Result>();
 		Iterator<Member> iterator = members.getMembers();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Member member = iterator.next();
 			Result result = new Result();
 			result.setMemberFields(member);
