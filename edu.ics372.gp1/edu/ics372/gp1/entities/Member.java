@@ -10,7 +10,7 @@ import java.util.List;
  * below their name, address, phone number, date joined, fee paid, membership
  * status and transaction history
  * 
- * @author Andy
+ * @author Andy Phan
  *
  */
 public class Member {
