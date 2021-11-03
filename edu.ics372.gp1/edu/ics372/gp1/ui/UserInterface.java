@@ -286,7 +286,7 @@ public class UserInterface {
 	public void checkoutMember() {
 		String memberID = getName("Enter ID of member to checkout.");
 		// create new checkout
-		Request.instance().setMemberName(memberID);
+		Request.instance().setMemberID(memberID);
 		Result result = groceryStore.createNewCheckout(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("New checkout could not be created");
@@ -300,7 +300,8 @@ public class UserInterface {
 
 			while (continuing) {
 
-				Request.instance().setMemberName(memberID);
+				Request.instance().setMemberID(memberID);
+				
 				Request.instance().setProductID(Integer.toString(getNumber("Enter a product ID to add to checkout.")));
 				Request.instance().setProductStock(
 						Integer.toString(getNumber("Enter a quantity of product to add to checkout.")));
