@@ -22,7 +22,6 @@ public class Member {
 	private double feePaid;
 	private boolean membership;
 	private List<Transaction> transactions = new LinkedList<>();
-	
 	/**
 	 * Member constructor, creates UUID(unique ID)
 	 * @param name
