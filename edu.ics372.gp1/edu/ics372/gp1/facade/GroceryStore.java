@@ -131,7 +131,6 @@ public class GroceryStore {
 
 	public Result addProductToCheckout(Request request) {
 		Result result = new Result();
-
 		// add a single product to groceryStores checkoutList object
 		// check that product exists in productList AND contains enough stock
 		Product product = products.getProductById(request.getProductID());
@@ -143,17 +142,21 @@ public class GroceryStore {
 			result.setResultCode(Result.PRODUCT_OUT_OF_STOCK);
 		} else {
 			result.setProductFields(product);
+			result.setProductStock(request.getProductStock());
 			result.setResultCode(Result.OPERATION_COMPLETED);
-
-
 			// TODO
 			// how to add checkout quantity?
 			// create new product and copy fields?
 			// make checkout list two dimensional?
-
+			
+			//I think this would work,i'm creating a new product based on the original product.
+			//with stock = checkout quantity.
+			//then setId and lastly add the product to checkOutList
+			product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 
+					Integer.parseInt(request.getProductStock()), Double.parseDouble(request.getProductPrice()));
+			product.setId(request.getProductID());
 			checkOutList.add(product);
 		}
-
 		// this product's stock field will be reused as quantity to checkout
 		// check that product exists in productList AND contains enough stock
 		// set result code (PRODUCT_NOT_FOUND, PRODUCT_OUT_OF_STOCK,
