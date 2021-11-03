@@ -54,14 +54,15 @@ public class GroceryStore {
 
 	public Result removeMember(Request request) {
 		Result result = new Result();
-
+		Member member = null;
 		// TODO
 		// Attempt to remove member
 		result.setMemberID(request.getMemberID());
 		if (!members.isMember(request.getMemberID())) {
 			result.setResultCode(Result.MEMBER_NOT_FOUND);
-		} else if (members.removeMember(request.getMemberID())) {
+		} else if ((member = members.removeMember(request.getMemberID())) != null) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
+			result.setMemberFields(member);
 		} else {
 			result.setResultCode(Result.OPERATION_FAILED);
 		}

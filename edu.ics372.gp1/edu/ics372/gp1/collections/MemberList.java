@@ -70,16 +70,17 @@ public class MemberList {
 	 * @param memberId
 	 * @return true if successful, false if not
 	 */
-	public boolean removeMember(String memberId) {
+	public Member removeMember(String memberId) {
 		Iterator<Member> iterator = members.listIterator();
+		Member member = null;
 		while(iterator.hasNext()) {
-			String memberId1 = iterator.next().getId();
-			if(memberId.equals(memberId1)) {
+			member = iterator.next();
+			if(memberId.equals(member.getId())) {
 				iterator.remove();
-				return true;
+				return member;
 			}
 		}
-		return false;
+		return member; 
 	}
 	
 	/**
