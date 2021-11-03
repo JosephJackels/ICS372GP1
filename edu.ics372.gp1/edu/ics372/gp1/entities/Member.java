@@ -22,6 +22,7 @@ public class Member {
 	private double feePaid;
 	private boolean membership;
 	private List<Transaction> transactions = new LinkedList<>();
+	private static int idCounter;
 	
 	/**
 	 * Member constructor, creates UUID(unique ID)
@@ -35,9 +36,10 @@ public class Member {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.feePaid = feePaid;
-		this.id = UUID.randomUUID().toString();
+		this.id = idCounter + "";
 		this.dateJoined = Calendar.getInstance();
 		this.membership = true;
+		idCounter++;
 	}
 	
 	/**
