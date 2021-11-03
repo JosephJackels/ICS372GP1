@@ -96,8 +96,8 @@ public class GroceryStore {
 
 		Result result = new Result();
 		result.setProductName(request.getProductName());
-		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
-				Double.parseDouble(request.getProductPrice()));
+		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 
+				Integer.parseInt(request.getProductReorderLevel()) * 2, Double.parseDouble(request.getProductPrice()));
 		result.setProductFields(product);
 
 		// attempt to add product
@@ -152,31 +152,43 @@ public class GroceryStore {
 			//I think this would work,i'm creating a new product based on the original product.
 			//with stock = checkout quantity.
 			//then setId and lastly add the product to checkOutList
-			product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 
-					Integer.parseInt(request.getProductStock()), Double.parseDouble(request.getProductPrice()));
-			product.setId(request.getProductID());
+			product = new Product(product.getName(), product.getReorderLevel(), 
+					Integer.parseInt(result.getProductStock()), product.getPrice());
+			product.setId(result.getProductID());
 			checkOutList.add(product);
 		}
 		// this product's stock field will be reused as quantity to checkout
 		// check that product exists in productList AND contains enough stock
 		// set result code (PRODUCT_NOT_FOUND, PRODUCT_OUT_OF_STOCK,
 		// OPERATION_COMPLETED)
-
 		return result;
 	}
 
 	public Iterator<Result> completeCheckout(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
-
+		double total = 0;
+		if(!checkOutList.isEmpty()) {
+			Iterator<Product> iterator = checkOutList.listIterator();
+			while(iterator.hasNext()) {
+				Product product = iterator.next();
+				Result result = new Result();
+				total += product.getStock() * product.getPrice();
+				result.setProductFields(product);
+				result.setMemberID(request.getMemberID());
+				resultList.add(result);	
+			}
+			Transaction transaction = new Transaction(request.getMemberID(), total);
+			transactions.insertTransaction(transaction);
+			resultList.get(resultList.size() - 1).setTransactionFields(transaction);	
+		}
 		// TODO
-		// actor has finished adding products to checkoutList
-		// ensure list is not empty
-		// create transaction and add to transaction list
+		// actor has finished adding products to checkoutList X
+		// ensure list is not empty X
+		// create transaction and add to transaction list X
 		// check reorder level for each product checked out
 		// if product is reordered make sure to set result code for that product result
 		// to PRODUCT_REORDERED
 		// else set result code based on success
-
 		return resultList.iterator();
 	}
 
