@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_Vpl_cDz_EeyVarwl1nHeOw">
+  <modelElement href="ICS372GP1.uml#_VJj0gDz_EeyVarwl1nHeOw"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_Vu1r0Dz_EeyVarwl1nHeOw" name="edu">
+    <modelElement href="ICS372GP1.uml#_Vhw5IDz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_Vu1r0Tz_EeyVarwl1nHeOw" position="50.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_Vu9AkDz_EeyVarwl1nHeOw" name="java">
+    <modelElement href="ICS372GP1.uml#_VhxgMDz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_Vu9AkTz_EeyVarwl1nHeOw" position="-115.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_VrhSEDz_EeyVarwl1nHeOw">
+  <modelElement href="ICS372GP1.uml#_ViLI0Dz_EeyVarwl1nHeOw"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_X-OUgDz_EeyVarwl1nHeOw" sourceAnchor="209.0,0.0" targetAnchor="0.0,529.0" target="_X-RX4jz_EeyVarwl1nHeOw" source="_X-RX4jz_EeyVarwl1nHeOw">
+    <modelElement href="ICS372GP1.uml#_VmNUQTz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_X-ZToDz_EeyVarwl1nHeOw" position="70.0,70.0"/>
+    <bendpoints xmi:id="_YizBMDz_EeyVarwl1nHeOw" sourceY="-120" targetX="209" targetY="-649"/>
+    <bendpoints xmi:id="_YizBMTz_EeyVarwl1nHeOw" sourceX="-350" sourceY="-120" targetX="-141" targetY="-649"/>
+    <bendpoints xmi:id="_YizBMjz_EeyVarwl1nHeOw" sourceX="-350" sourceY="529" targetX="-141"/>
+    <stereotypes xmi:id="_X-Piozz_EeyVarwl1nHeOw" name="Reference">
+      <modelElement href="ICS372GP1.uml#_VmNUQzz_EeyVarwl1nHeOw"/>
+    </stereotypes>
+    <nameVisual xmi:id="_X-PioDz_EeyVarwl1nHeOw" text="">
+      <visualProperties xmi:id="_YizBNDz_EeyVarwl1nHeOw" position="288.5,-11.5"/>
+    </nameVisual>
+    <sourceRole xmi:id="_X-PioTz_EeyVarwl1nHeOw" aggregationKind="NONE" name="">
+      <modelElement href="ICS372GP1.uml#_VmNUQjz_EeyVarwl1nHeOw"/>
+      <visualProperties xmi:id="_YizBMzz_EeyVarwl1nHeOw" position="-20.5,-60.0"/>
+      <visibility xmi:id="_X-QJsTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-QJsDz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_X-Piojz_EeyVarwl1nHeOw" aggregationKind="NONE" name="userInterface" navigable="true">
+      <modelElement href="ICS372GP1.uml#_Vl0SsTz_EeyVarwl1nHeOw"/>
+      <visualProperties xmi:id="_YizBNTz_EeyVarwl1nHeOw" position="-106.00000000000017,11.999999999999886"/>
+      <visibility xmi:id="_X-QJszz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-QJsjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_X-RX0Dz_EeyVarwl1nHeOw" source="_X-RX4jz_EeyVarwl1nHeOw">
+    <modelElement href="ICS372GP1.uml#_VmNURDz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_X-Z6sDz_EeyVarwl1nHeOw" position="90.0,90.0"/>
+    <stereotypes xmi:id="_X-RX0Tz_EeyVarwl1nHeOw" name="Reference">
+      <modelElement href="ICS372GP1.uml#_VmNURjz_EeyVarwl1nHeOw"/>
+    </stereotypes>
+    <nameVisual xmi:id="_X-RX0jz_EeyVarwl1nHeOw" text=""/>
+    <sourceRole xmi:id="_X-RX0zz_EeyVarwl1nHeOw" aggregationKind="NONE" name="">
+      <modelElement href="ICS372GP1.uml#_VmNURTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX1Dz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RX1Tz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_X-RX1jz_EeyVarwl1nHeOw" aggregationKind="NONE" name="groceryStore" navigable="true">
+      <modelElement href="ICS372GP1.uml#_Vl05wDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX1zz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX2Dz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_X-RX2Tz_EeyVarwl1nHeOw" source="_X-RX4jz_EeyVarwl1nHeOw">
+    <modelElement href="ICS372GP1.uml#_VmN7UDz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_X-Z6sTz_EeyVarwl1nHeOw" position="110.0,110.0"/>
+    <stereotypes xmi:id="_X-RX2jz_EeyVarwl1nHeOw" name="Reference">
+      <modelElement href="ICS372GP1.uml#_VmN7Ujz_EeyVarwl1nHeOw"/>
+    </stereotypes>
+    <nameVisual xmi:id="_X-RX2zz_EeyVarwl1nHeOw" text=""/>
+    <sourceRole xmi:id="_X-RX3Dz_EeyVarwl1nHeOw" aggregationKind="NONE" name="">
+      <modelElement href="ICS372GP1.uml#_VmN7UTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX3Tz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RX3jz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_X-RX3zz_EeyVarwl1nHeOw" aggregationKind="NONE" name="reader" navigable="true">
+      <modelElement href="ICS372GP1.uml#_Vl05wjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX4Dz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX4Tz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_X-RX4jz_EeyVarwl1nHeOw" name="UserInterface" associationsIn="_X-OUgDz_EeyVarwl1nHeOw" associationsOut="_X-OUgDz_EeyVarwl1nHeOw _X-RX0Dz_EeyVarwl1nHeOw _X-RX2Tz_EeyVarwl1nHeOw">
+    <modelElement href="ICS372GP1.uml#_VjPf0Dz_EeyVarwl1nHeOw"/>
+    <visualProperties xmi:id="_X-RX4zz_EeyVarwl1nHeOw" position="50.0,50.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_X-RX5Dz_EeyVarwl1nHeOw" label="+"/>
+    <attributes xmi:id="_X-RX5Tz_EeyVarwl1nHeOw" name="userInterface" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl0SsTz_EeyVarwl1nHeOw"/>
+      <stereotypes xmi:id="_X-RX5jz_EeyVarwl1nHeOw" name="LegacyStyledElement">
+        <modelElement href="ICS372GP1.uml#_Vl0Ssjz_EeyVarwl1nHeOw"/>
+      </stereotypes>
+      <visibility xmi:id="_X-RX5zz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX6Dz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX6Tz_EeyVarwl1nHeOw" name="UserInterface">
+        <modelElement href="ICS372GP1.uml#_VjPf0Dz_EeyVarwl1nHeOw"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RX6jz_EeyVarwl1nHeOw" name="groceryStore" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl05wDz_EeyVarwl1nHeOw"/>
+      <stereotypes xmi:id="_X-RX6zz_EeyVarwl1nHeOw" name="LegacyStyledElement">
+        <modelElement href="ICS372GP1.uml#_Vl05wTz_EeyVarwl1nHeOw"/>
+      </stereotypes>
+      <visibility xmi:id="_X-RX7Dz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX7Tz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX7jz_EeyVarwl1nHeOw" name="GroceryStore">
+        <modelElement href="ICS372GP1.uml#_VjCrgDz_EeyVarwl1nHeOw"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RX7zz_EeyVarwl1nHeOw" defaultValue="new BufferedReader(new InputStreamReader(System.in))" name="reader">
+      <modelElement href="ICS372GP1.uml#_Vl05wjz_EeyVarwl1nHeOw"/>
+      <stereotypes xmi:id="_X-RX8Dz_EeyVarwl1nHeOw" name="LegacyStyledElement">
+        <modelElement href="ICS372GP1.uml#_Vl05xDz_EeyVarwl1nHeOw"/>
+      </stereotypes>
+      <visibility xmi:id="_X-RX8Tz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX8jz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX8zz_EeyVarwl1nHeOw" name="BufferedReader">
+        <modelElement href="ICS372GP1.uml#_VlN1wDz_EeyVarwl1nHeOw"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RX9Dz_EeyVarwl1nHeOw" defaultValue="0" name="EXIT" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl05xTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX9Tz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX9jz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX9zz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RX-Dz_EeyVarwl1nHeOw" defaultValue="1" name="ADD_MEMBER" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl1g0Tz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX-Tz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX-jz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX-zz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RX_Dz_EeyVarwl1nHeOw" defaultValue="2" name="REMOVE_MEMBER" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl1g0zz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RX_Tz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RX_jz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RX_zz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYADz_EeyVarwl1nHeOw" defaultValue="3" name="GET_MEMBER_INFO" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl1g1Tz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYATz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYAjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYAzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYBDz_EeyVarwl1nHeOw" defaultValue="4" name="ADD_PRODUCT" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl1g1zz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYBTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYBjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYBzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYCDz_EeyVarwl1nHeOw" defaultValue="5" name="CHECKOUT_MEMBER" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2H4Dz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYCTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYCjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYCzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYDDz_EeyVarwl1nHeOw" defaultValue="6" name="GET_PRODUCT_INFO" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2H4jz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYDTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYDjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYDzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYEDz_EeyVarwl1nHeOw" defaultValue="7" name="PROCESS_SHIPMENT" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2H5Dz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYETz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYEjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYEzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYFDz_EeyVarwl1nHeOw" defaultValue="8" name="CHANGE_PRICE" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2H5jz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYFTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYFjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYFzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYGDz_EeyVarwl1nHeOw" defaultValue="9" name="PRINT_TRANSACTIONS" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2H6Dz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYGTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYGjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYGzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYHDz_EeyVarwl1nHeOw" defaultValue="10" name="LIST_ALL_MEMBERS" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2u8Tz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYHTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYHjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYHzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYIDz_EeyVarwl1nHeOw" defaultValue="11" name="LIST_ALL_PRODUCTS" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2u8zz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYITz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYIjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYIzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYJDz_EeyVarwl1nHeOw" defaultValue="12" name="LIST_OUTSTANDING_ORDERS" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2u9Tz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYJTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYJjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYJzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYKDz_EeyVarwl1nHeOw" defaultValue="13" name="SAVE" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2u9zz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYKTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYKjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYKzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_X-RYLDz_EeyVarwl1nHeOw" defaultValue="15" name="HELP" staticAttribute="true">
+      <modelElement href="ICS372GP1.uml#_Vl2u-Tz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYLTz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYLjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <type xmi:id="_X-RYLzz_EeyVarwl1nHeOw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_X-RYMDz_EeyVarwl1nHeOw" name="UserInterface">
+      <modelElement href="ICS372GP1.uml#_VjRVADz_EeyVarwl1nHeOw"/>
+      <keywords xmi:id="_X-RYMTz_EeyVarwl1nHeOw" keyword="create"/>
+      <visibility xmi:id="_X-RYMjz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYMzz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYNDz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjRVAzz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYNTz_EeyVarwl1nHeOw" name="UserInterface">
+          <modelElement href="ICS372GP1.uml#_VjPf0Dz_EeyVarwl1nHeOw"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_X-RYNjz_EeyVarwl1nHeOw" name="instance" staticOperation="true">
+      <modelElement href="ICS372GP1.uml#_VjRVBDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYNzz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYODz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYOTz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VlQSADz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYOjz_EeyVarwl1nHeOw" name="UserInterface">
+          <modelElement href="ICS372GP1.uml#_VjPf0Dz_EeyVarwl1nHeOw"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_X-RYOzz_EeyVarwl1nHeOw" name="yesOrNo">
+      <modelElement href="ICS372GP1.uml#_VjR8EDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYPDz_EeyVarwl1nHeOw" label="-"/>
+      <cardinality xmi:id="_X-RYPTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYPjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjR8Ejz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYPzz_EeyVarwl1nHeOw" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYQDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjR8ETz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYQTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYQjz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYQzz_EeyVarwl1nHeOw" name="getToken">
+      <modelElement href="ICS372GP1.uml#_VjR8Ezz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYRDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYRTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYRjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjR8FTz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYRzz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYSDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjR8FDz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYSTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYSjz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYSzz_EeyVarwl1nHeOw" name="getName">
+      <modelElement href="ICS372GP1.uml#_VjR8Fjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYTDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYTTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYTjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjSjITz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYTzz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYUDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjSjIDz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYUTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYUjz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYUzz_EeyVarwl1nHeOw" name="getNumber">
+      <modelElement href="ICS372GP1.uml#_VjSjIjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYVDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYVTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYVjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjSjJDz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYVzz_EeyVarwl1nHeOw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYWDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjSjIzz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYWTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYWjz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYWzz_EeyVarwl1nHeOw" name="getDouble">
+      <modelElement href="ICS372GP1.uml#_VjSjJTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYXDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYXTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYXjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjSjJzz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYXzz_EeyVarwl1nHeOw" name="double">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYYDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjSjJjz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYYTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYYjz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYYzz_EeyVarwl1nHeOw" name="getDate">
+      <modelElement href="ICS372GP1.uml#_VjTKMDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYZDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYZTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYZjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_Vle7gDz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYZzz_EeyVarwl1nHeOw" name="Calendar">
+          <modelElement href="ICS372GP1.uml#_Vk7h4Dz_EeyVarwl1nHeOw"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_X-RYaDz_EeyVarwl1nHeOw" name="prompt">
+        <modelElement href="ICS372GP1.uml#_VjTKMTz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYaTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+        <type xmi:id="_X-RYajz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_X-RYazz_EeyVarwl1nHeOw" name="getCommand">
+      <modelElement href="ICS372GP1.uml#_VjTKMjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYbDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYbTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_X-RYbjz_EeyVarwl1nHeOw">
+        <modelElement href="ICS372GP1.uml#_VjTKMzz_EeyVarwl1nHeOw"/>
+        <type xmi:id="_X-RYbzz_EeyVarwl1nHeOw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_X-RYcDz_EeyVarwl1nHeOw" name="help">
+      <modelElement href="ICS372GP1.uml#_VjTKNDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYcTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYcjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYczz_EeyVarwl1nHeOw" name="process">
+      <modelElement href="ICS372GP1.uml#_VjTKNTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYdDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYdTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYdjz_EeyVarwl1nHeOw" name="addMember">
+      <modelElement href="ICS372GP1.uml#_VjTxQDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYdzz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYeDz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYeTz_EeyVarwl1nHeOw" name="removeMember">
+      <modelElement href="ICS372GP1.uml#_VjTxQTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYejz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYezz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYfDz_EeyVarwl1nHeOw" name="getMemberInfo">
+      <modelElement href="ICS372GP1.uml#_VjTxQjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYfTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYfjz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYfzz_EeyVarwl1nHeOw" name="addProduct">
+      <modelElement href="ICS372GP1.uml#_VjTxQzz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYgDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYgTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYgjz_EeyVarwl1nHeOw" name="checkoutMember">
+      <modelElement href="ICS372GP1.uml#_VjTxRDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYgzz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYhDz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYhTz_EeyVarwl1nHeOw" name="getProductInfo">
+      <modelElement href="ICS372GP1.uml#_VjTxRTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYhjz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYhzz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYiDz_EeyVarwl1nHeOw" name="processShipment">
+      <modelElement href="ICS372GP1.uml#_VjUYUDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYiTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYijz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYizz_EeyVarwl1nHeOw" name="changePrice">
+      <modelElement href="ICS372GP1.uml#_VjUYUTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYjDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYjTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYjjz_EeyVarwl1nHeOw" name="printTransactions">
+      <modelElement href="ICS372GP1.uml#_VjUYUjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYjzz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYkDz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYkTz_EeyVarwl1nHeOw" name="listAllMembers">
+      <modelElement href="ICS372GP1.uml#_VjUYUzz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYkjz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYkzz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYlDz_EeyVarwl1nHeOw" name="listAllProducts">
+      <modelElement href="ICS372GP1.uml#_VjUYVDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYlTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYljz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYlzz_EeyVarwl1nHeOw" name="listOutstandingOrders">
+      <modelElement href="ICS372GP1.uml#_VjUYVTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYmDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYmTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYmjz_EeyVarwl1nHeOw" name="save">
+      <modelElement href="ICS372GP1.uml#_VjU_YDz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYmzz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYnDz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYnTz_EeyVarwl1nHeOw" name="retrieve">
+      <modelElement href="ICS372GP1.uml#_VjU_YTz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYnjz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYnzz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYoDz_EeyVarwl1nHeOw" name="unkownCommand">
+      <modelElement href="ICS372GP1.uml#_VjU_Yjz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYoTz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYojz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_X-RYozz_EeyVarwl1nHeOw" name="main" staticOperation="true">
+      <modelElement href="ICS372GP1.uml#_VjU_Yzz_EeyVarwl1nHeOw"/>
+      <visibility xmi:id="_X-RYpDz_EeyVarwl1nHeOw" label="+"/>
+      <cardinality xmi:id="_X-RYpTz_EeyVarwl1nHeOw" label="1" max="1" min="1"/>
+      <parameters xmi:id="_X-RYpjz_EeyVarwl1nHeOw" name="args">
+        <modelElement href="ICS372GP1.uml#_VjU_ZDz_EeyVarwl1nHeOw"/>
+        <cardinality xmi:id="_X-RYpzz_EeyVarwl1nHeOw" label="1..*" max="-1" min="1"/>
+        <type xmi:id="_X-RYqDz_EeyVarwl1nHeOw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
