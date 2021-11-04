@@ -21,8 +21,6 @@ public class Member {
 	private Calendar dateJoined;
 	private double feePaid;
 	private boolean membership;
-	private List<Transaction> transactions = new LinkedList<>();
-
 	private static final String MEMBER_STRING = "M";
 	private static int idCounter;
 
@@ -140,35 +138,6 @@ public class Member {
 	 */
 	public boolean isMember() {
 		return membership;
-	}
-
-	/**
-	 * get transaction iterator
-	 * 
-	 * @return iterator
-	 */
-	Iterator<Transaction> getTransactions() {
-		return transactions.iterator();
-	}
-
-	/**
-	 * method Holder for getTransaction(startDate, endDate): Transaction, will
-	 * changed when Transaction and TransactionList updated this methods will return
-	 * a list of transactions that the Member had on the date.
-	 * 
-	 * @param Calendar type value represent starting date
-	 * @return iterator
-	 */
-	Iterator<Transaction> getTransactions(Calendar startDate) {
-		LinkedList<Transaction> transactionList = new LinkedList<>();
-		Iterator<Transaction> iterator = transactions.listIterator();
-		while (iterator.hasNext()) {
-			Transaction transaction = iterator.next();
-			if (startDate.equals(transaction.getDate())) {
-				transactionList.add(transaction);
-			}
-		}
-		return transactionList.listIterator();
 	}
 
 	/**

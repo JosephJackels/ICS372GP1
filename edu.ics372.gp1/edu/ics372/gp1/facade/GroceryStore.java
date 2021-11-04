@@ -184,7 +184,7 @@ public class GroceryStore {
 							// change to product already ordered?
 							// isnt technically a failure for the result because
 							// the transaction is still created and added?
-							result.setResultCode(Result.OPERATION_FAILED);
+							result.setResultCode(Result.PRODUCT_ALREADY_ORDERED);
 						}
 					}
 				}
