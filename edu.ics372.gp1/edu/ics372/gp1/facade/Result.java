@@ -12,7 +12,8 @@ public class Result extends DataTransfer {
 	public static final int INVALID_DATES = 8;
 	public static final int ORDER_NOT_FOUND = 9;
 	public static final int INCORRECT_RECEIVED_QUANTITY = 10;
-	
+	public static final int PRODUCT_ALREADY_REORDERED = 11;
+
 	private int resultCode;
 
 	public int getResultCode() {
