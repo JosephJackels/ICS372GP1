@@ -402,9 +402,15 @@ public class GroceryStore implements Serializable {
 			FileOutputStream file = new FileOutputStream("GroceryStoreData");
 			ObjectOutputStream output = new ObjectOutputStream(file);
 			output.writeObject(groceryStore);
+<<<<<<< HEAD
 			Member.save(output);
 			Order.save(output);
 			Product.save(output);
+=======
+			// Member.save(output);
+			// TODO
+			// save anything else???
+>>>>>>> refs/remotes/origin/Andy
 			output.close();
 			file.close();
 			return true;
@@ -419,9 +425,15 @@ public class GroceryStore implements Serializable {
 			FileInputStream file = new FileInputStream("GroceryStoreData");
 			ObjectInputStream input = new ObjectInputStream(file);
 			groceryStore = (GroceryStore) input.readObject();
+<<<<<<< HEAD
 			Member.retrieve(input);
 			Order.retrieve(input);
 			Product.retrieve(input);
+=======
+			// Member.retrieve(input);
+			// TODO
+			// retrieve anything that needs to be???
+>>>>>>> refs/remotes/origin/Andy
 			input.close();
 			file.close();
 			return groceryStore;
