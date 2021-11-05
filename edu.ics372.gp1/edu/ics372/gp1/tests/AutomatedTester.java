@@ -92,6 +92,11 @@ public class AutomatedTester {
 	}
 
 	public void addProductTest() {
+		/*
+		 * in GP1 pdf it said when user add product, an order is created. so i've added that in GroceryStore, in addProduct method
+		 * unless i'm wrong but i haven't see any order created after product is added.(except complete checkout).
+		 * now we can do processShipment and outstanding order test.
+		 */
 		System.out.println("Testing add Product");
 		for (int count = 0; count < 3; count++) {
 			Request.instance().setProductName(productsName[count]);
@@ -102,6 +107,7 @@ public class AutomatedTester {
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
 			assert result.getProductPrice().equals(price[count]);
+			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
 			productIds[count] = result.getProductID();
 		}
 	}
@@ -127,6 +133,21 @@ public class AutomatedTester {
 	}
 
 	public void processShipmentTest() {
+		/*
+		 * since this is order, should we do setOrderQuantity() instead?
+		 * if so we have to change request.getProductStock() to request.getOrderQuantity() in GrocceryStore -> processShipment();
+		 */
+		for(int count = 0; count < 3; count++) {
+			Request.instance().setProductID(productIds[count]);
+			Request.instance().setProductStock(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
+			Result result = GroceryStore.instance().processShipment(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(price[count]);
+			//not sure about this one
+			assert result.getProductStock().equals(Request.instance().getProductStock());
+		}
 
 	}
 
@@ -187,6 +208,21 @@ public class AutomatedTester {
 		 * Maybe test that the 2x reorder level orders from the adding of the products
 		 * were created?
 		 */
+		
+		Iterator<Result> iterator = GroceryStore.instance().listOutstandingOrders();
+		int count = 0;
+		while(iterator.hasNext()) {
+			Result result = iterator.next();
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(price[count]);
+			assert result.getProductID().equals(productIds[count]);
+			assert result.getProductStock().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
+			if(count < 2) {
+				count++;
+			}
+		}
 	}
 
 	public static void main(String[] args) {

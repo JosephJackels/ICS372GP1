@@ -126,7 +126,10 @@ public class GroceryStore implements Serializable {
 		if (!products.nameAvailable(request.getProductName())) {
 			result.setResultCode(Result.PRODUCT_NAME_INVALID);
 		} else if (products.insertProduct(product)) {
+			Order order = new Order(product, product.getReorderLevel() * 2);
 			result.setResultCode(Result.OPERATION_COMPLETED);
+			orders.addOrder(order);
+			result.setOrderFields(order);
 		} else {
 			result.setResultCode(Result.OPERATION_FAILED);
 		}
