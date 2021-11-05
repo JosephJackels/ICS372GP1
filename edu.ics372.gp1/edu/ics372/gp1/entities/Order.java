@@ -1,12 +1,18 @@
 package edu.ics372.gp1.entities;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * Order object, an order consists of an order ID, product, 
  * that product's ID and the quantity of the product.
  * @author leo
  *
  */
-public class Order {
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String orderID;
 	private String productID;
 	private Product product;
@@ -93,6 +99,25 @@ public class Order {
 	public String toString(){
 		return "Order: " + orderID + ", product: " + productID + 
 				", " + product.getName() + ", quantity: " + quantity;
+	}
+	
+	/**
+	 * Serializes the static idCounter field
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
+	public static void save(ObjectOutputStream output) throws IOException {
+		output.writeObject(idCounter);
+	}
+
+	/**
+	 * Retrieves a deserialized version of the static idCounter field from disk
+	 * 
+	 * @return a Library object
+	 */
+	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
+		idCounter = (int) input.readObject();
 	}
 	
 	

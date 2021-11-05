@@ -1,10 +1,17 @@
 package edu.ics372.gp1.entities;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * Comments here
  * @author dilli
  *
  */
-public class Product {
+public class Product implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String id;
 	private int reorderLevel;
@@ -63,5 +70,24 @@ public class Product {
 	
 	public void addStock(int quantity) {
 		this.stock += quantity;
+	}
+	
+	/**
+	 * Serializes the static idCounter field
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
+	public static void save(ObjectOutputStream output) throws IOException {
+		output.writeObject(idCounter);
+	}
+
+	/**
+	 * Retrieves a deserialized version of the static idCounter field from disk
+	 * 
+	 * @return a Library object
+	 */
+	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
+		idCounter = (int) input.readObject();
 	}
 }

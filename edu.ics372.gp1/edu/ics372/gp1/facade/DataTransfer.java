@@ -164,7 +164,7 @@ public class DataTransfer {
 		memberAddress = member.getAddress();
 		memberPhoneNumber = member.getPhoneNumber();
 		memberDateJoined = member.getDateJoined().toString();
-		memberFeePaid = Double.toString(member.getFeePaid());
+		memberFeePaid = member.getFeePaid();
 	}
 
 	public void setProductFields(Product product) {

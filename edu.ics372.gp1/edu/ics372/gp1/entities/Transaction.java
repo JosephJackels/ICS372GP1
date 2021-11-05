@@ -1,8 +1,10 @@
 package edu.ics372.gp1.entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Transaction {
+public class Transaction implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String memberID;
 	private Calendar date;
 	private double totalPrice;
