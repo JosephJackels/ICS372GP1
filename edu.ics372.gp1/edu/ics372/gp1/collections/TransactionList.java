@@ -10,7 +10,8 @@ import edu.ics372.gp1.entities.Transaction;
 
 /**
  * Transaction list class, maintains a list of transactions.
- * @author 
+ * 
+ * @author Joseph Jackels
  *
  */
 public class TransactionList implements Serializable {
@@ -26,8 +27,9 @@ public class TransactionList implements Serializable {
 	}
 
 	/**
-	 * Transaction list instance method, creates the sole instance 
-	 * of transaction list. 
+	 * Transaction list instance method, creates the sole instance of transaction
+	 * list.
+	 * 
 	 * @return
 	 */
 	public static TransactionList getInstance() {
@@ -39,6 +41,7 @@ public class TransactionList implements Serializable {
 
 	/**
 	 * Returns an iterator for the transaction list.
+	 * 
 	 * @return
 	 */
 	public Iterator<Transaction> getTransactions() {
@@ -47,6 +50,7 @@ public class TransactionList implements Serializable {
 
 	/**
 	 * Inserts a transaction object to the list.
+	 * 
 	 * @param transaction
 	 * @return
 	 */
@@ -56,18 +60,18 @@ public class TransactionList implements Serializable {
 
 	/**
 	 * Returns an iterator to a list of transactions between a specific date.
+	 * 
 	 * @param memberId
 	 * @param startDate
 	 * @param EndDate
 	 * @return
 	 */
-	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar EndDate) {
+	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar endDate) {
 		LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
 		Iterator<Transaction> iterator = transactions.iterator();
 		while (iterator.hasNext()) {
 			Transaction transaction = iterator.next();
-			if (transaction.getMemberID().equals(memberId) && transaction.getDate().compareTo(startDate) >= 0
-					&& transaction.getDate().compareTo(EndDate) <= 0) {
+			if (transaction.checkTransaction(memberId, startDate, endDate)) {
 				transactionList.add(transaction);
 			}
 		}
