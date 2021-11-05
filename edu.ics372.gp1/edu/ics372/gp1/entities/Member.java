@@ -1,9 +1,6 @@
 package edu.ics372.gp1.entities;
 
 import java.util.Calendar;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Member Object Member object contain information of a registered member listed

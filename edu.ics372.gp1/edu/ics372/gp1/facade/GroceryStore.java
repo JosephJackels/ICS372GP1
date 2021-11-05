@@ -376,6 +376,7 @@ public class GroceryStore {
 			// Member.save(output);
 			// TODO
 			// save anything else???
+			output.close();
 			file.close();
 			return true;
 		} catch (IOException ioe) {
@@ -392,6 +393,8 @@ public class GroceryStore {
 			// Member.retrieve(input);
 			// TODO
 			// retrieve anything that needs to be???
+			input.close();
+			file.close();
 			return groceryStore;
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

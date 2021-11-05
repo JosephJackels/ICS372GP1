@@ -18,6 +18,16 @@ public class AutomatedTester {
 	public void testAll() {
 		addMembersTest();
 		getMemberInfoTest();
+		removeMembersTest();
+		addProductTest();
+		checkoutTest();
+		getProductInfoTest();
+		processShipmentTest();
+		changePriceTest();
+		printTransactionsTest();
+		listAllMembersTest();
+		listAllProductsTest();
+		listOutstandingOrdersTest();
 	}
 
 	public void addMembersTest() {
@@ -55,6 +65,44 @@ public class AutomatedTester {
 				assert result.getMemberName().equals(names[count]);
 			}
 		}
+	}
+
+	public void addProductTest() {
+
+	}
+
+	public void checkoutTest() {
+		// create checkout
+		// add to checkout
+		// complete checkout process
+	}
+
+	public void getProductInfoTest() {
+
+	}
+
+	public void processShipmentTest() {
+
+	}
+
+	public void changePriceTest() {
+
+	}
+
+	public void printTransactionsTest() {
+
+	}
+
+	public void listAllMembersTest() {
+
+	}
+
+	public void listAllProductsTest() {
+
+	}
+
+	public void listOutstandingOrdersTest() {
+
 	}
 
 	public static void main(String[] args) {
