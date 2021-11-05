@@ -3,6 +3,7 @@ package edu.ics372.gp1.tests;
 import java.util.Iterator;
 
 import edu.ics372.gp1.entities.Member;
+import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
 import edu.ics372.gp1.facade.Result;
@@ -14,11 +15,13 @@ public class AutomatedTester {
 	private String[] phones = { "p1", "p2", "p3" };
 	private double[] fees = { 1.0, 2.0, 3.0 };
 	private Member[] members = new Member[3];
-
+	private String[] productsName = { "Apple", "Pear", "Orange" };
+	private String[] price = { "1.5", "2.5", "3.5" };
+	private String[] reorderLevel = { "10", "11", "12" };
+	
 	public void testAll() {
 		addMembersTest();
 		getMemberInfoTest();
-		removeMembersTest();
 		addProductTest();
 		checkoutTest();
 		getProductInfoTest();
@@ -28,6 +31,8 @@ public class AutomatedTester {
 		listAllMembersTest();
 		listAllProductsTest();
 		listOutstandingOrdersTest();
+		//i put remove member last since we need member ID to do checkout test.
+		removeMembersTest(); 
 	}
 
 	public void addMembersTest() {
@@ -49,10 +54,15 @@ public class AutomatedTester {
 
 	public void removeMembersTest() {
 		System.out.println("Testing remove member");
-		// our member IDs are kind of nuts... maybe we should change them?
-		// makes it hard to automate a test
-
-		// Request.instance().setMemberID("");
+		for(int count = 0; count < members.length; count++) {
+			Request.instance().setMemberID(members[count].getId());
+			Result result = GroceryStore.instance().removeMember(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getMemberName().equals(names[count]);
+			assert result.getMemberAddress().equals(addresses[count]);
+			assert result.getMemberPhoneNumber().equals(phones[count]);
+			assert result.getMemberFeePaid().equals(Double.toString(fees[count]));
+		}
 	}
 
 	public void getMemberInfoTest() {
@@ -68,7 +78,17 @@ public class AutomatedTester {
 	}
 
 	public void addProductTest() {
-
+		System.out.println("Testing add Product");
+		for (int count = 0; count < 3; count++) {
+			Request.instance().setProductName(productsName[count]);
+			Request.instance().setProductReorderLevel(reorderLevel[count]);
+			Request.instance().setProductPrice(price[count]);
+			Result result = GroceryStore.instance().addProduct(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(price[count]);
+		}
 	}
 
 	public void checkoutTest() {
