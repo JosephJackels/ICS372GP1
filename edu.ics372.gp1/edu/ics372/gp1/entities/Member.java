@@ -1,5 +1,9 @@
 package edu.ics372.gp1.entities;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -10,13 +14,14 @@ import java.util.Calendar;
  * @author Andy Phan
  *
  */
-public class Member {
+public class Member implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String address;
 	private String phoneNumber;
 	private Calendar dateJoined;
-	private double feePaid;
+	private String feePaid;
 	private boolean membership;
 	private static final String MEMBER_STRING = "M";
 	private static int idCounter;
@@ -29,7 +34,7 @@ public class Member {
 	 * @param phoneNumber
 	 * @param feePaid
 	 */
-	public Member(String name, String address, String phoneNumber, double feePaid) {
+	public Member(String name, String address, String phoneNumber, String feePaid) {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
@@ -114,7 +119,7 @@ public class Member {
 	/**
 	 * @return member's membership fee Paid
 	 */
-	public double getFeePaid() {
+	public String getFeePaid() {
 		return feePaid;
 	}
 
@@ -123,7 +128,7 @@ public class Member {
 	 * 
 	 * @param feePaid
 	 */
-	public void setFeePaid(double feePaid) {
+	public void setFeePaid(String feePaid) {
 		this.feePaid = feePaid;
 		this.membership = true;
 	}
@@ -145,5 +150,24 @@ public class Member {
 		return "member ID: " + this.id + ", Member name: " + this.name + "\nAddress: " + this.address + ", Phone: "
 				+ this.phoneNumber + "\nDate Joined: " + this.dateJoined + ", membership: " + this.membership;
 
+	}
+	
+	/**
+	 * Serializes the static idCounter field
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
+	public static void save(ObjectOutputStream output) throws IOException {
+		output.writeObject(idCounter);
+	}
+
+	/**
+	 * Retrieves a deserialized version of the static idCounter field from disk
+	 * 
+	 * @return a Library object
+	 */
+	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
+		idCounter = (int) input.readObject();
 	}
 }

@@ -1,5 +1,6 @@
 package edu.ics372.gp1.collections;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,7 +13,8 @@ import edu.ics372.gp1.entities.Transaction;
  * @author 
  *
  */
-public class TransactionList {
+public class TransactionList implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<Transaction> transactions = new LinkedList<Transaction>();
 	private static TransactionList transactionList;
 

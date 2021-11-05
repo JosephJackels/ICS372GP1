@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,19 +20,35 @@ import edu.ics372.gp1.entities.Order;
 import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.entities.Transaction;
 
-public class GroceryStore {
+/**
+ * The facade class handling all requests from users.
+ * 
+ * @author Joseph Jackels, Andy Phan, Dilli Khatiwoda, Leonardo Lewis, Austin
+ *         Wang
+ *
+ */
+public class GroceryStore implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private MemberList members = MemberList.getInstance();
 	private OrderList orders = OrderList.getInstance();
 	private ProductList products = ProductList.getInstance();
 	private TransactionList transactions = TransactionList.getInstance();
 	private List<Product> checkOutList = new LinkedList<Product>();
-
 	private static GroceryStore groceryStore;
 
+	/**
+	 * Private constructor for the singleton pattern Creates the catalog and member collection
+	 * objects
+	 */
 	private GroceryStore() {
 
 	}
 
+	/**
+	 * Supports the singleton pattern
+	 * 
+	 * @return the singleton object
+	 */
 	public static GroceryStore instance() {
 		if (groceryStore == null) {
 			groceryStore = new GroceryStore();
@@ -40,12 +57,18 @@ public class GroceryStore {
 		return groceryStore;
 	}
 
+	/**
+	 * Organizes the operations for adding a member
+	 * 
+	 * @param name    member name
+	 * @param address member address
+	 * @param phone   member phone
+	 * @return the Member object created
+	 */
 	public Result addMember(Request request) {
 		Result result = new Result();
-
-		// Attempt to add member to member list
 		Member member = new Member(request.getMemberName(), request.getMemberAddress(), request.getMemberPhoneNumber(),
-				Double.parseDouble(request.getMemberFeePaid()));
+				request.getMemberFeePaid());
 		if (members.insertMember(member)) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		} else {
@@ -57,6 +80,12 @@ public class GroceryStore {
 		return result;
 	}
 
+	/**
+	 * Removes a specific member from the member list
+	 * 
+	 * @param request
+	 * @return a code representing the outcome
+	 */
 	public Result removeMember(Request request) {
 		Result result = new Result();
 		Member member = null;
@@ -373,9 +402,9 @@ public class GroceryStore {
 			FileOutputStream file = new FileOutputStream("GroceryStoreData");
 			ObjectOutputStream output = new ObjectOutputStream(file);
 			output.writeObject(groceryStore);
-			// Member.save(output);
-			// TODO
-			// save anything else???
+			Member.save(output);
+			Order.save(output);
+			Product.save(output);
 			output.close();
 			file.close();
 			return true;
@@ -390,9 +419,9 @@ public class GroceryStore {
 			FileInputStream file = new FileInputStream("GroceryStoreData");
 			ObjectInputStream input = new ObjectInputStream(file);
 			groceryStore = (GroceryStore) input.readObject();
-			// Member.retrieve(input);
-			// TODO
-			// retrieve anything that needs to be???
+			Member.retrieve(input);
+			Order.retrieve(input);
+			Product.retrieve(input);
 			input.close();
 			file.close();
 			return groceryStore;

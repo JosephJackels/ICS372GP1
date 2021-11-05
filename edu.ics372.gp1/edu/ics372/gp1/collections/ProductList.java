@@ -1,5 +1,6 @@
 package edu.ics372.gp1.collections;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,8 @@ import edu.ics372.gp1.entities.Product;
  * @author 
  *
  */
-public class ProductList {
+public class ProductList implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<Product> products = new LinkedList<Product>();
 	private static ProductList productList;
 
