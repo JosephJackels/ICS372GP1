@@ -3,7 +3,6 @@ package edu.ics372.gp1.tests;
 import java.util.Iterator;
 
 import edu.ics372.gp1.entities.Member;
-import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
 import edu.ics372.gp1.facade.Result;
@@ -15,24 +14,37 @@ public class AutomatedTester {
 	private String[] phones = { "p1", "p2", "p3" };
 	private double[] fees = { 1.0, 2.0, 3.0 };
 	private Member[] members = new Member[3];
+	private String[] memberIds = { "", "", "" };
+	private String[] productIds = { "", "", "" };
 	private String[] productsName = { "Apple", "Pear", "Orange" };
 	private String[] price = { "1.5", "2.5", "3.5" };
+	private String[] newPrices = { "5.2", "1.0", "6.7" };
 	private String[] reorderLevel = { "10", "11", "12" };
-	
+
 	public void testAll() {
+		// tests separated with new lines so that groups that need
+		// to be run in a certain order to test properly remain that way
+		// e.x. getMemberInfoTest() depends on addMembersTest() being run before it
+
 		addMembersTest();
 		getMemberInfoTest();
-		addProductTest();
-		checkoutTest();
-		getProductInfoTest();
-		processShipmentTest();
-		changePriceTest();
-		printTransactionsTest();
 		listAllMembersTest();
+
+		addProductTest();
+		getProductInfoTest();
 		listAllProductsTest();
+		changePriceTest();
+
+		// TODO order tests
 		listOutstandingOrdersTest();
-		//i put remove member last since we need member ID to do checkout test.
-		removeMembersTest(); 
+		processShipmentTest();
+
+		// TODO checkout tests
+		checkoutTest();
+		printTransactionsTest();
+
+		// i put remove member last since we need member ID to do checkout test.
+		removeMembersTest();
 	}
 
 	public void addMembersTest() {
@@ -48,14 +60,16 @@ public class AutomatedTester {
 			assert result.getMemberAddress().equals(addresses[count]);
 			assert result.getMemberPhoneNumber().equals(phones[count]);
 			assert result.getMemberFeePaid().equals(Double.toString(fees[count]));
-			// System.out.println(result.getMemberID());
+
+			// save created ID for future tests
+			memberIds[count] = result.getMemberID();
 		}
 	}
 
 	public void removeMembersTest() {
 		System.out.println("Testing remove member");
-		for(int count = 0; count < members.length; count++) {
-			Request.instance().setMemberID(members[count].getId());
+		for (int count = 0; count < members.length; count++) {
+			Request.instance().setMemberID(memberIds[count]);
 			Result result = GroceryStore.instance().removeMember(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getMemberName().equals(names[count]);
@@ -88,6 +102,7 @@ public class AutomatedTester {
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
 			assert result.getProductPrice().equals(price[count]);
+			productIds[count] = result.getProductID();
 		}
 	}
 
@@ -98,7 +113,17 @@ public class AutomatedTester {
 	}
 
 	public void getProductInfoTest() {
-
+		System.out.println("Testing get Product info");
+		for (int count = 0; count < 3; count++) {
+			Request.instance().setProductName(productsName[count]);
+			Result result = GroceryStore.instance().getProductInfo(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(price[count]);
+			assert result.getProductStock().equals("0");
+			assert result.getProductID().equals(productIds[count]);
+		}
 	}
 
 	public void processShipmentTest() {
@@ -106,7 +131,19 @@ public class AutomatedTester {
 	}
 
 	public void changePriceTest() {
+		System.out.println("Testing changing product prices");
+		for (int count = 0; count < 3; count++) {
+			Request.instance().setProductID(productIds[count]);
+			Request.instance().setProductPrice(newPrices[count]);
+			Result result = GroceryStore.instance().changePrice(Request.instance());
 
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(newPrices[count]);
+			assert result.getProductStock().equals("0");
+			assert result.getProductID().equals(productIds[count]);
+		}
 	}
 
 	public void printTransactionsTest() {
@@ -114,15 +151,42 @@ public class AutomatedTester {
 	}
 
 	public void listAllMembersTest() {
-
+		System.out.println("Testing List all members");
+		Iterator<Result> results = GroceryStore.instance().listAllMembers();
+		for (int count = 0; results.hasNext(); count++) {
+			// will iterator return in the proper order?
+			Result result = results.next();
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getMemberName().equals(names[count]);
+			assert result.getMemberAddress().equals(addresses[count]);
+			assert result.getMemberPhoneNumber().equals(phones[count]);
+			assert result.getMemberFeePaid().equals(Double.toString(fees[count]));
+			assert result.getMemberID().equals(memberIds[count]);
+		}
 	}
 
 	public void listAllProductsTest() {
-
+		System.out.println("Testing List all Products");
+		Iterator<Result> results = GroceryStore.instance().listAllProducts();
+		for (int count = 0; results.hasNext(); count++) {
+			// will iterator return in the proper order?
+			Result result = results.next();
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getProductName().equals(productsName[count]);
+			assert result.getProductReorderLevel().equals(reorderLevel[count]);
+			assert result.getProductPrice().equals(price[count]);
+			assert result.getProductID().equals(productIds[count]);
+		}
 	}
 
 	public void listOutstandingOrdersTest() {
-
+		/*
+		 * Not sure how to test this method, we dont create orders on our own, the
+		 * system creates them.
+		 * 
+		 * Maybe test that the 2x reorder level orders from the adding of the products
+		 * were created?
+		 */
 	}
 
 	public static void main(String[] args) {

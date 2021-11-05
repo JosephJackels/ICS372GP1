@@ -19,6 +19,10 @@ import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.entities.Order;
 import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.entities.Transaction;
+import edu.ics372.gp1.iterators.SafeMemberIterator;
+import edu.ics372.gp1.iterators.SafeOrderIterator;
+import edu.ics372.gp1.iterators.SafeProductIterator;
+import edu.ics372.gp1.iterators.SafeTransactionIterator;
 
 /**
  * The facade class handling all requests from users.
@@ -37,8 +41,8 @@ public class GroceryStore implements Serializable {
 	private static GroceryStore groceryStore;
 
 	/**
-	 * Private constructor for the singleton pattern Creates the catalog and member collection
-	 * objects
+	 * Private constructor for the singleton pattern Creates the catalog and member
+	 * collection objects
 	 */
 	private GroceryStore() {
 
@@ -105,29 +109,16 @@ public class GroceryStore implements Serializable {
 	}
 
 	public Iterator<Result> getMemberInfo(Request request) {
-		List<Result> resultList = new LinkedList<Result>();
-
 		// get list of all members with name entered in request
-		Iterator<Member> memberIterator = members.getMembers();
-		while (memberIterator.hasNext()) {
-			Member member = memberIterator.next();
-			if (member.getName().equals(request.getMemberName())) {
-				Result result = new Result();
-				result.setMemberFields(member);
-				result.setResultCode(Result.OPERATION_COMPLETED);
-				resultList.add(result);
-			}
-		}
-
-		return resultList.iterator();
+		return new SafeMemberIterator(members.getMembersByName(request.getMemberName()));
 	}
 
 	public Result addProduct(Request request) {
 
 		Result result = new Result();
 		result.setProductName(request.getProductName());
-		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()),
-				0, Double.parseDouble(request.getProductPrice()));
+		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
+				Double.parseDouble(request.getProductPrice()));
 		result.setProductFields(product);
 
 		// attempt to add product
@@ -174,10 +165,6 @@ public class GroceryStore implements Serializable {
 			result.setProductFields(product);
 			result.setProductStock(request.getProductStock());
 			result.setResultCode(Result.OPERATION_COMPLETED);
-			// TODO
-			// how to add checkout quantity?
-			// create new product and copy fields?
-			// make checkout list two dimensional?
 
 			// I think this would work,i'm creating a new product based on the original
 			// product.
@@ -338,63 +325,27 @@ public class GroceryStore implements Serializable {
 		}
 		// else retrieve list of transactions, create a result for each transaction,
 		// set all relevant fields, and set result code to OPERATION_COMPLETED
-		Iterator<Transaction> transactionIterator = transactions.getTransactions(request.getMemberID(), startDate,
-				endDate);
-		while (transactionIterator.hasNext()) {
-			Transaction transaction = transactionIterator.next();
-			Result result = new Result();
-			result.setMemberID(request.getMemberID());
-			result.setResultCode(Result.OPERATION_COMPLETED);
-			result.setTransactionFields(transaction);
-			resultList.add(result);
-		}
-		return resultList.iterator();
+		return new SafeTransactionIterator(transactions.getTransactions(request.getMemberID(), startDate, endDate));
 	}
 
 	public Iterator<Result> listAllMembers() {
-		List<Result> resultList = new LinkedList<Result>();
-		Iterator<Member> iterator = members.getMembers();
-		while (iterator.hasNext()) {
-			Member member = iterator.next();
-			Result result = new Result();
-			result.setMemberFields(member);
-			resultList.add(result);
-		}
 		// create a list of results corresponding
 		// to each entry in memberList
 
-		return resultList.iterator();
+		return new SafeMemberIterator(members.getMembers());
 	}
 
 	public Iterator<Result> listAllProducts() {
-		List<Result> resultList = new LinkedList<Result>();
-		Iterator<Product> iterator = products.getIterator();
-
 		// create a list of results corresponding to each entry in products
-		while (iterator.hasNext()) {
-			Product product = iterator.next();
-			Result result = new Result();
-			result.setProductFields(product);
-			resultList.add(result);
-		}
 
-		return resultList.iterator();
+		return new SafeProductIterator(products.getIterator());
 	}
 
 	public Iterator<Result> listOutstandingOrders() {
-		List<Result> resultList = new LinkedList<Result>();
-		Iterator<Order> iterator = orders.iterator();
-
 		// create a list of results corresponding
 		// to each entry in orders
-		while (iterator.hasNext()) {
-			Order order = iterator.next();
-			Result result = new Result();
-			result.setOrderFields(order);
-			resultList.add(result);
-		}
 
-		return resultList.iterator();
+		return new SafeOrderIterator(orders.iterator());
 	}
 
 	public static boolean save() {
@@ -407,7 +358,7 @@ public class GroceryStore implements Serializable {
 			Product.save(output);
 			// Member.save(output);
 			// TODO
-				// save anything else???
+			// save anything else???
 			output.close();
 			file.close();
 			return true;
