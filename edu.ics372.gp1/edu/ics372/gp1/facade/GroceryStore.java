@@ -240,17 +240,23 @@ public class GroceryStore implements Serializable {
 	public Result processShipment(Request request) {
 		Result result = new Result();
 		Product product = products.getProductById(request.getProductID());
-		Order order = orders.search(product.getId());
+		result.setProductID(request.getProductID());
+		result.setOrderQuantity(request.getProductStock());
+
+		Order order;
 		int quantity = Integer.parseInt(request.getProductStock());
-		if (product.equals(null)) {
+		if (product == null) {
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
 			return result;
-		} else if (order == null) {
-			result.setResultCode(Result.ORDER_NOT_FOUND);
-			return result;
-		} else if (quantity != order.getQuantity()) {
-			result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
-			return result;
+		} else {
+			order = orders.search(product.getId());
+			if (order == null) {
+				result.setResultCode(Result.ORDER_NOT_FOUND);
+				return result;
+			} else if (quantity != order.getQuantity()) {
+				result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
+				return result;
+			}
 		}
 
 		product.addStock(order.getQuantity());
