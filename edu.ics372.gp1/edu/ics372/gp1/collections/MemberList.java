@@ -9,7 +9,7 @@ import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.iterators.FilteredIterator;
 
 /**
- * Memberlist class is use maintain a list of member
+ * MemberList class is use maintain a list of Member objects
  * 
  * @author Andy
  *
@@ -27,7 +27,7 @@ public class MemberList implements Serializable {
 	}
 
 	/**
-	 * create an object if it hasnt created yet.
+	 * create an object if it hasn't created yet.
 	 * 
 	 * @return memberList
 	 */

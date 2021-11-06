@@ -7,9 +7,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * Member Object Member object contain information of a registered member listed
- * below their name, address, phone number, date joined, fee paid, membership
- * status and transaction history
+ * Member Object - Member object contains information of a registered member
+ * listed below their name, address, phone number, date joined, fee paid, and
+ * membership status
  * 
  * @author Andy Phan
  *
@@ -151,7 +151,7 @@ public class Member implements Serializable {
 				+ this.phoneNumber + "\nDate Joined: " + this.dateJoined + ", membership: " + this.membership;
 
 	}
-	
+
 	/**
 	 * Serializes the static idCounter field
 	 * 

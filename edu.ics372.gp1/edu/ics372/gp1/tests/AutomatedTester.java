@@ -77,6 +77,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test removing Member objects
+	 */
 	public void removeMembersTest() {
 		System.out.println("Testing remove member");
 		for (int count = 0; count < members.length; count++) {
@@ -90,6 +93,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test getting information of Member objects by name
+	 */
 	public void getMemberInfoTest() {
 		System.out.println("Testing get member(s) by name");
 		for (int count = 0; count < members.length; count++) {
@@ -102,6 +108,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test adding products to the GroceryStore
+	 */
 	public void addProductTest() {
 		/*
 		 * in GP1 pdf it said when user add product, an order is created. so i've added
@@ -170,6 +179,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test getting Product information by name
+	 */
 	public void getProductInfoTest() {
 		System.out.println("Testing get Product info");
 		for (int count = 0; count < 3; count++) {
@@ -184,6 +196,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test processing and completing Orders
+	 */
 	public void processShipmentTest() {
 		System.out.println("Testing process shipment ");
 		for (int count = 0; count < 3; count++) {
@@ -219,6 +234,9 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test getting transactions by (memberId, startDate, endDate)
+	 */
 	public void printTransactionsTest() {
 		Calendar startDate = Calendar.getInstance();
 		Calendar endDate = (Calendar) startDate.clone();
@@ -235,11 +253,13 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test listing all Members
+	 */
 	public void listAllMembersTest() {
 		System.out.println("Testing List all members");
 		Iterator<Result> results = GroceryStore.instance().listAllMembers();
 		for (int count = 0; results.hasNext(); count++) {
-			// will iterator return in the proper order?
 			Result result = results.next();
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getMemberName().equals(names[count]);
@@ -250,11 +270,13 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test listing all products
+	 */
 	public void listAllProductsTest() {
 		System.out.println("Testing List all Products");
 		Iterator<Result> results = GroceryStore.instance().listAllProducts();
 		for (int count = 0; results.hasNext(); count++) {
-			// will iterator return in the proper order?
 			Result result = results.next();
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
@@ -264,14 +286,10 @@ public class AutomatedTester {
 		}
 	}
 
+	/**
+	 * Test listing all orders
+	 */
 	public void listOutstandingOrdersTest() {
-		/*
-		 * Not sure how to test this method, we dont create orders on our own, the
-		 * system creates them.
-		 * 
-		 * Maybe test that the 2x reorder level orders from the adding of the products
-		 * were created?
-		 */
 		System.out.println("Testing outstanding order");
 		Iterator<Result> iterator = GroceryStore.instance().listOutstandingOrders();
 		int count = 0;

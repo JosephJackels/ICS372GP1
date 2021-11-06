@@ -5,8 +5,7 @@ package edu.ics372.gp1.facade;
  * system's business logic to user interface.
  * 
  * The Result object returns an int resultCode, plus values of selected fields
- * of Book and Member. They are the book title, id, borrower id, due date,
- * member name, member phone, and member id.
+ * of Product, Order, Member, and Transaction.
  * 
  * 
  * @author Joseph Jackels
