@@ -137,6 +137,7 @@ public class AutomatedTester {
 		 * since this is order, should we do setOrderQuantity() instead?
 		 * if so we have to change request.getProductStock() to request.getOrderQuantity() in GrocceryStore -> processShipment();
 		 */
+		System.out.println("Testing process shipment ");
 		for(int count = 0; count < 3; count++) {
 			Request.instance().setProductID(productIds[count]);
 			Request.instance().setProductStock(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
@@ -208,7 +209,7 @@ public class AutomatedTester {
 		 * Maybe test that the 2x reorder level orders from the adding of the products
 		 * were created?
 		 */
-		
+		System.out.println("Testing outstanding order");
 		Iterator<Result> iterator = GroceryStore.instance().listOutstandingOrders();
 		int count = 0;
 		while(iterator.hasNext()) {
