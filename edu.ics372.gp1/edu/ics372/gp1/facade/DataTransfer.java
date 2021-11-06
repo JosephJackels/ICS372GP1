@@ -210,7 +210,7 @@ public class DataTransfer {
 	}
 
 	/**
-	 * Given an Order, set all releveant fields to those of the ORder object
+	 * Given an Order, set all relevant fields to those of the ORder object
 	 * 
 	 * @param order
 	 */
