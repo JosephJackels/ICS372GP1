@@ -84,22 +84,28 @@ public class MemberList implements Serializable {
 	}
 
 	/**
-	 * remove member from the list given their ID
+	 * Removes a member from the memberList
 	 * 
 	 * @param memberId
-	 * @return true if successful, false if not
+	 * @return true if member could be removed
 	 */
-	public Member removeMember(String memberId) {
-		Iterator<Member> iterator = members.listIterator();
-		Member member = null;
-		while (iterator.hasNext()) {
-			member = iterator.next();
-			if (memberId.equals(member.getId())) {
-				iterator.remove();
-				return member;
-			}
+	public boolean removeMember(String memberId) {
+		Member member = getMember(memberId);
+		if (member == null) {
+			return false;
+		} else {
+			return members.remove(member);
 		}
-		return member;
+//		Iterator<Member> iterator = members.listIterator();
+//		Member member = null;
+//		while (iterator.hasNext()) {
+//			member = iterator.next();
+//			if (memberId.equals(member.getId())) {
+//				iterator.remove();
+//				return member;
+//			}
+//		}
+//		return member;
 	}
 
 	/**
