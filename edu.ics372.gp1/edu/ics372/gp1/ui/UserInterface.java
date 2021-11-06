@@ -469,8 +469,7 @@ public class UserInterface {
 	 * calls the appropriate GroceryStore method.
 	 */
 	public void processShipment() {
-		boolean continuing = true;
-		while (continuing) {
+		do {
 			Request.instance().setProductID(Integer.toString(getNumber("Enter product ID for shipment")));
 			Request.instance().setProductStock(Integer.toString(getNumber("Enter quantity recieved.")));
 			Result result = groceryStore.processShipment(Request.instance());
@@ -484,16 +483,15 @@ public class UserInterface {
 				break;
 			case Result.INCORRECT_RECEIVED_QUANTITY:
 				System.out.println("The recieved shipment for Product: " + result.getProductID() + " of quantity: "
-						+ Request.instance().getProductStock() + " is not the correct amount ordered, which should be: "
-						+ result.getProductStock() + " the shipment is refused.");
+						+ Request.instance().getProductStock() + " is not the correct amount ordered, which should be "
+						+ (Integer.parseInt(result.getProductReorderLevel()) * 2) + ". The shipment is refused.");
 				break;
 			case Result.OPERATION_COMPLETED:
 				System.out.println("Product ID: " + result.getProductID() + " Product name: " + result.getProductName()
 						+ "recieved shipment. New product stock: " + result.getProductStock());
 				break;
 			}
-			continuing = yesOrNo("Process another shipment?");
-		}
+		} while(yesOrNo("Process another shipment?"));
 	}
 
 	/**
