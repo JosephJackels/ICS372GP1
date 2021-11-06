@@ -36,7 +36,7 @@ public class AutomatedTester {
 		// e.x. getMemberInfoTest() depends on addMembersTest() being run before it
 
 		addMembersTest();
-		// getMemberInfoTest();
+		getMemberInfoTest();
 		listAllMembersTest();
 
 		addProductTest();
@@ -295,8 +295,6 @@ public class AutomatedTester {
 		 * enabled in eclipse, it should throw am AssetionError exception If it does
 		 * not, go to Window->Preferences->installed JRES, click the JRE you are using,
 		 * click edit, and add -ea as the Default VM arguments
-		 * 
-		 * If you aren't using eclipse, google it I guess?
 		 */
 
 		// assert false;
