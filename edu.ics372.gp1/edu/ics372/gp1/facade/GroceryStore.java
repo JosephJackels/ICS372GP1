@@ -110,8 +110,8 @@ public class GroceryStore implements Serializable {
 	/**
 	 * Returns an iterator to all members with specific name
 	 * 
-	 * @param request
-	 * @return
+	 * @param Member name
+	 * @return iterator to the Result objects storing info about members
 	 */
 	public Iterator<Result> getMemberInfo(Request request) {
 		return new SafeMemberIterator(members.getMembersByName(request.getMemberName()));
@@ -151,7 +151,12 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
-	
+	/**
+	 * 
+	 * 
+	 * @param Member ID
+	 * @return  a new checkOutList
+	 */
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
 		// reset checkout list
@@ -247,6 +252,13 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Process incoming shipment by updating product stock and removing fulfilled 
+	 * orders from the orderList
+	 *  
+	 * @param Product Id
+	 * @return shipment processed
+	 */
 	public Result processShipment(Request request) {
 		Result result = new Result();
 		Product product = products.getProductById(request.getProductID());
@@ -264,6 +276,7 @@ public class GroceryStore implements Serializable {
 				result.setResultCode(Result.ORDER_NOT_FOUND);
 				return result;
 			} else if (quantity != order.getQuantity()) {
+				result.setProductReorderLevel(Integer.toString(product.getReorderLevel()));
 				result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
 				return result;
 			}
@@ -344,6 +357,11 @@ public class GroceryStore implements Serializable {
 		return new SafeOrderIterator(orders.iterator());
 	}
 
+	/**
+	 * Serializes the Library object
+	 * 
+	 * @return true iff the data could be saved
+	 */
 	public static boolean save() {
 		try {
 			FileOutputStream file = new FileOutputStream("GroceryStoreData");
@@ -361,6 +379,11 @@ public class GroceryStore implements Serializable {
 		}
 	}
 
+	/**
+	 * Retrieves a deserialized version of the library from disk
+	 * 
+	 * @return a Library object
+	 */
 	public static GroceryStore retrieve() {
 		try {
 			FileInputStream file = new FileInputStream("GroceryStoreData");
