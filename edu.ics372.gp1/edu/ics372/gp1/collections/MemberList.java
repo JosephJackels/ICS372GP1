@@ -79,22 +79,8 @@ public class MemberList implements Serializable {
 	 * @return Iterator<Member> to the list of Members that have the given name
 	 */
 	public Iterator<Member> getMembersByName(String memberName) {
-		/*
-		 * Should we add a method to FilteredIterator that returns an Iterator<T> Then
-		 * this method can return new FilteredIterator<Member>(...).getIterator(); That
-		 * way it will properly return an Iterator<Member>?
-		 */
-		return new FilteredIterator<Member>(members.iterator(), member -> member.getName().equals(memberName))
-				.getIterator();
-//		Iterator<Member> iterator = members.listIterator();
-//		LinkedList<Member> membersByName = new LinkedList<Member>();
-//		while (iterator.hasNext()) {
-//			Member member = iterator.next();
-//			if (member.getName().equals(memberName)) {
-//				membersByName.add(member);
-//			}
-//		}
-//		return membersByName.iterator();
+
+		return new FilteredIterator<Member>(members.iterator(), member -> member.getName().equals(memberName));
 	}
 
 	/**
