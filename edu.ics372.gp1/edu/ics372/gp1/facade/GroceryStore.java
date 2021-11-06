@@ -108,8 +108,13 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Returns an iterator to all members with specific name
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Iterator<Result> getMemberInfo(Request request) {
-		// get list of all members with name entered in request
 		return new SafeMemberIterator(members.getMembersByName(request.getMemberName()));
 	}
 
