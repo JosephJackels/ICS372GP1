@@ -1,8 +1,9 @@
 package edu.ics372.gp1.entities;
 
 /**
- * Order object, an order consists of an order ID, product, 
- * that product's ID and the quantity of the product.
+ * This class represents the Order object, which consists of an order ID,
+ * product, product's ID and the quantity of the product.
+ * 
  * @author leo
  *
  */
@@ -15,9 +16,10 @@ public class Order {
 
 	/**
 	 * Constructs order, creates unique ID.
-	 * @param productID
-	 * @param quantity
-	 * @param product
+	 * 
+	 * @param productID - ID of the product ordered/to be ordered
+	 * @param quantity  - quantity of the product ordered/to be ordered
+	 * @param product   - product object ordered/ to be ordered
 	 */
 	public Order(Product product, int quantity) {
 		this.productID = product.getId();
@@ -26,7 +28,7 @@ public class Order {
 		this.product = product;
 		idCounter++;
 	}
-	
+
 	/**
 	 * @return Product in order.
 	 */
@@ -36,7 +38,8 @@ public class Order {
 
 	/**
 	 * Sets product for order.
-	 * @param product 
+	 * 
+	 * @param product
 	 */
 	public void setProduct(Product product) {
 		this.product = product;
@@ -51,49 +54,51 @@ public class Order {
 
 	/**
 	 * Sets quantity in order.
+	 * 
 	 * @param quantity
 	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	/**
 	 * @return Order ID.
 	 */
 	public String getOrderID() {
 		return orderID;
 	}
-	
+
 	/**
 	 * @return Product ID.
 	 */
-	public String getProductID(){
+	public String getProductID() {
 		return productID;
 	}
-	
+
 	/**
 	 * Sets product ID.
+	 * 
 	 * @param productID
 	 */
 	public void setProductID(String productID) {
 		this.productID = productID;
 	}
-	
+
 	/**
 	 * Sets order ID.
+	 * 
 	 * @param orderID
 	 */
-	public void setOrderID(String orderID){
+	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
-	
+
 	/**
-	 * Constructs string for an order.
+	 * Constructs string representation for an order object.
 	 */
-	public String toString(){
-		return "Order: " + orderID + ", product: " + productID + 
-				", " + product.getName() + ", quantity: " + quantity;
+	@Override
+	public String toString() {
+		return "Order: " + orderID + ", product: " + productID + ", " + product.getName() + ", quantity: " + quantity;
 	}
-	
-	
+
 }
