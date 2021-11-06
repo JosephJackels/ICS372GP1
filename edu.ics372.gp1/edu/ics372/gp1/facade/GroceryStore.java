@@ -117,28 +117,37 @@ public class GroceryStore implements Serializable {
 		return new SafeMemberIterator(members.getMembersByName(request.getMemberName()));
 	}
 
+	/**
+	 * Organizes the operations for adding a product
+	 * 
+	 * @param name of product
+	 * @param product reorder level
+	 * @param product price
+	 * @return the Product object created
+	 */
 	public Result addProduct(Request request) {
-
 		Result result = new Result();
-		result.setProductName(request.getProductName());
+		
+		if(!products.nameAvailable(request.getProductName())) {
+			result.setProductName(request.getProductName());
+			result.setResultCode(Result.PRODUCT_NAME_INVALID);
+			return result;
+		}
+		
 		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
 				Double.parseDouble(request.getProductPrice()));
 		result.setProductFields(product);
 
-		// attempt to add product
-		// check if name is taken
-		if (!products.nameAvailable(request.getProductName())) {
-			result.setResultCode(Result.PRODUCT_NAME_INVALID);
-		} else if (products.insertProduct(product)) {
+		if (products.insertProduct(product)) {
 			Order order = new Order(product, product.getReorderLevel() * 2);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 			orders.addOrder(order);
 			result.setOrderFields(order);
 			result.setProductFields(product);
-		} else {
-			result.setResultCode(Result.OPERATION_FAILED);
+			return result;
 		}
-
+		
+		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
 
