@@ -120,20 +120,20 @@ public class GroceryStore implements Serializable {
 	/**
 	 * Organizes the operations for adding a product
 	 * 
-	 * @param name of product
+	 * @param name    of product
 	 * @param product reorder level
 	 * @param product price
 	 * @return the Product object created
 	 */
 	public Result addProduct(Request request) {
 		Result result = new Result();
-		
-		if(!products.nameAvailable(request.getProductName())) {
+
+		if (!products.nameAvailable(request.getProductName())) {
 			result.setProductName(request.getProductName());
 			result.setResultCode(Result.PRODUCT_NAME_INVALID);
 			return result;
 		}
-		
+
 		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
 				Double.parseDouble(request.getProductPrice()));
 
@@ -145,12 +145,11 @@ public class GroceryStore implements Serializable {
 			result.setProductFields(product);
 			return result;
 		}
-		
+
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
 
-	
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
 		// reset checkout list
