@@ -313,7 +313,7 @@ public class UserInterface {
 	 * 
 	 */
 	public void removeMember() {
-		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member to remove")));
+		Request.instance().setMemberID(getName("Enter ID of member to remove"));
 
 		Result result = groceryStore.removeMember(Request.instance());
 
@@ -517,7 +517,7 @@ public class UserInterface {
 	 * method.
 	 */
 	public void printTransactions() {
-		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member")));
+		Request.instance().setMemberID(getName("Enter ID of member"));
 		Request.instance().setStartDate(getDate("Enter start date"));
 		Request.instance().setEndDate(getDate("Enter end date"));
 		Iterator<Result> resultList = groceryStore.printTransactions(Request.instance());
@@ -573,7 +573,7 @@ public class UserInterface {
 		while (resultList.hasNext()) {
 			Result result = resultList.next();
 			System.out.println("Name: " + result.getProductName() + " ID: " + result.getProductID()
-					+ " Amount Ordered: " + result.getProductStock());
+					+ " Amount Ordered: " + result.getOrderQuantity());
 		}
 	}
 
