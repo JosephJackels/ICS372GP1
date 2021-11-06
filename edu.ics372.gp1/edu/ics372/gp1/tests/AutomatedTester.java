@@ -116,6 +116,34 @@ public class AutomatedTester {
 		// create checkout
 		// add to checkout
 		// complete checkout process
+		//I've only tested on one member at a time. i'm not sure how to test multiple checkout at once.
+		//unless we doing nested for loop?
+		System.out.println("Testing checkOut");
+		Request.instance().setMemberID(memberIds[0]);
+		Result result = GroceryStore.instance().createNewCheckout(Request.instance());
+		assert result.getResultCode() == Result.OPERATION_COMPLETED;
+		int count;
+		for(count = 0; count < 3; count++) {
+			Request.instance().setProductID(productIds[count]);
+			Request.instance().setProductStock("15");
+			Result checkOutResult = GroceryStore.instance().addProductToCheckout(Request.instance());
+			assert checkOutResult.getProductID().equals(productIds[count]);
+			assert checkOutResult.getProductName().equals(productsName[count]);
+			assert checkOutResult.getProductStock().equals(Request.instance().getProductStock());
+			
+		}
+		count = 0;
+		Iterator<Result> iterator = GroceryStore.instance().completeCheckout(Request.instance());
+		while(iterator.hasNext()) {
+			Result results = iterator.next();
+			assert results.getResultCode() == Result.PRODUCT_REORDERED;
+			assert results.getMemberID().equals(Request.instance().getMemberID());
+			assert results.getProductID().equals(productIds[count]);
+			assert results.getProductName().equals(productsName[count]);
+			if(count < 2) {
+				count++;
+			}
+		}
 	}
 
 	public void getProductInfoTest() {
@@ -169,7 +197,7 @@ public class AutomatedTester {
 	}
 
 	public void printTransactionsTest() {
-
+		//how do we test transaction?
 	}
 
 	public void listAllMembersTest() {
