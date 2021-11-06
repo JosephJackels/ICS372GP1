@@ -1,5 +1,7 @@
 package edu.ics372.gp1.facade;
 
+import java.util.Calendar;
+
 import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.entities.Order;
 import edu.ics372.gp1.entities.Product;
@@ -205,7 +207,8 @@ public class DataTransfer {
 	 */
 	public void setTransactionFields(Transaction transaction) {
 		memberID = transaction.getMemberID();
-		transactionDate = transaction.getDate().toString();
+		transactionDate = (transaction.getDate().get(Calendar.MONTH) + 1) + "/"
+				+ transaction.getDate().get(Calendar.DAY_OF_MONTH) + "/" + transaction.getDate().get(Calendar.YEAR);
 		transactionTotalPrice = Double.toString(transaction.getTotalPrice());
 	}
 

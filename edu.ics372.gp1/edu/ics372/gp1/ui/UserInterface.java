@@ -50,7 +50,7 @@ public class UserInterface {
 	 * Decide whether to load groceryStore from saved file or create new instance
 	 */
 	private UserInterface() {
-		if (yesOrNo("Looke for saved data and use it?")) {
+		if (yesOrNo("Look for saved data and use it?")) {
 			retrieve();
 		} else {
 			groceryStore = GroceryStore.instance();

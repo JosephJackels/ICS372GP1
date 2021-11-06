@@ -120,6 +120,7 @@ public class GroceryStore implements Serializable {
 	/**
 	 * Organizes the operations for adding a product
 	 * 
+
 	 * @param name of product
 	 * @param product reorder level
 	 * @param product price
@@ -127,7 +128,7 @@ public class GroceryStore implements Serializable {
 	 */
 	public Result addProduct(Request request) {
 		Result result = new Result();
-		
+    
 		if(!products.nameAvailable(request.getProductName())) {
 			result.setProductName(request.getProductName());
 			result.setResultCode(Result.PRODUCT_NAME_INVALID);
@@ -145,7 +146,7 @@ public class GroceryStore implements Serializable {
 			result.setProductFields(product);
 			return result;
 		}
-		
+    
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
