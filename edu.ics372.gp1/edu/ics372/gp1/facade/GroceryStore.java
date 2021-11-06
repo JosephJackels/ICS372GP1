@@ -136,7 +136,6 @@ public class GroceryStore implements Serializable {
 		
 		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
 				Double.parseDouble(request.getProductPrice()));
-		result.setProductFields(product);
 
 		if (products.insertProduct(product)) {
 			Order order = new Order(product, product.getReorderLevel() * 2);
@@ -151,6 +150,7 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
 		// reset checkout list

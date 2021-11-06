@@ -117,7 +117,7 @@ public class UserInterface {
 		do {
 			try {
 				System.out.println(prompt);
-				String line = reader.readLine();
+				String line = reader.readLine().trim();
 				return line;
 			} catch (IOException ioe) {
 				System.exit(0);
