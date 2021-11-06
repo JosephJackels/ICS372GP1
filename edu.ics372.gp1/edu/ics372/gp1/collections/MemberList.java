@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.ics372.gp1.entities.Member;
+import edu.ics372.gp1.iterators.FilteredIterator;
 
 /**
  * Memberlist class is use maintain a list of member
@@ -78,15 +79,16 @@ public class MemberList implements Serializable {
 	 * @return Iterator<Member> to the list of Members that have the given name
 	 */
 	public Iterator<Member> getMembersByName(String memberName) {
-		Iterator<Member> iterator = members.listIterator();
-		LinkedList<Member> membersByName = new LinkedList<Member>();
-		while (iterator.hasNext()) {
-			Member member = iterator.next();
-			if (member.getName().equals(memberName)) {
-				membersByName.add(member);
-			}
-		}
-		return membersByName.iterator();
+		return new FilteredIterator<Member>(members.iterator(), member -> member.getName().equals(memberName));
+//		Iterator<Member> iterator = members.listIterator();
+//		LinkedList<Member> membersByName = new LinkedList<Member>();
+//		while (iterator.hasNext()) {
+//			Member member = iterator.next();
+//			if (member.getName().equals(memberName)) {
+//				membersByName.add(member);
+//			}
+//		}
+//		return membersByName.iterator();
 	}
 
 	/**
