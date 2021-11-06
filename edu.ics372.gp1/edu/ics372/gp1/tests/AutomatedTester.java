@@ -145,7 +145,7 @@ public class AutomatedTester {
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
-			assert result.getProductPrice().equals(price[count]);
+			assert result.getProductPrice().equals(newPrices[count]);
 			//not sure about this one
 			assert result.getProductStock().equals(Request.instance().getProductStock());
 		}
@@ -216,10 +216,8 @@ public class AutomatedTester {
 			Result result = iterator.next();
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
-			assert result.getProductReorderLevel().equals(reorderLevel[count]);
-			assert result.getProductPrice().equals(price[count]);
 			assert result.getProductID().equals(productIds[count]);
-			assert result.getProductStock().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
+			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
 			if(count < 2) {
 				count++;
 			}
