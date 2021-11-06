@@ -22,7 +22,7 @@ public class DataTransfer {
 	private String transactionStartDate;
 	private String transactionEndDate;
 	private String transactionDate;
-	private String transactionTotalPrice;
+	private String transactionTotalPrice = "";
 
 	private String orderQuantity;
 
