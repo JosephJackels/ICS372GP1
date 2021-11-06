@@ -324,7 +324,11 @@ public class UserInterface {
 		case Result.MEMBER_NOT_FOUND:
 			System.out.println("Member " + Request.instance().getMemberID() + " not found.");
 			break;
-		// add other cases for other error codes?
+		case Result.OPERATION_FAILED:
+			System.out.printf("Member: %s could not be removed\n", result.getMemberID());
+			break;
+		default:
+			System.out.println("An error has occurred");
 		}
 	}
 
