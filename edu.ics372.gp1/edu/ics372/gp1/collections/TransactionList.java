@@ -67,14 +67,14 @@ public class TransactionList implements Serializable {
 	 * @return
 	 */
 	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar endDate) {
-		LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
-		Iterator<Transaction> iterator = transactions.iterator();
-		while (iterator.hasNext()) {
-			Transaction transaction = iterator.next();
-			if (transaction.checkTransaction(memberId, startDate, endDate)) {
-				transactionList.add(transaction);
-			}
-		}
-		return transactionList.iterator();
+		return new FilteredIterator(transactions.iterator(),
+				transaction -> transaction.checkTransaction(memberId, startDate, endDate)).getIterator();
+		/*
+		 * LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
+		 * Iterator<Transaction> iterator = transactions.iterator(); while
+		 * (iterator.hasNext()) { Transaction transaction = iterator.next(); if
+		 * (transaction.checkTransaction(memberId, startDate, endDate)) {
+		 * transactionList.add(transaction); } } return transactionList.iterator();
+		 */
 	}
 }

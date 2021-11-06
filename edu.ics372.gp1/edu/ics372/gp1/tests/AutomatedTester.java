@@ -10,6 +10,7 @@ import edu.ics372.gp1.facade.Result;
 
 /**
  * this class generate a sample test for the Grocery Store using assert.
+ * 
  * @author Joseph Jackels, Andy Phan, Dilli Khatiwoda, Leonardo Lewis, Austin
  *         Wang
  *
@@ -28,13 +29,14 @@ public class AutomatedTester {
 	private String[] newPrices = { "5.2", "1.0", "6.7" };
 	private String[] reorderLevel = { "10", "11", "12" };
 	private String transactionTotalPrice;
+
 	public void testAll() {
 		// tests separated with new lines so that groups that need
 		// to be run in a certain order to test properly remain that way
 		// e.x. getMemberInfoTest() depends on addMembersTest() being run before it
 
 		addMembersTest();
-		getMemberInfoTest();
+		// getMemberInfoTest();
 		listAllMembersTest();
 
 		addProductTest();
@@ -99,12 +101,13 @@ public class AutomatedTester {
 			}
 		}
 	}
-	
+
 	public void addProductTest() {
 		/*
-		 * in GP1 pdf it said when user add product, an order is created. so i've added that in GroceryStore, in addProduct method
-		 * unless i'm wrong but i haven't see any order created after product is added.(except complete checkout).
-		 * now we can do processShipment and outstanding order test.
+		 * in GP1 pdf it said when user add product, an order is created. so i've added
+		 * that in GroceryStore, in addProduct method unless i'm wrong but i haven't see
+		 * any order created after product is added.(except complete checkout). now we
+		 * can do processShipment and outstanding order test.
 		 */
 		System.out.println("Testing add Product");
 		for (int count = 0; count < 3; count++) {
@@ -116,7 +119,7 @@ public class AutomatedTester {
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
 			assert result.getProductPrice().equals(price[count]);
-			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
+			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
 			productIds[count] = result.getProductID();
 		}
 	}
@@ -128,41 +131,39 @@ public class AutomatedTester {
 		// create checkout
 		// add to checkout
 		// complete checkout process
-		System.out.println("Testing checkOut");
-		for(int i = 0; i < 3; i++) {
+		System.out.println("Testing checkout");
+		for (int i = 0; i < 3; i++) {
 			Request.instance().setMemberID(memberIds[i]);
 			Result result = GroceryStore.instance().createNewCheckout(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			int count;
-			for(count = 0; count < 3; count++) {
+			for (count = 0; count < 3; count++) {
 				Request.instance().setProductID(productIds[count]);
 				Request.instance().setProductStock("5");
 				Result checkOutResult = GroceryStore.instance().addProductToCheckout(Request.instance());
 				assert checkOutResult.getProductID().equals(productIds[count]);
 				assert checkOutResult.getProductName().equals(productsName[count]);
 				assert checkOutResult.getProductStock().equals(Request.instance().getProductStock());
-				
+
 			}
 			count = 0;
 			Iterator<Result> iterator = GroceryStore.instance().completeCheckout(Request.instance());
-			while(iterator.hasNext()) {
+			while (iterator.hasNext()) {
 				Result results = iterator.next();
-				if(results.getResultCode() == Result.OPERATION_COMPLETED) {
+				if (results.getResultCode() == Result.OPERATION_COMPLETED) {
 					assert results.getResultCode() == Result.OPERATION_COMPLETED;
-				}
-				else if(results.getResultCode() == Result.PRODUCT_REORDERED) {
+				} else if (results.getResultCode() == Result.PRODUCT_REORDERED) {
 					assert (results.getResultCode() == Result.PRODUCT_REORDERED);
-				}
-				else if(results.getResultCode() == Result.PRODUCT_ALREADY_ORDERED) {
+				} else if (results.getResultCode() == Result.PRODUCT_ALREADY_ORDERED) {
 					assert (results.getResultCode() == Result.PRODUCT_ALREADY_ORDERED);
 				}
 				assert results.getMemberID().equals(Request.instance().getMemberID());
 				assert results.getProductID().equals(productIds[count]);
 				assert results.getProductName().equals(productsName[count]);
-				if(results.getTransactionTotalPrice() != null) {
+				if (results.getTransactionTotalPrice() != null) {
 					transactionTotalPrice = results.getTransactionTotalPrice();
 				}
-				if(count < 2) {
+				if (count < 2) {
 					count++;
 				}
 			}
@@ -183,18 +184,17 @@ public class AutomatedTester {
 		}
 	}
 
-
 	public void processShipmentTest() {
 		System.out.println("Testing process shipment ");
-		for(int count = 0; count < 3; count++) {
+		for (int count = 0; count < 3; count++) {
 			Request.instance().setProductID(productIds[count]);
-			Request.instance().setProductStock(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
+			Request.instance().setProductStock(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
 			Result result = GroceryStore.instance().processShipment(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
 			assert result.getProductPrice().equals(newPrices[count]);
-			//not sure about this one
+			// not sure about this one
 			assert result.getProductStock().equals(Request.instance().getProductStock());
 		}
 
@@ -221,14 +221,14 @@ public class AutomatedTester {
 
 	public void printTransactionsTest() {
 		Calendar startDate = Calendar.getInstance();
-		Calendar endDate = (Calendar)startDate.clone();
+		Calendar endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.DAY_OF_MONTH, 1);
 		Request.instance().setMemberID(memberIds[0]);
 		Request.instance().setStartDate(startDate);
 		Request.instance().setEndDate(endDate);
 		Iterator<Result> iterator = GroceryStore.instance().printTransactions(Request.instance());
 		System.out.println("Testing print Transaction");
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			assert result.getMemberID().equals(Request.instance().getMemberID());
 			assert result.getTransactionTotalPrice().equals(transactionTotalPrice);
@@ -275,13 +275,13 @@ public class AutomatedTester {
 		System.out.println("Testing outstanding order");
 		Iterator<Result> iterator = GroceryStore.instance().listOutstandingOrders();
 		int count = 0;
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductID().equals(productIds[count]);
-			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count])* 2));
-			if(count < 2) {
+			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
+			if (count < 2) {
 				count++;
 			}
 		}

@@ -5,6 +5,15 @@ import edu.ics372.gp1.entities.Order;
 import edu.ics372.gp1.entities.Product;
 import edu.ics372.gp1.entities.Transaction;
 
+/**
+ * The DataTransfer class is used to facilitate data transfer between
+ * GroceryStore and UserInterface. It is also used to support iterating over
+ * Entity objects. The class stores copies of fields that may be sent in either
+ * direction.
+ * 
+ * @author Joseph Jackels
+ *
+ */
 public class DataTransfer {
 	private String memberID;
 	private String memberName;
@@ -26,6 +35,9 @@ public class DataTransfer {
 
 	private String orderQuantity;
 
+	/**
+	 * Constructor sets all fields to "Invalid"
+	 */
 	public DataTransfer() {
 		reset();
 	}
@@ -158,6 +170,11 @@ public class DataTransfer {
 		this.orderQuantity = orderQuantity;
 	}
 
+	/**
+	 * Given a Member, set all relevant field to those of the Member object
+	 * 
+	 * @param member
+	 */
 	public void setMemberFields(Member member) {
 		memberID = member.getId();
 		memberName = member.getName();
@@ -167,6 +184,11 @@ public class DataTransfer {
 		memberFeePaid = member.getFeePaid();
 	}
 
+	/**
+	 * Given a product, set all relevant fields to those of the PRoduct Object
+	 * 
+	 * @param product
+	 */
 	public void setProductFields(Product product) {
 		productName = product.getName();
 		productID = product.getId();
@@ -175,18 +197,32 @@ public class DataTransfer {
 		productStock = Integer.toString(product.getStock());
 	}
 
+	/**
+	 * Given a transaction set all relevant fields to those of the transaction
+	 * Object
+	 * 
+	 * @param transaction
+	 */
 	public void setTransactionFields(Transaction transaction) {
 		memberID = transaction.getMemberID();
 		transactionDate = transaction.getDate().toString();
 		transactionTotalPrice = Double.toString(transaction.getTotalPrice());
 	}
 
+	/**
+	 * Given an Order, set all releveant fields to those of the ORder object
+	 * 
+	 * @param order
+	 */
 	public void setOrderFields(Order order) {
 		productID = order.getProduct().getId();
 		productName = order.getProduct().getName();
 		orderQuantity = Integer.toString(order.getQuantity());
 	}
 
+	/**
+	 * Reset all fields
+	 */
 	public void reset() {
 		memberID = "Invalid member ID";
 		memberName = "Invalid member name";

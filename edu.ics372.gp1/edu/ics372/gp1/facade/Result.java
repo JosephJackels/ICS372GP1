@@ -1,5 +1,17 @@
 package edu.ics372.gp1.facade;
 
+/**
+ * This class is used for returning many of the results of the GroceryStore
+ * system's business logic to user interface.
+ * 
+ * The Result object returns an int resultCode, plus values of selected fields
+ * of Book and Member. They are the book title, id, borrower id, due date,
+ * member name, member phone, and member id.
+ * 
+ * 
+ * @author Joseph Jackels
+ *
+ */
 public class Result extends DataTransfer {
 	public static final int OPERATION_COMPLETED = 0;
 	public static final int OPERATION_FAILED = 1;
