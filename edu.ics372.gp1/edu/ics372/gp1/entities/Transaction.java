@@ -27,6 +27,11 @@ public class Transaction implements Serializable {
 		this.memberID = memberID;
 		this.totalPrice = totalPrice;
 		this.date = Calendar.getInstance();
+		this.date.set(Calendar.HOUR, 0);
+		this.date.set(Calendar.HOUR_OF_DAY, 0);
+		this.date.set(Calendar.MINUTE, 0);
+		this.date.set(Calendar.SECOND, 0);
+		this.date.set(Calendar.MILLISECOND, 0);
 	}
 
 	public String getMemberID() {
@@ -64,4 +69,5 @@ public class Transaction implements Serializable {
 
 		return true;
 	}
+
 }

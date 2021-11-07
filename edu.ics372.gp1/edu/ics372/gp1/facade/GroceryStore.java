@@ -67,7 +67,7 @@ public class GroceryStore implements Serializable {
 	 * @param name    member name
 	 * @param address member address
 	 * @param phone   member phone
-	 * @return the Member object created
+	 * @return the result of Member object created
 	 */
 	public Result addMember(Request request) {
 		Result result = new Result();
@@ -75,73 +75,88 @@ public class GroceryStore implements Serializable {
 				request.getMemberFeePaid());
 		if (members.insertMember(member)) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
-		} else {
-			result.setResultCode(Result.OPERATION_FAILED);
+			result.setMemberFields(member);
+			return result;
 		}
-
-		result.setMemberFields(member);
-
+		
+		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
 
 	/**
 	 * Removes a specific member from the member list
 	 * 
-	 * @param request
-	 * @return a code representing the outcome
+	 * @param memberId
+	 * @return the result of removing a member
 	 */
 	public Result removeMember(Request request) {
 		Result result = new Result();
-		Member member = null;
-
-		// Attempt to remove member
-		result.setMemberID(request.getMemberID());
-		if (!members.isMember(request.getMemberID())) {
+		Member member = members.getMember(request.getMemberID());
+		if (member ==  null) {
 			result.setResultCode(Result.MEMBER_NOT_FOUND);
-		} else if ((member = members.removeMember(request.getMemberID())) != null) {
-			result.setResultCode(Result.OPERATION_COMPLETED);
+			return result;
+		}
+		
+		if (members.removeMember(request.getMemberID())) {
 			result.setMemberFields(member);
-		} else {
-			result.setResultCode(Result.OPERATION_FAILED);
+			result.setResultCode(Result.OPERATION_COMPLETED);
+			return result;
 		}
 
+		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
 
 	/**
 	 * Returns an iterator to all members with specific name
 	 * 
-	 * @param request
-	 * @return
+	 * @param Member name
+	 * @return iterator to the Result objects storing info about members
 	 */
 	public Iterator<Result> getMemberInfo(Request request) {
 		return new SafeMemberIterator(members.getMembersByName(request.getMemberName()));
 	}
 
-	public Result addProduct(Request request) {
+	/**
+	 * Organizes the operations for adding a product
+	 * 
 
+	 * @param name of product
+	 * @param product reorder level
+	 * @param product price
+	 * @return the result of Product object created
+	 */
+	public Result addProduct(Request request) {
 		Result result = new Result();
-		result.setProductName(request.getProductName());
+    
+		if(!products.nameAvailable(request.getProductName())) {
+			result.setProductName(request.getProductName());
+			result.setResultCode(Result.PRODUCT_NAME_INVALID);
+			return result;
+		}
+		
 		Product product = new Product(request.getProductName(), Integer.parseInt(request.getProductReorderLevel()), 0,
 				Double.parseDouble(request.getProductPrice()));
-		result.setProductFields(product);
 
-		// attempt to add product
-		// check if name is taken
-		if (!products.nameAvailable(request.getProductName())) {
-			result.setResultCode(Result.PRODUCT_NAME_INVALID);
-		} else if (products.insertProduct(product)) {
+		if (products.insertProduct(product)) {
 			Order order = new Order(product, product.getReorderLevel() * 2);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 			orders.addOrder(order);
 			result.setOrderFields(order);
-		} else {
-			result.setResultCode(Result.OPERATION_FAILED);
+			result.setProductFields(product);
+			return result;
 		}
-
+    
+		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param Member ID
+	 * @return  a new checkOutList
+	 */
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
 		// reset checkout list
@@ -183,10 +198,6 @@ public class GroceryStore implements Serializable {
 			product.setId(result.getProductID());
 			checkOutList.add(product);
 		}
-		// this product's stock field will be reused as quantity to checkout
-		// check that product exists in productList AND contains enough stock
-		// set result code (PRODUCT_NOT_FOUND, PRODUCT_OUT_OF_STOCK,
-		// OPERATION_COMPLETED)
 		return result;
 	}
 
@@ -205,12 +216,12 @@ public class GroceryStore implements Serializable {
 						if (orders.addOrder(new Order(product, product.getReorderLevel() * 2))) {
 							result.setResultCode(Result.PRODUCT_REORDERED);
 						} else {
-							// change to product already ordered?
-							// isnt technically a failure for the result because
-							// the transaction is still created and added?
-							result.setResultCode(Result.PRODUCT_ALREADY_ORDERED);
+							result.setResultCode(Result.OPERATION_FAILED);
 						}
+					} else {
+						result.setResultCode(Result.PRODUCT_ALREADY_ORDERED);
 					}
+
 				}
 				total += checkOutProduct.getStock() * checkOutProduct.getPrice();
 				result.setProductFields(checkOutProduct);
@@ -221,15 +232,6 @@ public class GroceryStore implements Serializable {
 			transactions.insertTransaction(transaction);
 			resultList.get(resultList.size() - 1).setTransactionFields(transaction);
 		}
-		// TODO
-		// actor has finished adding products to checkoutList X
-		// ensure list is not empty X
-		// create transaction and add to transaction list X
-		// check reorder level for each product checked out X
-		// if product is reordered make sure to set result code for that product result
-		// X
-		// to PRODUCT_REORDERED X
-		// else set result code based on success X
 		return resultList.iterator();
 	}
 
@@ -250,20 +252,33 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Organizes the operations for processing an incoming shipment
+	 *  
+	 * @param Product Id
+	 * @return the result of shipment processed
+	 */
 	public Result processShipment(Request request) {
 		Result result = new Result();
 		Product product = products.getProductById(request.getProductID());
-		Order order = orders.search(product.getId());
+		result.setProductID(request.getProductID());
+		result.setOrderQuantity(request.getProductStock());
+
+		Order order;
 		int quantity = Integer.parseInt(request.getProductStock());
-		if (product.equals(null)) {
+		if (product == null) {
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
 			return result;
-		} else if (order == null) {
-			result.setResultCode(Result.ORDER_NOT_FOUND);
-			return result;
-		} else if (quantity != order.getQuantity()) {
-			result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
-			return result;
+		} else {
+			order = orders.search(product.getId());
+			if (order == null) {
+				result.setResultCode(Result.ORDER_NOT_FOUND);
+				return result;
+			} else if (quantity != order.getQuantity()) {
+				result.setProductReorderLevel(Integer.toString(product.getReorderLevel()));
+				result.setResultCode(Result.INCORRECT_RECEIVED_QUANTITY);
+				return result;
+			}
 		}
 
 		product.addStock(order.getQuantity());
@@ -271,36 +286,26 @@ public class GroceryStore implements Serializable {
 		orders.removeOrder(product.getId());
 		result.setProductFields(product);
 
-		// TODO
-		// check that product id exists
-		// if nto set result code to PRODUCT_NOT_FOUND
-		// check if exists in orderList
-		// if not set result code to ORDER_NOT_FOUND
-		// check that quantity received matches order quantity
-		// if nto set result code to INCORRECT_RECIEVED_QUANTITY
-		// update product stock in productList
-		// set result code to OPERATION_COMPLETED
-		// set all product fields in result
-		// REMOVE FROM ORDER LIST
-
 		return result;
 	}
 
+	/**
+	 * Organizes the operations for changing the price of a given product
+	 *
+	 * @param Product ID
+	 * @return the result of changing the price
+	 */
 	public Result changePrice(Request request) {
 		Result result = new Result();
-		result.setProductID(request.getProductID());
-
-		// check that product id exists
 		Product product = products.getProductById(request.getProductID());
-		// if not set result code to PRODUCT_NOT_FOUND
 		if (product == null) {
+			result.setProductID(request.getProductID());
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
 			return result;
 		}
-		// update price in productList
-		// set result code to OPERATION_COMPLETED
-		// set all product fields in result
+		
 		product.setPrice(Double.parseDouble(request.getProductPrice()));
+		result.setProductName(product.getName());
 		result.setResultCode(Result.OPERATION_COMPLETED);
 		result.setProductFields(product);
 
@@ -309,9 +314,8 @@ public class GroceryStore implements Serializable {
 
 	public Iterator<Result> printTransactions(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
-		// TODO
-		// verify member id, if not found create a single result and
-		// set its result code to MEMBER_NOT_FOUND
+
+		// verify member exists
 		Member member = members.getMember(request.getMemberID());
 		if (member == null) {
 			Result result = new Result();
@@ -320,6 +324,7 @@ public class GroceryStore implements Serializable {
 			resultList.add(result);
 			return resultList.iterator();
 		}
+
 		// verify dates are valid options (start date occurs on or before end date)
 		// if not, create single result and set result code to INVALID_DATES
 		Calendar startDate = request.getStartDate();
@@ -356,6 +361,11 @@ public class GroceryStore implements Serializable {
 		return new SafeOrderIterator(orders.iterator());
 	}
 
+	/**
+	 * Serializes the Library object
+	 * 
+	 * @return true iff the data could be saved
+	 */
 	public static boolean save() {
 		try {
 			FileOutputStream file = new FileOutputStream("GroceryStoreData");
@@ -364,9 +374,6 @@ public class GroceryStore implements Serializable {
 			Member.save(output);
 			Order.save(output);
 			Product.save(output);
-			// Member.save(output);
-			// TODO
-			// save anything else???
 			output.close();
 			file.close();
 			return true;
@@ -376,6 +383,11 @@ public class GroceryStore implements Serializable {
 		}
 	}
 
+	/**
+	 * Retrieves a deserialized version of the library from disk
+	 * 
+	 * @return a Library object
+	 */
 	public static GroceryStore retrieve() {
 		try {
 			FileInputStream file = new FileInputStream("GroceryStoreData");
@@ -384,16 +396,10 @@ public class GroceryStore implements Serializable {
 			Member.retrieve(input);
 			Order.retrieve(input);
 			Product.retrieve(input);
-
-			// Member.retrieve(input);
-			// TODO
-			// retrieve anything that needs to be???
-
 			input.close();
 			file.close();
 			return groceryStore;
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();

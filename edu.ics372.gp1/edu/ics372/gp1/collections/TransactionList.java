@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.ics372.gp1.entities.Transaction;
+import edu.ics372.gp1.iterators.FilteredIterator;
 
 /**
  * Transaction list class, maintains a list of transactions.
@@ -67,14 +68,7 @@ public class TransactionList implements Serializable {
 	 * @return
 	 */
 	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar endDate) {
-		LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
-		Iterator<Transaction> iterator = transactions.iterator();
-		while (iterator.hasNext()) {
-			Transaction transaction = iterator.next();
-			if (transaction.checkTransaction(memberId, startDate, endDate)) {
-				transactionList.add(transaction);
-			}
-		}
-		return transactionList.iterator();
+		return new FilteredIterator<Transaction>(transactions.iterator(),
+				transaction -> transaction.checkTransaction(memberId, startDate, endDate));
 	}
 }

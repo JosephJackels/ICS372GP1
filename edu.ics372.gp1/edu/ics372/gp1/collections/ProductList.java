@@ -9,7 +9,8 @@ import edu.ics372.gp1.entities.Product;
 
 /**
  * Product list class, maintains list of products.
- * @author 
+ * 
+ * @author
  *
  */
 public class ProductList implements Serializable {
@@ -25,9 +26,9 @@ public class ProductList implements Serializable {
 	}
 
 	/**
-	 * Product list instance method, creates sole instance of 
-	 * product list.
-	 * @return
+	 * Product list instance method, creates sole instance of product list.
+	 * 
+	 * @return instance of productList
 	 */
 	public static ProductList getInstance() {
 		if (productList == null) {
@@ -38,7 +39,8 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Returns an iterator for the product list.
-	 * @return
+	 * 
+	 * @return iterator
 	 */
 	public Iterator<Product> getIterator() {
 		return products.iterator();
@@ -46,8 +48,9 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Adds the product to the list.
+	 * 
 	 * @param product
-	 * @return
+	 * @return boolean
 	 */
 	public boolean insertProduct(Product product) {
 		return products.add(product);
@@ -55,11 +58,12 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Check if a name is unused by any of the products.
+	 * 
 	 * @param name
-	 * @return
+	 * @return boolean
 	 */
 	public boolean nameAvailable(String name) {
-		Iterator<Product> iterator = getInstance().getIterator();
+		Iterator<Product> iterator = products.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
 			if (product.getName().equals(name)) {
@@ -71,14 +75,15 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Check if a product exists.
+	 * 
 	 * @param productId
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isProduct(String productId) {
-		Iterator<Product> iterator = getInstance().getIterator();
+		Iterator<Product> iterator = products.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
-			if (product.getId().equals(productId)) {
+			if (productId.equals(product.getId())) {
 				return true;
 			}
 		}
@@ -87,15 +92,16 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Check if a product's stock is sufficient.
+	 * 
 	 * @param productId
 	 * @param stock
-	 * @return
+	 * @return boolean
 	 */
 	public boolean hasStock(String productId, int stock) {
-		Iterator<Product> iterator = getInstance().getIterator();
+		Iterator<Product> iterator = products.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
-			if (product.getId().equals(productId)) {
+			if (productId.equals(product.getId())) {
 				return (product.getStock() >= stock);
 			}
 		}
@@ -104,14 +110,15 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Search the list of by product ID.
+	 * 
 	 * @param productId
-	 * @return
+	 * @return Product
 	 */
 	public Product getProductById(String productId) {
-		Iterator<Product> iterator = getInstance().getIterator();
+		Iterator<Product> iterator = products.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
-			if (product.getId().equals(productId)) {
+			if (productId.equals(product.getId())) {
 				return product;
 			}
 		}
@@ -120,14 +127,15 @@ public class ProductList implements Serializable {
 
 	/**
 	 * Search the list of products by a specific name.
+	 * 
 	 * @param productName
-	 * @return
+	 * @return Product
 	 */
 	public Product getProductByName(String productName) {
-		Iterator<Product> iterator = getInstance().getIterator();
+		Iterator<Product> iterator = products.iterator();
 		while (iterator.hasNext()) {
 			Product product = iterator.next();
-			if (product.getName().equals(productName)) {
+			if (productName.equals(product.getName())) {
 				return product;
 			}
 		}

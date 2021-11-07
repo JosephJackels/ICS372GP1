@@ -16,6 +16,14 @@ import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
 import edu.ics372.gp1.facade.Result;
 
+/**
+ * 
+ * This class implements the user interface for the GroceryStore project. The
+ * commands are encoded as integers using a number of static final variables. A
+ * number of utility methods exist to make it easier to parse the input.
+ *
+ * @author Joseph Jackels
+ */
 public class UserInterface {
 	private static UserInterface userInterface;
 	private static GroceryStore groceryStore;
@@ -36,17 +44,24 @@ public class UserInterface {
 	private static final int LIST_ALL_PRODUCTS = 11;
 	private static final int LIST_OUTSTANDING_ORDERS = 12;
 	private static final int SAVE = 13;
-	// private static final int RETRIEVE = 14;
 	private static final int HELP = 15;
 
+	/**
+	 * Decide whether to load groceryStore from saved file or create new instance
+	 */
 	private UserInterface() {
-		if (yesOrNo("Looke for saved data and use it?")) {
+		if (yesOrNo("Look for saved data and use it?")) {
 			retrieve();
 		} else {
 			groceryStore = GroceryStore.instance();
 		}
 	}
 
+	/**
+	 * Fetches singleton instance for UserInterace
+	 * 
+	 * @return singleton instance of UserIterface
+	 */
 	public static UserInterface instance() {
 		if (userInterface == null) {
 			userInterface = new UserInterface();
@@ -54,6 +69,13 @@ public class UserInterface {
 		return userInterface;
 	}
 
+	/**
+	 * Prints prompt to ask user and parse input for yes/no response, returning
+	 * boolean value
+	 * 
+	 * @param prompt
+	 * @return boolean set to whether a 'yes'-like value was entered
+	 */
 	private boolean yesOrNo(String prompt) {
 		String more = getToken(prompt + " (Y|y)[es] or anything else for no");
 		if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
@@ -62,6 +84,13 @@ public class UserInterface {
 		return true;
 	}
 
+	/**
+	 * Gets a token after prompting
+	 * 
+	 * @param prompt - whatever the user wants as prompt
+	 * @return - the token from the keyboard
+	 * 
+	 */
 	public String getToken(String prompt) {
 		do {
 			try {
@@ -77,11 +106,18 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Gets a name after prompting
+	 * 
+	 * @param prompt - whatever the user wants as prompt
+	 * @return - the name from the keyboard
+	 * 
+	 */
 	public String getName(String prompt) {
 		do {
 			try {
 				System.out.println(prompt);
-				String line = reader.readLine();
+				String line = reader.readLine().trim();
 				return line;
 			} catch (IOException ioe) {
 				System.exit(0);
@@ -90,6 +126,13 @@ public class UserInterface {
 
 	}
 
+	/**
+	 * Converts the string to a number
+	 * 
+	 * @param prompt the string for prompting
+	 * @return the integer corresponding to the string
+	 * 
+	 */
 	public int getNumber(String prompt) {
 		do {
 			try {
@@ -102,6 +145,13 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Converts the string to a Double
+	 * 
+	 * @param prompt the string for prompting
+	 * @return the Double corresponding to the string
+	 * 
+	 */
 	public double getDouble(String prompt) {
 		do {
 			try {
@@ -114,6 +164,12 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Prompts for a date and gets a date object
+	 * 
+	 * @param prompt the prompt
+	 * @return the data as a Calendar object
+	 */
 	public Calendar getDate(String prompt) {
 		do {
 			try {
@@ -128,6 +184,12 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Prompts for a command from the keyboard
+	 * 
+	 * @return a valid command
+	 * 
+	 */
 	public int getCommand() {
 		do {
 			try {
@@ -141,6 +203,10 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Displays the help screen
+	 * 
+	 */
 	public void help() {
 		System.out.println("Enter a number between 0 and 15 as explained below:");
 		System.out.println(EXIT + " to Exit\n");
@@ -160,6 +226,11 @@ public class UserInterface {
 		System.out.println(HELP + " for help");
 	}
 
+	/**
+	 * Orchestrates the whole process. Calls the appropriate method for the
+	 * different functionalities.
+	 * 
+	 */
 	public void process() {
 		int command;
 		help();
@@ -215,6 +286,11 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method to be called for adding a member. Prompts the user for the appropriate
+	 * values and uses the appropriate GroceryStore method for adding the member.
+	 * 
+	 */
 	public void addMember() {
 		Request.instance().setMemberName(getName("Enter a name"));
 		Request.instance().setMemberAddress(getName("Enter an address"));
@@ -226,13 +302,17 @@ public class UserInterface {
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Member could not be added");
 		} else {
-			System.out
-					.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
+			System.out.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
 		}
 	}
 
+	/**
+	 * Method to be called for removing a member. Prompts the user for the member id
+	 * and uses the appropriate GroceryStore method for removing the member.
+	 * 
+	 */
 	public void removeMember() {
-		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member to remove")));
+		Request.instance().setMemberID(getName("Enter ID of member to remove"));
 
 		Result result = groceryStore.removeMember(Request.instance());
 
@@ -243,10 +323,19 @@ public class UserInterface {
 		case Result.MEMBER_NOT_FOUND:
 			System.out.println("Member " + Request.instance().getMemberID() + " not found.");
 			break;
-		// add other cases for other error codes?
+		case Result.OPERATION_FAILED:
+			System.out.printf("Member: %s could not be removed\n", result.getMemberID());
+			break;
+		default:
+			System.out.println("An error has occurred");
 		}
 	}
 
+	/**
+	 * Method to be called for getting information on member(s). Prompts the user
+	 * for a name to search for and uses the appropriate GroceryStore method to
+	 * retrieve information on any members with that name.
+	 */
 	public void getMemberInfo() {
 		Request.instance().setMemberName((getName("Enter name of member to get information on")));
 
@@ -261,6 +350,11 @@ public class UserInterface {
 		System.out.println("\nEnd of list of searched members.\n");
 	}
 
+	/**
+	 * Method to be used for adding a new product. Prompts the user for all
+	 * appropriate values and uses the appropriate GroceryStore method for adding a
+	 * new product.
+	 */
 	public void addProduct() {
 		Request.instance().setProductName(getName("Enter name of product"));
 		Request.instance().setProductPrice(Double.toString(getDouble("Enter price of product e.x. 10.99")));
@@ -283,6 +377,11 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for completing the checkout process. Prompts the user for the meber's
+	 * id and product ids and quantities for items being purchased and uses the
+	 * appropriate GroceryStore methods to orchestrate the process.
+	 */
 	public void checkoutMember() {
 		String memberID = getName("Enter ID of member to checkout.");
 		// create new checkout
@@ -346,6 +445,10 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for getting information of Product. Prompts the user for the product
+	 * name and calls the appropriate GroceryStore method.
+	 */
 	public void getProductInfo() {
 		Request.instance().setProductName(getName("Enter a product name."));
 		Result result = groceryStore.getProductInfo(Request.instance());
@@ -360,9 +463,12 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for processing an Order. Prompts the User for appropriate values and
+	 * calls the appropriate GroceryStore method.
+	 */
 	public void processShipment() {
-		boolean continuing = true;
-		while (continuing) {
+		do {
 			Request.instance().setProductID(Integer.toString(getNumber("Enter product ID for shipment")));
 			Request.instance().setProductStock(Integer.toString(getNumber("Enter quantity recieved.")));
 			Result result = groceryStore.processShipment(Request.instance());
@@ -376,35 +482,42 @@ public class UserInterface {
 				break;
 			case Result.INCORRECT_RECEIVED_QUANTITY:
 				System.out.println("The recieved shipment for Product: " + result.getProductID() + " of quantity: "
-						+ Request.instance().getProductStock() + " is not the correct amount ordered, which should be: "
-						+ result.getProductStock() + " the shipment is refused.");
+						+ Request.instance().getProductStock() + " is not the correct amount ordered, which should be "
+						+ (Integer.parseInt(result.getProductReorderLevel()) * 2) + ". The shipment is refused.");
 				break;
 			case Result.OPERATION_COMPLETED:
 				System.out.println("Product ID: " + result.getProductID() + " Product name: " + result.getProductName()
 						+ "recieved shipment. New product stock: " + result.getProductStock());
 				break;
 			}
-			continuing = yesOrNo("Process another shipment?");
-		}
+		} while(yesOrNo("Process another shipment?"));
 	}
 
+	/**
+	 * Method for changing the price of a Product, prompts the user for appropriate
+	 * values and calls the appropriate GroceryStore method.
+	 */
 	public void changePrice() {
-		Request.instance().setProductName(getName("Enter name of product to update price."));
+		Request.instance().setProductID(Integer.toString(getNumber("Enter product ID")));
 		Request.instance().setProductPrice(Double.toString(getDouble("Enter new price e.x. 10.99")));
 		Result result = groceryStore.changePrice(Request.instance());
 		switch (result.getResultCode()) {
 		case Result.PRODUCT_NOT_FOUND:
-			System.out.println("Product with ID: " + result.getProductID() + " not found.");
+			System.out.println("Product ID: " + result.getProductID() + " not found.");
 			break;
 		case Result.OPERATION_COMPLETED:
-			System.out
-					.println("Product: " + result.getProductName() + " price changed to: $" + result.getProductPrice());
+			System.out.printf("Product: %s\nNew Price: $%s\n", result.getProductName(), result.getProductPrice());
 			break;
 		}
 	}
 
+	/**
+	 * Method for getting information of past transactions for a member. Prompts the
+	 * user for appropriate information and calls the appropriate GroceryStore
+	 * method.
+	 */
 	public void printTransactions() {
-		Request.instance().setMemberID(Integer.toString(getNumber("Enter ID of member")));
+		Request.instance().setMemberID(getName("Enter ID of member"));
 		Request.instance().setStartDate(getDate("Enter start date"));
 		Request.instance().setEndDate(getDate("Enter end date"));
 		Iterator<Result> resultList = groceryStore.printTransactions(Request.instance());
@@ -427,6 +540,9 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for listing all members. Calls the appropriate GroceryStore method.
+	 */
 	public void listAllMembers() {
 		Iterator<Result> resultList = groceryStore.listAllMembers();
 		while (resultList.hasNext()) {
@@ -436,6 +552,9 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for listing all products. Calls the appropriate GroceryStore method.
+	 */
 	public void listAllProducts() {
 		Iterator<Result> resultList = groceryStore.listAllProducts();
 		while (resultList.hasNext()) {
@@ -445,15 +564,23 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for listing all pending orders. Calls the appropriate GroceryStore
+	 * method.
+	 */
 	public void listOutstandingOrders() {
 		Iterator<Result> resultList = groceryStore.listOutstandingOrders();
 		while (resultList.hasNext()) {
 			Result result = resultList.next();
 			System.out.println("Name: " + result.getProductName() + " ID: " + result.getProductID()
-					+ " Amount Ordered: " + result.getProductStock());
+					+ " Amount Ordered: " + result.getOrderQuantity());
 		}
 	}
 
+	/**
+	 * Method to be called for saving the GroceryStore object. Calls the appropriate
+	 * GroceryStore method for saving.
+	 */
 	public void save() {
 		if (groceryStore.save()) {
 			System.out.println(" The groceryStore has been successfully saved in the file GroceryStoreData \n");
@@ -462,6 +589,10 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method to be called for retrieving saved date. Calls the appropriate
+	 * GroceryStore method for retrieving data.
+	 */
 	public void retrieve() {
 		try {
 			if (groceryStore == null) {
@@ -479,6 +610,9 @@ public class UserInterface {
 		}
 	}
 
+	/**
+	 * Method for when an unknown command is entered by the user.
+	 */
 	public void unkownCommand() {
 		System.out.println("Unkown command");
 		help();

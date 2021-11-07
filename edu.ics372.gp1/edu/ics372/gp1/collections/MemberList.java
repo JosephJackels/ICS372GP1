@@ -9,7 +9,7 @@ import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.iterators.FilteredIterator;
 
 /**
- * Memberlist class is use maintain a list of member
+ * MemberList class is use maintain a list of Member objects
  * 
  * @author Andy
  *
@@ -27,7 +27,7 @@ public class MemberList implements Serializable {
 	}
 
 	/**
-	 * create an object if it hasnt created yet.
+	 * create an object if it hasn't created yet.
 	 * 
 	 * @return memberList
 	 */
@@ -79,35 +79,33 @@ public class MemberList implements Serializable {
 	 * @return Iterator<Member> to the list of Members that have the given name
 	 */
 	public Iterator<Member> getMembersByName(String memberName) {
+
 		return new FilteredIterator<Member>(members.iterator(), member -> member.getName().equals(memberName));
-//		Iterator<Member> iterator = members.listIterator();
-//		LinkedList<Member> membersByName = new LinkedList<Member>();
-//		while (iterator.hasNext()) {
-//			Member member = iterator.next();
-//			if (member.getName().equals(memberName)) {
-//				membersByName.add(member);
-//			}
-//		}
-//		return membersByName.iterator();
 	}
 
 	/**
-	 * remove member from the list given their ID
+	 * Removes a member from the memberList
 	 * 
 	 * @param memberId
-	 * @return true if successful, false if not
+	 * @return true if member could be removed
 	 */
-	public Member removeMember(String memberId) {
-		Iterator<Member> iterator = members.listIterator();
-		Member member = null;
-		while (iterator.hasNext()) {
-			member = iterator.next();
-			if (memberId.equals(member.getId())) {
-				iterator.remove();
-				return member;
-			}
+	public boolean removeMember(String memberId) {
+		Member member = getMember(memberId);
+		if (member == null) {
+			return false;
+		} else {
+			return members.remove(member);
 		}
-		return member;
+//		Iterator<Member> iterator = members.listIterator();
+//		Member member = null;
+//		while (iterator.hasNext()) {
+//			member = iterator.next();
+//			if (memberId.equals(member.getId())) {
+//				iterator.remove();
+//				return member;
+//			}
+//		}
+//		return member;
 	}
 
 	/**

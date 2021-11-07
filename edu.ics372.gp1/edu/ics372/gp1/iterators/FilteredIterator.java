@@ -12,11 +12,11 @@ import java.util.function.Predicate;
  *
  * @param <T> the type of the item to be traversed
  */
-public class FilteredIterator<T> implements Iterator<T>{
+public class FilteredIterator<T> implements Iterator<T> {
 	private T item;
 	private Predicate<T> predicate;
 	private Iterator<T> iterator;
-	
+
 	/**
 	 * Sets the iterator and predicate fields and positions to the first item that
 	 * satisfies the predicate.
@@ -44,8 +44,8 @@ public class FilteredIterator<T> implements Iterator<T>{
 		getNextItem();
 		return returnValue;
 	}
-	
-	/*
+
+	/**
 	 * This method searches for the next item that satisfies the predicate. If none
 	 * is found, the item field is set to null.
 	 */

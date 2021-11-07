@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * Comments here
+ * 
  * @author dilli
  *
  */
@@ -18,14 +19,14 @@ public class Product implements Serializable {
 	private int stock;
 	private double price;
 	private static int idCounter = 0;
-	
+
 	public Product(String name, int reorderLevel, int stock, double price) {
 		this.name = name;
 		this.reorderLevel = reorderLevel;
 		this.stock = stock;
 		this.price = price;
-		this.id= String.valueOf(idCounter);
 		idCounter++;
+		this.id = String.valueOf(idCounter);
 	}
 
 	public String getName() {
@@ -67,11 +68,11 @@ public class Product implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public void addStock(int quantity) {
 		this.stock += quantity;
 	}
-	
+
 	/**
 	 * Serializes the static idCounter field
 	 * 
