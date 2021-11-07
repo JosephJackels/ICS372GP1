@@ -67,7 +67,7 @@ public class GroceryStore implements Serializable {
 	 * @param name    member name
 	 * @param address member address
 	 * @param phone   member phone
-	 * @return the Member object created
+	 * @return the result of Member object created
 	 */
 	public Result addMember(Request request) {
 		Result result = new Result();
@@ -87,7 +87,7 @@ public class GroceryStore implements Serializable {
 	 * Removes a specific member from the member list
 	 * 
 	 * @param memberId
-	 * @return a code representing the outcome
+	 * @return the result of removing a member
 	 */
 	public Result removeMember(Request request) {
 		Result result = new Result();
@@ -124,7 +124,7 @@ public class GroceryStore implements Serializable {
 	 * @param name of product
 	 * @param product reorder level
 	 * @param product price
-	 * @return the Product object created
+	 * @return the result of Product object created
 	 */
 	public Result addProduct(Request request) {
 		Result result = new Result();
@@ -253,11 +253,10 @@ public class GroceryStore implements Serializable {
 	}
 
 	/**
-	 * Process incoming shipment by updating product stock and removing fulfilled 
-	 * orders from the orderList
+	 * Organizes the operations for processing an incoming shipment
 	 *  
 	 * @param Product Id
-	 * @return shipment processed
+	 * @return the result of shipment processed
 	 */
 	public Result processShipment(Request request) {
 		Result result = new Result();
@@ -290,18 +289,23 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Organizes the operations for changing the price of a given product
+	 *
+	 * @param Product ID
+	 * @return the result of changing the price
+	 */
 	public Result changePrice(Request request) {
 		Result result = new Result();
-		result.setProductID(request.getProductID());
-
-		// check that product id exists
 		Product product = products.getProductById(request.getProductID());
 		if (product == null) {
+			result.setProductID(request.getProductID());
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
 			return result;
 		}
-		// update price in productList
+		
 		product.setPrice(Double.parseDouble(request.getProductPrice()));
+		result.setProductName(product.getName());
 		result.setResultCode(Result.OPERATION_COMPLETED);
 		result.setProductFields(product);
 
@@ -396,7 +400,6 @@ public class GroceryStore implements Serializable {
 			file.close();
 			return groceryStore;
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();
