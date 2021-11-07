@@ -302,8 +302,7 @@ public class UserInterface {
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Member could not be added");
 		} else {
-			System.out
-					.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
+			System.out.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
 		}
 	}
 
@@ -499,16 +498,15 @@ public class UserInterface {
 	 * values and calls the appropriate GroceryStore method.
 	 */
 	public void changePrice() {
-		Request.instance().setProductName(getName("Enter name of product to update price."));
+		Request.instance().setProductID(Integer.toString(getNumber("Enter product ID")));
 		Request.instance().setProductPrice(Double.toString(getDouble("Enter new price e.x. 10.99")));
 		Result result = groceryStore.changePrice(Request.instance());
 		switch (result.getResultCode()) {
 		case Result.PRODUCT_NOT_FOUND:
-			System.out.println("Product with ID: " + result.getProductID() + " not found.");
+			System.out.println("Product ID: " + result.getProductID() + " not found.");
 			break;
 		case Result.OPERATION_COMPLETED:
-			System.out
-					.println("Product: " + result.getProductName() + " price changed to: $" + result.getProductPrice());
+			System.out.printf("Product: %s\nNew Price: $%s\n", result.getProductName(), result.getProductPrice());
 			break;
 		}
 	}
