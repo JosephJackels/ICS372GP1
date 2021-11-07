@@ -152,17 +152,15 @@ public class GroceryStore implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Organizes the operations for verifying and creating a new checkout list
 	 * 
 	 * @param Member ID
-	 * @return  a new checkOutList
+	 * @return the result of creating a new checkOutList
 	 */
 	public Result createNewCheckout(Request request) {
 		Result result = new Result();
-		// reset checkout list
 		checkOutList = new LinkedList<Product>();
 
-		// verify member exists
 		result.setMemberID(request.getMemberID());
 		if (members.isMember(request.getMemberID())) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
@@ -172,7 +170,14 @@ public class GroceryStore implements Serializable {
 
 		return result;
 	}
-
+	
+	
+	/**
+	 * Organizes the operations for adding a single product to the checkout list.
+	 * 
+	 * @param Product ID
+	 * @return the result of adding a product
+	 */
 	public Result addProductToCheckout(Request request) {
 		Result result = new Result();
 		// add a single product to groceryStores checkoutList object
@@ -201,6 +206,13 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Organizes the operations for completing the checkout. 
+	 * The total is computed, products are reordered, and transaction is recorded.
+	 *  
+	 * @param Member Id
+	 * @return list of processed products
+	 */
 	public Iterator<Result> completeCheckout(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
 		double total = 0;
@@ -235,12 +247,14 @@ public class GroceryStore implements Serializable {
 		return resultList.iterator();
 	}
 
+	/**
+	 * Organizes the operations to search for a product by name
+	 * @param Product name
+	 * @return product
+	 */
 	public Result getProductInfo(Request request) {
 		Result result = new Result();
 
-		// search for product by name
-		// if not found set resultCode to PRODUCT_NOT_FOUND
-		// else set product fields in result and set result code to OPERATION_COMPLETED
 		Product product = products.getProductByName(request.getProductName());
 		if (product == null) {
 			result.setResultCode(Result.PRODUCT_NOT_FOUND);
@@ -312,6 +326,12 @@ public class GroceryStore implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Organizes the operations to print the transactions of a member between two dates.
+	 *  
+	 * @param member is, start date, end date
+	 * @return list of transactions
+	 */
 	public Iterator<Result> printTransactions(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
 
@@ -340,24 +360,37 @@ public class GroceryStore implements Serializable {
 		// set all relevant fields, and set result code to OPERATION_COMPLETED
 		return new SafeTransactionIterator(transactions.getTransactions(request.getMemberID(), startDate, endDate));
 	}
-
+	
+	/**
+	 * Returns an iterator to Member info. The Iterator returned is a safe one, in
+	 * the sense that only copies of the Member fields are assembled into the
+	 * objects returned via next().
+	 * 
+	 * @return an Iterator to Result - only the Member fields are valid.
+	 */
 	public Iterator<Result> listAllMembers() {
-		// create a list of results corresponding
-		// to each entry in memberList
-
 		return new SafeMemberIterator(members.getMembers());
 	}
 
+	/**
+	 * Returns an iterator to Product info. The Iterator returned is a safe one, in
+	 * the sense that only copies of the Member fields are assembled into the
+	 * objects returned via next().
+	 * 
+	 * @return an Iterator to Result - only the Product fields are valid.
+	 */
 	public Iterator<Result> listAllProducts() {
-		// create a list of results corresponding to each entry in products
-
 		return new SafeProductIterator(products.getIterator());
 	}
 
+	/**
+	 * Returns an iterator to Order info. The Iterator returned is a safe one, in
+	 * the sense that only copies of the Member fields are assembled into the
+	 * objects returned via next().
+	 * 
+	 * @return an Iterator to Result - only the Order fields are valid.
+	 */
 	public Iterator<Result> listOutstandingOrders() {
-		// create a list of results corresponding
-		// to each entry in orders
-
 		return new SafeOrderIterator(orders.iterator());
 	}
 
