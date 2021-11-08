@@ -141,4 +141,12 @@ public class ProductList implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * This prints the list of products.
+	 */
+	@Override
+	public String toString() {
+		return products.toString();
+	}
 }
