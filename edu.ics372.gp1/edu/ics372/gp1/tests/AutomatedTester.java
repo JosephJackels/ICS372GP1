@@ -71,8 +71,6 @@ public class AutomatedTester {
 			assert result.getMemberAddress().equals(addresses[count]);
 			assert result.getMemberPhoneNumber().equals(phones[count]);
 			assert result.getMemberFeePaid().equals(Double.toString(fees[count]));
-
-			// save created ID for future tests
 			memberIds[count] = result.getMemberID();
 		}
 	}
@@ -144,7 +142,6 @@ public class AutomatedTester {
 				assert checkOutResult.getProductID().equals(productIds[count]);
 				assert checkOutResult.getProductName().equals(productsName[count]);
 				assert checkOutResult.getProductStock().equals(Request.instance().getProductStock());
-
 			}
 			count = 0;
 			Iterator<Result> iterator = GroceryStore.instance().completeCheckout(Request.instance());
@@ -163,9 +160,7 @@ public class AutomatedTester {
 				if (results.getTransactionTotalPrice() != null) {
 					transactionTotalPrice = results.getTransactionTotalPrice();
 				}
-				if (count < 2) {
-					count++;
-				}
+				count++;
 			}
 		}
 	}
@@ -214,7 +209,6 @@ public class AutomatedTester {
 			Request.instance().setProductID(productIds[count]);
 			Request.instance().setProductPrice(newPrices[count]);
 			Result result = GroceryStore.instance().changePrice(Request.instance());
-
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductReorderLevel().equals(reorderLevel[count]);
@@ -289,9 +283,7 @@ public class AutomatedTester {
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductID().equals(productIds[count]);
 			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
-			if (count < 2) {
-				count++;
-			}
+			count++;
 		}
 	}
 
