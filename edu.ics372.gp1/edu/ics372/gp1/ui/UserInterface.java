@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
 import edu.ics372.gp1.facade.Result;
+import edu.ics372.gp1.tests.AutomatedTester;
 
 /**
  * 
@@ -54,6 +55,8 @@ public class UserInterface {
 			retrieve();
 		} else {
 			groceryStore = GroceryStore.instance();
+			System.out.println("Generating test bed for GroceryStore and testing.");
+			generateTestBed();
 		}
 	}
 
@@ -302,7 +305,8 @@ public class UserInterface {
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Member could not be added");
 		} else {
-			System.out.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
+			System.out
+					.println("Member: " + result.getMemberName() + " with ID: " + result.getMemberID() + " was added.");
 		}
 	}
 
@@ -490,7 +494,7 @@ public class UserInterface {
 						+ "recieved shipment. New product stock: " + result.getProductStock());
 				break;
 			}
-		} while(yesOrNo("Process another shipment?"));
+		} while (yesOrNo("Process another shipment?"));
 	}
 
 	/**
@@ -616,6 +620,14 @@ public class UserInterface {
 	public void unkownCommand() {
 		System.out.println("Unkown command");
 		help();
+	}
+
+	/**
+	 * Uses AutomatedTester class to generate a test bed And run a multitude of
+	 * tests to ensure proper functionality
+	 */
+	public void generateTestBed() {
+		new AutomatedTester().testAll();
 	}
 
 	public static void main(String[] args) {

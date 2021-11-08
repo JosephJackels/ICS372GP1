@@ -3,7 +3,6 @@ package edu.ics372.gp1.tests;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import edu.ics372.gp1.entities.Member;
 import edu.ics372.gp1.facade.GroceryStore;
 import edu.ics372.gp1.facade.Request;
 import edu.ics372.gp1.facade.Result;
@@ -17,17 +16,23 @@ import edu.ics372.gp1.facade.Result;
  */
 public class AutomatedTester {
 	private GroceryStore groceryStore;
-	private String[] names = { "n1", "n2", "n3" };
-	private String[] addresses = { "a1", "a2", "a3" };
-	private String[] phones = { "p1", "p2", "p3" };
-	private double[] fees = { 1.0, 2.0, 3.0 };
-	private Member[] members = new Member[3];
-	private String[] memberIds = { "", "", "" };
-	private String[] productIds = { "", "", "" };
-	private String[] productsName = { "Apple", "Pear", "Orange" };
-	private String[] price = { "1.5", "2.5", "3.5" };
-	private String[] newPrices = { "5.2", "1.0", "6.7" };
-	private String[] reorderLevel = { "10", "11", "12" };
+	private String[] names = { "n1", "n2", "n3", "n4", "n5" };
+	private String[] addresses = { "a1", "a2", "a3", "a4", "a5" };
+	private String[] phones = { "p1", "p2", "p3", "p4", "p5" };
+	private double[] fees = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+	// private Member[] members = new Member[5];
+	private String[] memberIds = { "", "", "", "", "" };
+
+	private String[] productIds = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+	private String[] productsName = { "Apple", "Pear", "Orange", "Banana", "Kiwi", "Cheese", "Pie", "Soda", "Bacon",
+			"Milk", "Bread", "Ham", "Juice", "Eggs", "Chicken", "Tomatoes", "Grapes", "Melon", "Pizza", "Fries" };
+	private String[] price = { "1.55", "2.52", "3.57", "10.01", "1.01", "4.31", "1.81", "9.95", "17.77", "1.05", "6.25",
+			"7.25", "8.45", "3.31", "1.35", "9.99", "10.05", "5.52", "7.75", "5.53" };
+	private String[] newPrices = { "5.24", "1.02", "6.74", "10.01", "19.52", "9.99", "6.45", "2.59", "3.29", "7.79",
+			"5.59", "7.64", "4.43", "3.25", "9.99", "8.51", "7.54", "8.83", "6.65", "1.05" };
+	private String[] reorderLevel = { "10", "11", "12", "3", "100", "50", "5", "17", "150", "42", "99", "183", "41",
+			"7", "40", "15", "55", "75", "30", "19" };
+
 	private String transactionTotalPrice;
 
 	public void testAll() {
@@ -60,7 +65,7 @@ public class AutomatedTester {
 	 */
 	public void addMembersTest() {
 		System.out.println("Testing add members");
-		for (int count = 0; count < members.length; count++) {
+		for (int count = 0; count < memberIds.length; count++) {
 			Request.instance().setMemberAddress(addresses[count]);
 			Request.instance().setMemberName(names[count]);
 			Request.instance().setMemberPhoneNumber(phones[count]);
@@ -82,7 +87,7 @@ public class AutomatedTester {
 	 */
 	public void removeMembersTest() {
 		System.out.println("Testing remove member");
-		for (int count = 0; count < members.length; count++) {
+		for (int count = 0; count < 1; count++) {
 			Request.instance().setMemberID(memberIds[count]);
 			Result result = GroceryStore.instance().removeMember(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
@@ -98,7 +103,7 @@ public class AutomatedTester {
 	 */
 	public void getMemberInfoTest() {
 		System.out.println("Testing get member(s) by name");
-		for (int count = 0; count < members.length; count++) {
+		for (int count = 0; count < memberIds.length; count++) {
 			Request.instance().setMemberName(names[count]);
 			Iterator<Result> results = GroceryStore.instance().getMemberInfo(Request.instance());
 			while (results.hasNext()) {
@@ -119,7 +124,7 @@ public class AutomatedTester {
 		 * can do processShipment and outstanding order test.
 		 */
 		System.out.println("Testing add Product");
-		for (int count = 0; count < 3; count++) {
+		for (int count = 0; count < productIds.length; count++) {
 			Request.instance().setProductName(productsName[count]);
 			Request.instance().setProductReorderLevel(reorderLevel[count]);
 			Request.instance().setProductPrice(price[count]);
@@ -184,7 +189,7 @@ public class AutomatedTester {
 	 */
 	public void getProductInfoTest() {
 		System.out.println("Testing get Product info");
-		for (int count = 0; count < 3; count++) {
+		for (int count = 0; count < productIds.length; count++) {
 			Request.instance().setProductName(productsName[count]);
 			Result result = GroceryStore.instance().getProductInfo(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
@@ -201,7 +206,7 @@ public class AutomatedTester {
 	 */
 	public void processShipmentTest() {
 		System.out.println("Testing process shipment ");
-		for (int count = 0; count < 3; count++) {
+		for (int count = 0; count < productIds.length; count++) {
 			Request.instance().setProductID(productIds[count]);
 			Request.instance().setProductStock(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
 			Result result = GroceryStore.instance().processShipment(Request.instance());
@@ -220,7 +225,7 @@ public class AutomatedTester {
 	 */
 	public void changePriceTest() {
 		System.out.println("Testing changing product prices");
-		for (int count = 0; count < 3; count++) {
+		for (int count = 0; count < productIds.length; count++) {
 			Request.instance().setProductID(productIds[count]);
 			Request.instance().setProductPrice(newPrices[count]);
 			Result result = GroceryStore.instance().changePrice(Request.instance());
@@ -299,7 +304,7 @@ public class AutomatedTester {
 			assert result.getProductName().equals(productsName[count]);
 			assert result.getProductID().equals(productIds[count]);
 			assert result.getOrderQuantity().equals(Integer.toString(Integer.parseInt(reorderLevel[count]) * 2));
-			if (count < 2) {
+			if (count < productIds.length) {
 				count++;
 			}
 		}
