@@ -29,66 +29,34 @@ public class Order {
 		idCounter++;
 	}
 
-	/**
-	 * @return Product in order.
-	 */
 	public Product getProduct() {
 		return product;
 	}
 
-	/**
-	 * Sets product for order.
-	 * 
-	 * @param product
-	 */
 	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	/**
-	 * @return quantity of product.
-	 */
 	public int getQuantity() {
 		return quantity;
 	}
 
-	/**
-	 * Sets quantity in order.
-	 * 
-	 * @param quantity
-	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	/**
-	 * @return Order ID.
-	 */
 	public String getOrderID() {
 		return orderID;
 	}
 
-	/**
-	 * @return Product ID.
-	 */
 	public String getProductID() {
 		return productID;
 	}
 
-	/**
-	 * Sets product ID.
-	 * 
-	 * @param productID
-	 */
 	public void setProductID(String productID) {
 		this.productID = productID;
 	}
 
-	/**
-	 * Sets order ID.
-	 * 
-	 * @param orderID
-	 */
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
