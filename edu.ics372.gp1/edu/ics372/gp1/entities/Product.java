@@ -6,9 +6,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * Comments here
+ * This class represents the product the grocery store carries. Each product has
+ * a unique name and id, and is associated with minimum reorder level. Product
+ * is ordered when it reduces to minimum reorder level.
  * 
- * @author dilli
+ * @author Dilli
  *
  */
 public class Product implements Serializable {
@@ -20,6 +22,14 @@ public class Product implements Serializable {
 	private double price;
 	private static int idCounter = 0;
 
+	/**
+	 * This constructs the product object and initializes its id
+	 * 
+	 * @param name         - name of the product
+	 * @param reorderLevel - minimum reorder level
+	 * @param stock        - number of products in the stock
+	 * @param price        - unit price of the product
+	 */
 	public Product(String name, int reorderLevel, int stock, double price) {
 		this.name = name;
 		this.reorderLevel = reorderLevel;
@@ -74,7 +84,7 @@ public class Product implements Serializable {
 	}
 
 	/**
-	 * Serializes the static idCounter field
+	 * Serializes the static idCounter field of the product object
 	 * 
 	 * @param output
 	 * @throws IOException
@@ -90,5 +100,15 @@ public class Product implements Serializable {
 	 */
 	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
 		idCounter = (int) input.readObject();
+	}
+
+	/**
+	 * This method constructs and prints the string representation of the product
+	 * object.
+	 */
+	@Override
+	public String toString() {
+		return "Product ID: " + this.id + "\nProduct Name: " + this.name + "\nPrice: " + this.price
+				+ "\nStock Quantity: " + this.stock + "\nReroder Level: " + this.reorderLevel;
 	}
 }

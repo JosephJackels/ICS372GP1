@@ -6,8 +6,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * Order object, an order consists of an order ID, product, 
- * that product's ID and the quantity of the product.
+ * Order object, an order consists of an order ID, product, that product's ID
+ * and the quantity of the product.
+ * 
  * @author leo
  *
  */
@@ -21,6 +22,7 @@ public class Order implements Serializable {
 
 	/**
 	 * Constructs order, creates unique ID.
+	 * 
 	 * @param productID
 	 * @param quantity
 	 * @param product
@@ -32,75 +34,47 @@ public class Order implements Serializable {
 		this.product = product;
 		idCounter++;
 	}
-	
-	/**
-	 * @return Product in order.
-	 */
+
 	public Product getProduct() {
 		return product;
 	}
 
-	/**
-	 * Sets product for order.
-	 * @param product 
-	 */
 	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	/**
-	 * @return quantity of product.
-	 */
 	public int getQuantity() {
 		return quantity;
 	}
 
-	/**
-	 * Sets quantity in order.
-	 * @param quantity
-	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	/**
-	 * @return Order ID.
-	 */
+
 	public String getOrderID() {
 		return orderID;
 	}
-	
-	/**
-	 * @return Product ID.
-	 */
-	public String getProductID(){
+
+	public String getProductID() {
 		return productID;
 	}
-	
-	/**
-	 * Sets product ID.
-	 * @param productID
-	 */
+
 	public void setProductID(String productID) {
 		this.productID = productID;
 	}
-	
-	/**
-	 * Sets order ID.
-	 * @param orderID
-	 */
-	public void setOrderID(String orderID){
+
+	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
-	
+
 	/**
-	 * Constructs string for an order.
+	 * This Constructs string representation for an order.
 	 */
-	public String toString(){
-		return "Order: " + orderID + ", product: " + productID + 
-				", " + product.getName() + ", quantity: " + quantity;
+	@Override
+	public String toString() {
+		return "Order: " + orderID + ", product: " + productID + ", " + product.getName() + ", quantity: " + quantity;
 	}
-	
+
 	/**
 	 * Serializes the static idCounter field
 	 * 
@@ -119,6 +93,5 @@ public class Order implements Serializable {
 	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
 		idCounter = (int) input.readObject();
 	}
-	
-	
+
 }
