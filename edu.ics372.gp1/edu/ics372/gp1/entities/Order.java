@@ -68,7 +68,7 @@ public class Order implements Serializable {
 	}
 
 	/**
-	 * Constructs string for an order.
+	 * This Constructs string representation for an order.
 	 */
 	@Override
 	public String toString() {
