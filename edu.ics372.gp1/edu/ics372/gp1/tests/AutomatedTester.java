@@ -16,12 +16,12 @@ import edu.ics372.gp1.facade.Result;
  */
 public class AutomatedTester {
 	private GroceryStore groceryStore;
-	private String[] names = { "n1", "n2", "n3", "n4", "n5" };
-	private String[] addresses = { "a1", "a2", "a3", "a4", "a5" };
-	private String[] phones = { "p1", "p2", "p3", "p4", "p5" };
-	private double[] fees = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+	private String[] names = { "n1", "n2", "n3", "n4", "n5", "n6" };
+	private String[] addresses = { "a1", "a2", "a3", "a4", "a5", "a6" };
+	private String[] phones = { "p1", "p2", "p3", "p4", "p5", "p6" };
+	private double[] fees = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
 	// private Member[] members = new Member[5];
-	private String[] memberIds = { "", "", "", "", "" };
+	private String[] memberIds = { "", "", "", "", "", "" };
 
 	private String[] productIds = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 	private String[] productsName = { "Apple", "Pear", "Orange", "Banana", "Kiwi", "Cheese", "Pie", "Soda", "Bacon",
@@ -49,11 +49,9 @@ public class AutomatedTester {
 		listAllProductsTest();
 		changePriceTest();
 
-		
 		listOutstandingOrdersTest();
 		processShipmentTest();
 
-		
 		checkoutTest();
 		printTransactionsTest();
 
