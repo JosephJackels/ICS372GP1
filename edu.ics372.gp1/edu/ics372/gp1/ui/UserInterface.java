@@ -55,8 +55,10 @@ public class UserInterface {
 			retrieve();
 		} else {
 			groceryStore = GroceryStore.instance();
-			System.out.println("Generating test bed for GroceryStore and testing.");
-			generateTestBed();
+			if (yesOrNo("Do you want to generate a test bed and invoke the functionality using asserts?")) {
+				System.out.println("Generating test bed for GroceryStore and testing.");
+				generateTestBed();
+			}
 		}
 	}
 
