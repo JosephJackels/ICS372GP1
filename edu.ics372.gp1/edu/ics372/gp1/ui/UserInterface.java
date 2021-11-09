@@ -388,7 +388,6 @@ public class UserInterface {
 	 */
 	public void checkoutMember() {
 		String memberID = getName("Enter ID of member to checkout.");
-		// create new checkout
 		Request.instance().setMemberID(memberID);
 		Result result = groceryStore.createNewCheckout(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
@@ -398,7 +397,6 @@ public class UserInterface {
 			}
 		} else {
 
-			// add products to checkout
 			boolean continuing = true;
 
 			while (continuing) {
@@ -425,7 +423,7 @@ public class UserInterface {
 
 				continuing = yesOrNo("Add another product?");
 			}
-			// complete checkout
+
 			Request.instance().setMemberID(memberID);
 			Iterator<Result> resultList = groceryStore.completeCheckout(Request.instance());
 			Result productResult = new Result();

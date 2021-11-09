@@ -88,7 +88,8 @@ public class Order implements Serializable {
 	/**
 	 * Retrieves a deserialized version of the static idCounter field from disk
 	 * 
-	 * @return a Library object
+	 * @param output
+	 * @throws IOException, ClassNotFoundException
 	 */
 	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
 		idCounter = (int) input.readObject();

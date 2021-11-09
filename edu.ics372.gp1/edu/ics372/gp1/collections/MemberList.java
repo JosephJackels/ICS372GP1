@@ -27,9 +27,9 @@ public class MemberList implements Serializable {
 	}
 
 	/**
-	 * create an object if it hasn't created yet.
+	 * Member list instance method, creates the sole instance of member list.
 	 * 
-	 * @return memberList
+	 * @return instance of memberList
 	 */
 	public static MemberList getInstance() {
 		if (memberList == null) {
@@ -96,16 +96,6 @@ public class MemberList implements Serializable {
 		} else {
 			return members.remove(member);
 		}
-//		Iterator<Member> iterator = members.listIterator();
-//		Member member = null;
-//		while (iterator.hasNext()) {
-//			member = iterator.next();
-//			if (memberId.equals(member.getId())) {
-//				iterator.remove();
-//				return member;
-//			}
-//		}
-//		return member;
 	}
 
 	/**
