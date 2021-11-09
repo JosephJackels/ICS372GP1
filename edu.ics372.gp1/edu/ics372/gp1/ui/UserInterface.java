@@ -45,7 +45,7 @@ public class UserInterface {
 	private static final int LIST_ALL_PRODUCTS = 11;
 	private static final int LIST_OUTSTANDING_ORDERS = 12;
 	private static final int SAVE = 13;
-	private static final int HELP = 15;
+	private static final int HELP = 14;
 
 	/**
 	 * Decide whether to load groceryStore from saved file or create new instance
@@ -491,7 +491,7 @@ public class UserInterface {
 				break;
 			case Result.OPERATION_COMPLETED:
 				System.out.println("Product ID: " + result.getProductID() + " Product name: " + result.getProductName()
-						+ "recieved shipment. New product stock: " + result.getProductStock());
+						+ " recieved shipment. New product stock: " + result.getProductStock());
 				break;
 			}
 		} while (yesOrNo("Process another shipment?"));
