@@ -180,8 +180,6 @@ public class GroceryStore implements Serializable {
 	 */
 	public Result addProductToCheckout(Request request) {
 		Result result = new Result();
-		// add a single product to groceryStores checkoutList object
-		// check that product exists in productList AND contains enough stock
 		Product product = products.getProductById(request.getProductID());
 		result.setProductID(request.getProductID());
 		result.setProductStock(request.getProductStock());
@@ -194,10 +192,6 @@ public class GroceryStore implements Serializable {
 			result.setProductStock(request.getProductStock());
 			result.setResultCode(Result.OPERATION_COMPLETED);
 
-			// I think this would work,i'm creating a new product based on the original
-			// product.
-			// with stock = checkout quantity.
-			// then setId and lastly add the product to checkOutList
 			product = new Product(product.getName(), product.getReorderLevel(),
 					Integer.parseInt(result.getProductStock()), product.getPrice());
 			product.setId(result.getProductID());
@@ -335,7 +329,6 @@ public class GroceryStore implements Serializable {
 	public Iterator<Result> printTransactions(Request request) {
 		List<Result> resultList = new LinkedList<Result>();
 
-		// verify member exists
 		Member member = members.getMember(request.getMemberID());
 		if (member == null) {
 			Result result = new Result();
@@ -345,8 +338,6 @@ public class GroceryStore implements Serializable {
 			return resultList.iterator();
 		}
 
-		// verify dates are valid options (start date occurs on or before end date)
-		// if not, create single result and set result code to INVALID_DATES
 		Calendar startDate = request.getStartDate();
 		Calendar endDate = request.getEndDate();
 		if (startDate.compareTo(endDate) > 0) {
@@ -356,8 +347,7 @@ public class GroceryStore implements Serializable {
 			resultList.add(result);
 			return resultList.iterator();
 		}
-		// else retrieve list of transactions, create a result for each transaction,
-		// set all relevant fields, and set result code to OPERATION_COMPLETED
+
 		return new SafeTransactionIterator(transactions.getTransactions(request.getMemberID(), startDate, endDate));
 	}
 	

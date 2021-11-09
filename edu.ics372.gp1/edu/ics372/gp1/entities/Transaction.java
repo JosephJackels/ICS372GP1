@@ -55,7 +55,7 @@ public class Transaction implements Serializable {
 	 * @param memberID
 	 * @param startDate
 	 * @param endDate
-	 * @return
+	 * @return true if transaction was made by given member and between dates
 	 */
 	public boolean checkTransaction(String memberID, Calendar startDate, Calendar endDate) {
 

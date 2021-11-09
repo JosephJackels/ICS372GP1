@@ -31,7 +31,7 @@ public class TransactionList implements Serializable {
 	 * Transaction list instance method, creates the sole instance of transaction
 	 * list.
 	 * 
-	 * @return
+	 * @return instance of transactionList
 	 */
 	public static TransactionList getInstance() {
 		if (transactionList == null) {
@@ -43,7 +43,7 @@ public class TransactionList implements Serializable {
 	/**
 	 * Returns an iterator for the transaction list.
 	 * 
-	 * @return
+	 * @return iterator of transaction
 	 */
 	public Iterator<Transaction> getTransactions() {
 		return transactions.iterator();
@@ -53,7 +53,7 @@ public class TransactionList implements Serializable {
 	 * Inserts a transaction object to the list.
 	 * 
 	 * @param transaction
-	 * @return
+	 * @return true if the transaction can be inserted
 	 */
 	public boolean insertTransaction(Transaction transaction) {
 		return transactions.add(transaction);
@@ -65,7 +65,7 @@ public class TransactionList implements Serializable {
 	 * @param memberId
 	 * @param startDate
 	 * @param EndDate
-	 * @return
+	 * @return iterator of transactions between specific date
 	 */
 	public Iterator<Transaction> getTransactions(String memberId, Calendar startDate, Calendar endDate) {
 		return new FilteredIterator<Transaction>(transactions.iterator(),

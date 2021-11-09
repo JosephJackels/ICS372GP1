@@ -96,7 +96,8 @@ public class Product implements Serializable {
 	/**
 	 * Retrieves a deserialized version of the static idCounter field from disk
 	 * 
-	 * @return a Library object
+	 * @param input
+	 * @throws IOException, ClassNotFoundException
 	 */
 	public static void retrieve(ObjectInputStream input) throws IOException, ClassNotFoundException {
 		idCounter = (int) input.readObject();

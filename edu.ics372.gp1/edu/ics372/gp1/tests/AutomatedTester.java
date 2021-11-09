@@ -20,7 +20,6 @@ public class AutomatedTester {
 	private String[] addresses = { "a1", "a2", "a3", "a4", "a5", "a6" };
 	private String[] phones = { "p1", "p2", "p3", "p4", "p5", "p6" };
 	private double[] fees = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-	// private Member[] members = new Member[5];
 	private String[] memberIds = { "", "", "", "", "", "" };
 
 	private String[] productIds = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };

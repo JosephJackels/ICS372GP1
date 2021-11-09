@@ -10,8 +10,6 @@ import edu.ics372.gp1.entities.Product;
 /**
  * Product list class, maintains list of products.
  * 
- * @author
- *
  */
 public class ProductList implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +38,7 @@ public class ProductList implements Serializable {
 	/**
 	 * Returns an iterator for the product list.
 	 * 
-	 * @return iterator
+	 * @return iterator of products
 	 */
 	public Iterator<Product> getIterator() {
 		return products.iterator();
@@ -50,7 +48,7 @@ public class ProductList implements Serializable {
 	 * Adds the product to the list.
 	 * 
 	 * @param product
-	 * @return boolean
+	 * @return true if product could be inserted.
 	 */
 	public boolean insertProduct(Product product) {
 		return products.add(product);
@@ -60,7 +58,7 @@ public class ProductList implements Serializable {
 	 * Check if a name is unused by any of the products.
 	 * 
 	 * @param name
-	 * @return boolean
+	 * @return true if name is unused.
 	 */
 	public boolean nameAvailable(String name) {
 		Iterator<Product> iterator = products.iterator();
@@ -77,7 +75,7 @@ public class ProductList implements Serializable {
 	 * Check if a product exists.
 	 * 
 	 * @param productId
-	 * @return boolean
+	 * @return true if product exists.
 	 */
 	public boolean isProduct(String productId) {
 		Iterator<Product> iterator = products.iterator();
@@ -95,7 +93,7 @@ public class ProductList implements Serializable {
 	 * 
 	 * @param productId
 	 * @param stock
-	 * @return boolean
+	 * @return true if product has sufficient stock.
 	 */
 	public boolean hasStock(String productId, int stock) {
 		Iterator<Product> iterator = products.iterator();
@@ -111,8 +109,8 @@ public class ProductList implements Serializable {
 	/**
 	 * Search the list of by product ID.
 	 * 
-	 * @param productId
-	 * @return Product
+	 * @param product Id
+	 * @return product if found
 	 */
 	public Product getProductById(String productId) {
 		Iterator<Product> iterator = products.iterator();
@@ -128,8 +126,8 @@ public class ProductList implements Serializable {
 	/**
 	 * Search the list of products by a specific name.
 	 * 
-	 * @param productName
-	 * @return Product
+	 * @param product name
+	 * @return product if found
 	 */
 	public Product getProductByName(String productName) {
 		Iterator<Product> iterator = products.iterator();
@@ -142,9 +140,6 @@ public class ProductList implements Serializable {
 		return null;
 	}
 
-	/**
-	 * This prints the list of products.
-	 */
 	@Override
 	public String toString() {
 		return products.toString();

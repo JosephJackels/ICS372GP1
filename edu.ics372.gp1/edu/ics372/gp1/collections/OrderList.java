@@ -26,7 +26,8 @@ public class OrderList implements Serializable {
 	
 	/**
 	 * Returns single object, if it has not been created already.
-	 * @return
+	 * 
+	 * @return instance of orderList.
 	 */
 	public static OrderList getInstance() {
 		if (orderList == null) {
@@ -37,8 +38,9 @@ public class OrderList implements Serializable {
 	
 	/**
 	 * Add order to list.
+	 * 
 	 * @param order
-	 * @return
+	 * @return true if an order can be added.
 	 */
 	public boolean addOrder(Order order) {
 		orders.add(order);
@@ -47,8 +49,9 @@ public class OrderList implements Serializable {
 	
 	/**
 	 * Removes order from the list, given product ID.
+	 * 
 	 * @param productID
-	 * @return
+	 * @return true if order can be removed.
 	 */
 	public boolean removeOrder(String productID){
 		Order newOrder = search(productID);
@@ -60,10 +63,10 @@ public class OrderList implements Serializable {
 	}
 	
 	/**
-	 * Returns product object from its order given 
-	 * the product ID.
+	 * Search the list of orders by product ID. 
+	 * 
 	 * @param productID
-	 * @return
+	 * @return order if found
 	 */
 	public Order search(String productID){
 		Order order = null;
@@ -77,16 +80,15 @@ public class OrderList implements Serializable {
 	}
 	
 	/**
-	 * Returns iterator for the OrderList.
-	 * @return
+	 * Returns an iterator for the OrderList.
+	 * 
+	 * @return iterator of OrderList
 	 */
 	public Iterator<Order> iterator() {
 		return orders.iterator();
 	}
 	
-	/**
-	 * Returns string.
-	 */
+	@Override
 	public String toString() {
 		return orders.toString();
 	}
